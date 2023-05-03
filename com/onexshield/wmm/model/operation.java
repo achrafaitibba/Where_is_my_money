@@ -3,14 +3,12 @@ package com.onexshield.wmm.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,18 +27,20 @@ public class operation {
 
     @NotNull
     @Column(name = "transaction_date")
-    private Date transactionDate;
+    private Date transactionDate = new Date();
 
     @NotNull
     @Column(name = "operation_type")
+    @Enumerated(EnumType.STRING)
     private operationType operationType;
 
     @NotNull
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private account account;
+    @NotNull
+    @Column(name = "fk_account")
+    private Integer accountId;
+
 
 }
