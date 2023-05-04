@@ -1,7 +1,9 @@
 package com.onexshield.wmm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ public class account {
     @Id
     @GeneratedValue
     @Column(name = "account_id")
+    @NotNull
     private Integer accountId;
 
     @NotNull
@@ -32,18 +35,28 @@ public class account {
     private currency currency;
 
     @OneToMany
-    @JoinColumn(name = "fk_account_id",referencedColumnName = "account_id")
+    @JsonIgnore
+    @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
     private List<operation> operationList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumns(
+            {
+                    @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id"),
+                    @JoinColumn(name = "fk_user_email", referencedColumnName = "email")
+            }
+    )
+    @NotNull
     private user user;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @NotNull
+    @Size(max = 3, min = 3)
     private List<securityAnswer> securityAnswers;
 
-
-
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private status accountStatus = status.ACTIVE;
 
 
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
+@Component
 public class user  {
 
     @Id
@@ -31,7 +33,8 @@ public class user  {
     private String lastName;
 
     @NotNull
-    @Column(name = "email")
+    @Id
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotNull

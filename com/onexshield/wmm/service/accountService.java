@@ -11,7 +11,12 @@ public class accountService {
     IAccountRepository iAccountRepository ;
 
     public account addAccount(account account){
-        return iAccountRepository.save(account);
+        if(account.getSecurityAnswers().size() != 3)
+            throw new IllegalArgumentException("The user should select 3 questions");
+        else
+            return iAccountRepository.save(account);
     }
+
+
 
 }
