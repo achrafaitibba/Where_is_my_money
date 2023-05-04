@@ -38,4 +38,12 @@ public class account {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private user user;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<securityAnswer> securityAnswers;
+
+
+
+
+
 }

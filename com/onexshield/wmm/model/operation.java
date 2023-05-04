@@ -19,7 +19,7 @@ public class operation {
     @NotNull
     @GeneratedValue
     @Column(name = "operation_id")
-    private Integer id;
+    private Integer operationId;
 
     @NotNull
     @Column(name = "amount")
