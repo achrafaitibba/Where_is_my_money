@@ -33,5 +33,8 @@ public class accountService {
         return account;
 
     }
+    public void deleteAccount(String email) {
+        iAccountRepository.setInactive(email);
+    }
 
 }

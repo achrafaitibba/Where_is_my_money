@@ -28,5 +28,8 @@ public class accountController {
         return accountService.updateAccount(account);
     }
 
+    @DeleteMapping("/delete/{email}")
+    public void deleteAccount(@PathVariable String email){
+        accountService.deleteAccount(email);}
 
 }
