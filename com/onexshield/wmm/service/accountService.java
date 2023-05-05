@@ -25,5 +25,13 @@ public class accountService {
         return iAccountRepository.findByUser_Email(email);
     }
 
+    public account updateAccount(account account) {
+
+
+        iAccountRepository.save(account);
+
+        return account;
+
+    }
 
 }

@@ -23,6 +23,10 @@ public class accountController {
         return accountService.findByEmail(email);
     }
 
+    @PutMapping("/update/{email}")
+    public account updateAccount(@RequestBody account account){
+        return accountService.updateAccount(account);
+    }
 
 
 }
