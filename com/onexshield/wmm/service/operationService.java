@@ -22,13 +22,14 @@ public class operationService {
     IAccountRepository iAccountRepository;
 
     public  operation createOperation(operation operation){
-        String msg = "";
         Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
-            msg = "Done";
             iOperationRepository.save(operation);
+            return operation;
+        }else {
+            throw new IllegalArgumentException("Account doesn't exist");
         }
-        return operation;
+
     }
 
     public List<operation> getAllOperations(Integer id){
