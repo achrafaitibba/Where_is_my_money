@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 
 @NoArgsConstructor
@@ -24,8 +23,7 @@ public class securityAnswer {
 
     private String answer;
 
-    @OneToOne
-    private account account;
+
 
 
 }

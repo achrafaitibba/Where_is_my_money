@@ -1,6 +1,5 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.service.operationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ public class operationController {
     operationService operationService;
 
     @PostMapping("/add")
-    public String addOperation(@RequestBody operation operation){
+    public operation addOperation(@RequestBody operation operation){
         return operationService.createOperation(operation);
     }
 

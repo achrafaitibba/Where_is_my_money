@@ -21,14 +21,14 @@ public class operationService {
     @Autowired
     IAccountRepository iAccountRepository;
 
-    public  String createOperation(operation operation){
-        String msg = "nn hh";
+    public  operation createOperation(operation operation){
+        String msg = "";
         Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
             msg = "Done";
             iOperationRepository.save(operation);
         }
-        return msg;
+        return operation;
     }
 
     public List<operation> getAllOperations(Integer id){

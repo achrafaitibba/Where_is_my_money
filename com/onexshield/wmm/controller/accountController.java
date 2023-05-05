@@ -18,4 +18,11 @@ public class accountController {
 
 
 
+    @GetMapping("/find/{email}")
+    public account findByEmail(@PathVariable String email){
+        return accountService.findByEmail(email);
+    }
+
+
+
 }
