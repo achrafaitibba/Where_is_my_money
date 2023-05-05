@@ -6,6 +6,8 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class securityQuestionInitializer {
     @Autowired
@@ -34,5 +36,9 @@ public class securityQuestionInitializer {
         iSercurityQuestionRepository.save(question5);
         iSercurityQuestionRepository.save(question6);
         iSercurityQuestionRepository.save(question7);
+    }
+
+    public List<securityQuestion> getAll() {
+        return iSercurityQuestionRepository.findAll();
     }
 }
