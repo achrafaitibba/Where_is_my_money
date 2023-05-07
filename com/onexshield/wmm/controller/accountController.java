@@ -24,8 +24,8 @@ public class accountController {
     }
 
     @PutMapping("/update/{email}")
-    public account updateAccount(@RequestBody account account){
-        return accountService.updateAccount(account);
+    public account updateAccount(@RequestBody account account, @PathVariable String email){
+        return accountService.updateAccount(account, email);
     }
 
     @DeleteMapping("/delete/{email}")

@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Repository
-public interface IOperationRepository extends JpaRepository<operation, Integer> {
-    List<operation> getAllByAccount_AccountId(Integer id);
+public interface IOperationRepository extends JpaRepository<operation, UUID> {
+    List<operation> getAllByAccount_AccountId(UUID id);
 
 }

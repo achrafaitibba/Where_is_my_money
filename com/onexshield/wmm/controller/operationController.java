@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/operation")
@@ -19,7 +20,7 @@ public class operationController {
     }
 
     @GetMapping("/all/{id}")
-    public List<operation> getAll(@PathVariable  Integer id){
+    public List<operation> getAll(@PathVariable UUID id){
         return operationService.getAllOperationsByAccount(id);
     }
 }

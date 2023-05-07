@@ -38,9 +38,10 @@ public class accountService {
         return iAccountRepository.findByUser_Email(email);
     }
 
-    public account updateAccount(account account) {
-
-
+    public account updateAccount(account account, String email) {
+        UUID id = iAccountRepository.findByUser_Email(email).getAccountId();
+        account.setAccountId(id);
+        account.getUser().setUser_id(id);
         iAccountRepository.save(account);
 
         return account;

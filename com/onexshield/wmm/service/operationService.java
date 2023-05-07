@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 @Transactional
 @Service
 public class operationService {
@@ -32,7 +34,7 @@ public class operationService {
 
     }
 
-    public List<operation> getAllOperationsByAccount(Integer id){
+    public List<operation> getAllOperationsByAccount(UUID id){
         return iOperationRepository.getAllByAccount_AccountId(id);
     }
 }
