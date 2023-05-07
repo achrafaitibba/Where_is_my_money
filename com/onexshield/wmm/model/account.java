@@ -1,5 +1,6 @@
 package com.onexshield.wmm.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -49,6 +50,7 @@ public class account {
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
     @Size(max = 3, min = 3)
+    @JsonManagedReference
     private List<securityAnswer> securityAnswers;
 
 }

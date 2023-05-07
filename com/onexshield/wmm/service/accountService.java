@@ -1,6 +1,7 @@
 package com.onexshield.wmm.service;
 
 import com.onexshield.wmm.model.account;
+import com.onexshield.wmm.model.securityAnswer;
 import com.onexshield.wmm.repository.IAccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,14 @@ public class accountService {
             throw new IllegalArgumentException("The user should select 3 questions");
         }
          else{
-//            for (securityAnswer sa:account.getSecurityAnswers()
-//                 ) {
-//                sa.getAccount().setAccountId(id);
-//            }
             account.setAccountId(id);
             account.getUser().setUser_id(id);
+            for (securityAnswer sa:account.getSecurityAnswers()
+                 ) {
+                sa.setAccount(account);
+            }
+
+
             return iAccountRepository.save(account);
         }
 

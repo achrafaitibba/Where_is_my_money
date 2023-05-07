@@ -1,5 +1,6 @@
 package com.onexshield.wmm.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class securityAnswer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
+    @JsonBackReference
     private account account;
 
 }
