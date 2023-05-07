@@ -16,7 +16,10 @@ public interface IAccountRepository extends JpaRepository<account, UUID> {
     account findByUser_Email(String email);
 
     @Modifying
-    @Query("update account a set a.accountStatus=com.onexshield.wmm.model.status.INACTIVE where a.user.email = ?1")
+    @Query("update account a set" +
+            " a.accountStatus = com.onexshield.wmm.model.status.INACTIVE " +
+            "where a.accountId =" +
+            " (select u.user_id from user u where u.email = ?1)")
     void setInactive(@Param("email") String email);
 
 
