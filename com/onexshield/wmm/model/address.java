@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,11 +18,12 @@ import lombok.NoArgsConstructor;
 public class address {
     @Id
     @NotNull
-    @GeneratedValue
     @Column(name = "address_id")
-    private Integer addressId;
+    private UUID addressId = UUID.randomUUID();
+
     @Column(name = "address_label")
     private String addressLabel;
+
     private String country;
     private String city;
 }

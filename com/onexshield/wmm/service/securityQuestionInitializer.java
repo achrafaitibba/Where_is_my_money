@@ -20,7 +20,7 @@ public class securityQuestionInitializer {
         securityQuestion question2 = new securityQuestion();
         question2.setQuestion("In what city were you born?");
         securityQuestion question3 = new securityQuestion();
-        question3.setQuestion("What is your favorite book or movie?");
+        question3.setQuestion("What is your favorite movie?");
         securityQuestion question4 = new securityQuestion();
         question4.setQuestion("What was your high school name?");
         securityQuestion question5 = new securityQuestion();
@@ -29,6 +29,8 @@ public class securityQuestionInitializer {
         question6.setQuestion("What is your favorite food?");
         securityQuestion question7 = new securityQuestion();
         question7.setQuestion("What is the name of your favorite teacher?");
+        securityQuestion question8 = new securityQuestion();
+        question8.setQuestion("What is your favorite book?");
         iSercurityQuestionRepository.save(question1);
         iSercurityQuestionRepository.save(question2);
         iSercurityQuestionRepository.save(question3);
@@ -36,6 +38,7 @@ public class securityQuestionInitializer {
         iSercurityQuestionRepository.save(question5);
         iSercurityQuestionRepository.save(question6);
         iSercurityQuestionRepository.save(question7);
+        iSercurityQuestionRepository.save(question8);
     }
 
     public List<securityQuestion> getAll() {

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -17,9 +18,8 @@ public class operation {
 
     @Id
     @NotNull
-    @GeneratedValue
     @Column(name = "operation_id")
-    private Integer operationId;
+    private UUID operationId = UUID.randomUUID();
 
     @NotNull
     @Column(name = "amount")

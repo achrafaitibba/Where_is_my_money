@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
 
 
 @NoArgsConstructor
@@ -15,9 +16,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "security_answer")
 public class securityAnswer {
     @Id
-    @GeneratedValue
     @Column(name = "answer_id")
-    private Integer answerId;
+    private UUID answerId = UUID.randomUUID();
 
     @NotNull
     private String answer;
