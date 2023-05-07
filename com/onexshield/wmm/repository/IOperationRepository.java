@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface IOperationRepository extends JpaRepository<operation, Integer> {
-    List<operation> getAllByAccountId(Integer id);
+    List<operation> getAllByAccount_AccountId(Integer id);
 
 }

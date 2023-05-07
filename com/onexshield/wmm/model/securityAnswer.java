@@ -23,6 +23,9 @@ public class securityAnswer {
 
     private String answer;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
+    private account account;
 
 
 

@@ -22,7 +22,7 @@ public class operationService {
     IAccountRepository iAccountRepository;
 
     public  operation createOperation(operation operation){
-        Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
+        Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccount().getAccountId()));
         if(account1.isPresent()){
             iOperationRepository.save(operation);
             return operation;
@@ -32,7 +32,7 @@ public class operationService {
 
     }
 
-    public List<operation> getAllOperations(Integer id){
-        return iOperationRepository.getAllByAccountId(id);
+    public List<operation> getAllOperationsByAccount(Integer id){
+        return iOperationRepository.getAllByAccount_AccountId(id);
     }
 }

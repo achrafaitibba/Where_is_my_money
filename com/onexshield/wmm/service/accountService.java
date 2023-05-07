@@ -1,11 +1,13 @@
 package com.onexshield.wmm.service;
 
 import com.onexshield.wmm.model.account;
+import com.onexshield.wmm.model.securityAnswer;
 import com.onexshield.wmm.repository.IAccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -37,4 +39,7 @@ public class accountService {
         iAccountRepository.setInactive(email);
     }
 
+    public List<securityAnswer> securityAnswersInsertion(List<securityAnswer> answers, String email) {
+        return null;
+    }
 }

@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-public class WhereIsMyMoneyV2Application {
+public class WhereIsMyMoneyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WhereIsMyMoneyV2Application.class, args);
+		SpringApplication.run(WhereIsMyMoneyApplication.class, args);
 	}
 
 }

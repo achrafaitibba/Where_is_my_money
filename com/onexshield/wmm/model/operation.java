@@ -39,8 +39,8 @@ public class operation {
     private String description;
 
     @NotNull
-    @Column(name = "fk_account")
-    private Integer accountId;
+    @ManyToOne
+    private account account;
 
 
 }

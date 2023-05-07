@@ -20,6 +20,6 @@ public class operationController {
 
     @GetMapping("/all/{id}")
     public List<operation> getAll(@PathVariable  Integer id){
-        return operationService.getAllOperations(id);
+        return operationService.getAllOperationsByAccount(id);
     }
 }

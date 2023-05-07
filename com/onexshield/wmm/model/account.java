@@ -34,11 +34,6 @@ public class account {
     @Enumerated(EnumType.STRING)
     private currency currency;
 
-    @OneToMany
-    @JsonIgnore
-    @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
-    private List<operation> operationList;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumns(
             {
@@ -49,14 +44,17 @@ public class account {
     @NotNull
     private user user;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private status accountStatus = status.ACTIVE;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
     @Size(max = 3, min = 3)
     private List<securityAnswer> securityAnswers;
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private status accountStatus = status.ACTIVE;
-
-
+//    @OneToMany
+//    @JsonIgnore
+//    @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
+//    private List<operation> operationList;
 }
