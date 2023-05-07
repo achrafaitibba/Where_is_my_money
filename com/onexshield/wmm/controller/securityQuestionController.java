@@ -22,8 +22,4 @@ public class securityQuestionController {
         return securityQuestionInitializer.getAll();
     }
 
-    @PostMapping("/answers/{email}")
-    public List<securityAnswer> securityAnswersInsertion(@RequestBody List<securityAnswer> answers, @PathVariable String email){
-        return accountService.securityAnswersInsertion(answers, email);
-    }
 }
