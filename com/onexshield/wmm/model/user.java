@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 @Data
@@ -20,10 +21,8 @@ import java.util.Date;
 public class user  {
 
     @Id
-    @NotNull
-    @GeneratedValue
     @Column(name = "user_id")
-    private Integer user_id;
+    private UUID user_id;
 
     @NotNull
     @Column(name = "first_name")
@@ -33,8 +32,6 @@ public class user  {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull
-    @Id
     @Column(name = "email", unique = true)
     private String email;
 

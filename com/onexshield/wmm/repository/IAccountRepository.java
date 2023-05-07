@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface IAccountRepository extends JpaRepository<account, Integer> {
-    account findByAccountId(Integer id);
+public interface IAccountRepository extends JpaRepository<account, UUID> {
+    account findByAccountId(UUID id);
 
     account findByUser_Email(String email);
 

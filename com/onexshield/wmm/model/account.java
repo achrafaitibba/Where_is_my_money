@@ -1,6 +1,5 @@
 package com.onexshield.wmm.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -20,10 +20,8 @@ import java.util.List;
 @Component
 public class account {
     @Id
-    @GeneratedValue
     @Column(name = "account_id")
-    @NotNull
-    private Integer accountId;
+    private UUID accountId ;
 
     @NotNull
     @Column(name = "creation_date")
@@ -53,8 +51,4 @@ public class account {
     @Size(max = 3, min = 3)
     private List<securityAnswer> securityAnswers;
 
-//    @OneToMany
-//    @JsonIgnore
-//    @JoinColumn(name = "fk_account_id", referencedColumnName = "account_id")
-//    private List<operation> operationList;
 }
