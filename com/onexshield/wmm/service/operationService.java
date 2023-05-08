@@ -71,4 +71,8 @@ public class operationService {
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.save(operation));
 
     }
+
+    public void deleteOperation(UUID id) {
+        iOperationRepository.deleteById(id);
+    }
 }

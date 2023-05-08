@@ -28,4 +28,9 @@ public class operationController {
     public List<operationReponseDTO> getAll(@PathVariable UUID id){
         return operationService.getAllOperationsByAccount(id);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteOperation(@PathVariable UUID id){
+        operationService.deleteOperation(id);
+    }
 }
