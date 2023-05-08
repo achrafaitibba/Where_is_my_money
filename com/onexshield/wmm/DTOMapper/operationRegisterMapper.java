@@ -30,6 +30,7 @@ public class operationRegisterMapper implements Function<operationRequestDTO, op
 
     public operationReponseDTO operationToOperationResponse(operation operation){
         return new operationReponseDTO(
+                operation.getOperationId(),
                 operation.getAmount(),
                 operation.getOperationType().toString(),
                 operation.getDescription(),

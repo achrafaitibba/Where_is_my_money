@@ -47,10 +47,11 @@ public class operationService {
         return operations
                 .stream()
                 .map(operation -> new operationReponseDTO(
-                       operation.getAmount(),
-                       operation.getOperationType().toString(),
-                       operation.getDescription(),
-                       operation.getAccount().getAccountId()))
+                        operation.getOperationId(),
+                        operation.getAmount(),
+                        operation.getOperationType().toString(),
+                        operation.getDescription(),
+                        operation.getAccount().getAccountId()))
                 .collect(Collectors.toList());
     }
 }
