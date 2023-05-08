@@ -34,13 +34,20 @@ public class accountService {
         return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.findByUser_Email(email));
     }
 
-    public account updateAccount(account account, String email) {
+    public accountResponseDTO updateAccount(accountRequestDTO account, String email) {
+        UUID id = iAccountRepository.findByUser_Email(email).getAccountId();
+        account account1 = accountRegisterMapper.apply(account);
+        account1.setAccountId(id);
+        account1.getUser().setUser_id(id);
+        return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.save(account1));
+        /*
         UUID id = iAccountRepository.findByUser_Email(email).getAccountId();
         account.setAccountId(id);
         account.getUser().setUser_id(id);
         iAccountRepository.save(account);
 
         return account;
+        */
 
     }
     public void deleteAccount(String email) {

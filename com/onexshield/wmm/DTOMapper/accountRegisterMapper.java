@@ -25,6 +25,7 @@ public class accountRegisterMapper implements Function<accountRequestDTO, accoun
             var as = new securityAnswer();
             var qe = new securityQuestion();
             as.setAnswer(accountRequestDTO.securityAnswers().get(i).answer());
+            as.setAnswerId(accountRequestDTO.securityAnswers().get(i).answerId());
             qe.setQuestionId(accountRequestDTO.securityAnswers().get(i).questionId());
             as.setQuestion(qe);
             as.setAccount(account);
@@ -64,6 +65,7 @@ public class accountRegisterMapper implements Function<accountRequestDTO, accoun
                         .stream()
                         .map(
                                 securityAnswer -> new securityAnswerRequestDTO(
+                                        securityAnswer.getAnswerId(),
                                         securityAnswer.getAnswer(),
                                         securityAnswer.getQuestion().getQuestionId())
                         )

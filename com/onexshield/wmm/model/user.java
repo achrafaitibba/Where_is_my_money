@@ -35,7 +35,7 @@ public class user  {
     @Column(name = "email", unique = true)
     private String email;
 
-    @NotNull
+
     @Column(name = "password")
     private String password;
 

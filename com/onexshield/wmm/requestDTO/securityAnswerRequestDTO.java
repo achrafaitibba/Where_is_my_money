@@ -1,7 +1,10 @@
 package com.onexshield.wmm.requestDTO;
 
+import java.util.UUID;
+
 public record securityAnswerRequestDTO(
-    String answer,
-    Integer questionId
+        UUID answerId,
+        String answer,
+        Integer questionId
 ) {
 }
