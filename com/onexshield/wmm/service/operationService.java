@@ -43,7 +43,6 @@ public class operationService {
     }
 
     public List<operationReponseDTO> getAllOperationsByAccount(UUID id){
-        //iOperationRepository.getAllByAccount_AccountId(id)
         List<operation> operations = iOperationRepository.getAllByAccount_AccountId(id);
         return operations
                 .stream()

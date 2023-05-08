@@ -1,6 +1,5 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.requestDTO.operationRequestDTO;
 import com.onexshield.wmm.responseDTO.operationReponseDTO;
 import com.onexshield.wmm.service.operationService;
