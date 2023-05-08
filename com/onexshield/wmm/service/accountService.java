@@ -3,6 +3,7 @@ package com.onexshield.wmm.service;
 import com.onexshield.wmm.DTOMapper.accountRegisterMapper;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.repository.IAccountRepository;
+import com.onexshield.wmm.repository.IUserRepository;
 import com.onexshield.wmm.requestDTO.accountRequestDTO;
 import com.onexshield.wmm.responseDTO.accountResponseDTO;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,8 @@ public class accountService {
     user user;
     @Autowired
     accountRegisterMapper accountRegisterMapper;
+    @Autowired
+    IUserRepository iUserRepository;
 
     public accountResponseDTO addAccount(accountRequestDTO accountDTO){
         return accountRegisterMapper.accountToAccountReponseDTO(
@@ -46,4 +49,7 @@ public class accountService {
     }
 
 
+    public int updatePassword(UUID id, String oldPassword, String newPassword) {
+        return iUserRepository.updatePassword(id, oldPassword, newPassword);
+    }
 }
