@@ -1,4 +1,4 @@
-package com.onexshield.wmm.modelMappers;
+package com.onexshield.wmm.DTOMapper;
 
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.requestDTO.accountRequestDTO;

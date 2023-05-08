@@ -1,6 +1,6 @@
 package com.onexshield.wmm.service;
 
-import com.onexshield.wmm.modelMappers.accountRegisterMapper;
+import com.onexshield.wmm.DTOMapper.accountRegisterMapper;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.requestDTO.accountRequestDTO;
