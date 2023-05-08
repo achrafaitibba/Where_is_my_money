@@ -1,6 +1,8 @@
 package com.onexshield.wmm.controller;
 
 import com.onexshield.wmm.model.account;
+import com.onexshield.wmm.requestDTO.accountRequestDTO;
+import com.onexshield.wmm.responseDTO.accountResponseDTO;
 import com.onexshield.wmm.service.accountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ public class accountController {
     accountService accountService;
 
     @PostMapping("/register")
-    public account addAccount(@RequestBody account account){
+    public accountResponseDTO addAccount(@RequestBody accountRequestDTO account){
         return accountService.addAccount(account);
     }
 
