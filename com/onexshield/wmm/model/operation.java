@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "operation")
+@Component
 public class operation {
 
     @Id
