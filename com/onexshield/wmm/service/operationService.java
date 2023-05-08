@@ -6,7 +6,9 @@ import com.onexshield.wmm.repository.IOperationRepository;
 import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.DTOMapper.operationRegisterMapper;
 
+import com.onexshield.wmm.requestDTO.accountRequestDTO;
 import com.onexshield.wmm.requestDTO.operationRequestDTO;
+import com.onexshield.wmm.responseDTO.accountResponseDTO;
 import com.onexshield.wmm.responseDTO.operationReponseDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,20 @@ public class operationService {
                         operation.getDescription(),
                         operation.getAccount().getAccountId()))
                 .collect(Collectors.toList());
+    }
+
+    public operationReponseDTO updateOperation(operationRequestDTO operationRequestDTO, UUID id) {
+//        public accountResponseDTO updateAccount(accountRequestDTO account, String email) {
+//            UUID id = iAccountRepository.findByUser_Email(email).getAccountId();
+//            account account1 = accountRegisterMapper.apply(account);
+//            account1.setAccountId(id);
+//            account1.getUser().setUser_id(id);
+//            return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.save(account1));
+//        }
+        operation operation = operationRegisterMapper.apply(operationRequestDTO);
+        operation.setOperationId(id);
+
+        return operationRegisterMapper.operationToOperationResponse(iOperationRepository.save(operation));
+
     }
 }

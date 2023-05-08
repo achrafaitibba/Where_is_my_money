@@ -20,6 +20,10 @@ public class operationController {
         return operationService.createOperation(operation);
     }
 
+    @PutMapping("/update/{id}")
+    public operationReponseDTO updateOperation(@RequestBody operationRequestDTO operationRequestDTO, @PathVariable UUID id){
+        return operationService.updateOperation(operationRequestDTO, id);
+    }
     @GetMapping("/all/{id}")
     public List<operationReponseDTO> getAll(@PathVariable UUID id){
         return operationService.getAllOperationsByAccount(id);
