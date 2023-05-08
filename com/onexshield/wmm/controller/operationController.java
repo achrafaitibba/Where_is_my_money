@@ -22,7 +22,7 @@ public class operationController {
     }
 
     @GetMapping("/all/{id}")
-    public List<operation> getAll(@PathVariable UUID id){
+    public List<operationReponseDTO> getAll(@PathVariable UUID id){
         return operationService.getAllOperationsByAccount(id);
     }
 }

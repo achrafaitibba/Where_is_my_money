@@ -21,7 +21,7 @@ public class operation {
     @Id
     @NotNull
     @Column(name = "operation_id")
-    private UUID operationId = UUID.randomUUID();
+    private UUID operationId;
 
     @NotNull
     @Column(name = "amount")

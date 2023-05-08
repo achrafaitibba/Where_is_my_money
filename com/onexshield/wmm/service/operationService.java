@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -41,7 +42,16 @@ public class operationService {
 
     }
 
-    public List<operation> getAllOperationsByAccount(UUID id){
-        return iOperationRepository.getAllByAccount_AccountId(id);
+    public List<operationReponseDTO> getAllOperationsByAccount(UUID id){
+        //iOperationRepository.getAllByAccount_AccountId(id)
+        List<operation> operations = iOperationRepository.getAllByAccount_AccountId(id);
+        return operations
+                .stream()
+                .map(operation -> new operationReponseDTO(
+                       operation.getAmount(),
+                       operation.getOperationType().toString(),
+                       operation.getDescription(),
+                       operation.getAccount().getAccountId()))
+                .collect(Collectors.toList());
     }
 }

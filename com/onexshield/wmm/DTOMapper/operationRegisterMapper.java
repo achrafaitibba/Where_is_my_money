@@ -8,6 +8,7 @@ import com.onexshield.wmm.responseDTO.operationReponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -19,6 +20,7 @@ public class operationRegisterMapper implements Function<operationRequestDTO, op
     public operation apply(operationRequestDTO operationRequestDTO){
         account a = new account();
         a.setAccountId(operationRequestDTO.accountId());
+        operation.setOperationId(UUID.randomUUID());
         operation.setAmount(operationRequestDTO.amount());
         operation.setOperationType(operationType.valueOf(operationRequestDTO.operationType()));
         operation.setDescription(operationRequestDTO.description());
