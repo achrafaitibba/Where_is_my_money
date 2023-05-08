@@ -1,6 +1,5 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.model.securityAnswer;
 import com.onexshield.wmm.model.securityQuestion;
 import com.onexshield.wmm.service.accountService;
 import com.onexshield.wmm.service.securityQuestionInitializer;
