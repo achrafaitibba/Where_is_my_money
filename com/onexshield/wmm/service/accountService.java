@@ -30,8 +30,8 @@ public class accountService {
         );
     }
 
-    public account findByEmail(String email) {
-        return iAccountRepository.findByUser_Email(email);
+    public accountResponseDTO findByEmail(String email) {
+        return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.findByUser_Email(email));
     }
 
     public account updateAccount(account account, String email) {
