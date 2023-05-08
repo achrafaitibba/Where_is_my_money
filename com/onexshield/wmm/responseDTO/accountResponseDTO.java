@@ -18,8 +18,8 @@ public record accountResponseDTO (
         String addressLabel,
         String country,
         String city,
-        Date birthDate,
-        Date creationDate,
+        String birthDate,
+        String creationDate,
         List<securityAnswerRequestDTO> securityAnswers
 ) {
 

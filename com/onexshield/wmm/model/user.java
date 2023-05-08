@@ -41,7 +41,7 @@ public class user  {
 
     @NotNull
     @Column(name = "birth_date")
-    private Date birthDate = new Date();
+    private Date birthDate;
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)

@@ -8,6 +8,7 @@ import com.onexshield.wmm.responseDTO.operationReponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -34,6 +35,7 @@ public class operationRegisterMapper implements Function<operationRequestDTO, op
                 operation.getAmount(),
                 operation.getOperationType().toString(),
                 operation.getDescription(),
+                new SimpleDateFormat("yyyy-dd-MM").format(operation.getTransactionDate()),
                 operation.getAccount().getAccountId()
         );
     }

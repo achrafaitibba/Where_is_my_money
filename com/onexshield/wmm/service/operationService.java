@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,6 +52,7 @@ public class operationService {
                         operation.getAmount(),
                         operation.getOperationType().toString(),
                         operation.getDescription(),
+                        new SimpleDateFormat("yyyy-dd-MM").format(operation.getTransactionDate()),
                         operation.getAccount().getAccountId()))
                 .collect(Collectors.toList());
     }

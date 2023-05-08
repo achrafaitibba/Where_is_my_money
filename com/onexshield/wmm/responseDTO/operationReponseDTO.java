@@ -7,6 +7,7 @@ public record operationReponseDTO(
         double amount,
         String operationType,
         String description,
+        String operationDate,
         UUID accountId
 ) {
 }

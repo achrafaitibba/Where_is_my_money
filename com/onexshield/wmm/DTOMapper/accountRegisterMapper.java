@@ -7,6 +7,7 @@ import com.onexshield.wmm.responseDTO.accountResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +42,7 @@ public class accountRegisterMapper implements Function<accountRequestDTO, accoun
         user.setPassword(accountRequestDTO.password());
         user.setAddress(address);
         user.setPhoneNumber(accountRequestDTO.phoneNumber());
+        user.setBirthDate(accountRequestDTO.birthDate());
         account.setAccountId(id);
         account.setCurrency(currency.valueOf(accountRequestDTO.currency()));
         account.setUser(user);
@@ -59,8 +61,8 @@ public class accountRegisterMapper implements Function<accountRequestDTO, accoun
                 account.getUser().getAddress().getAddressLabel(),
                 account.getUser().getAddress().getCountry(),
                 account.getUser().getAddress().getCity(),
-                account.getUser().getBirthDate(),
-                account.getCreationDate(),
+                new SimpleDateFormat("yyyy-dd-MM").format(account.getUser().getBirthDate()),
+                new SimpleDateFormat("yyyy-dd-MM").format(account.getCreationDate()),
                 account.getSecurityAnswers()
                         .stream()
                         .map(
