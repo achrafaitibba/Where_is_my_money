@@ -12,5 +12,5 @@ import java.util.UUID;
 public interface IUserRepository extends JpaRepository<user, UUID> {
     @Modifying
     @Query("update user u set u.password = ?3 where u.user_id = ?1 and u.password = ?2")
-    int updatePassword( @Param("id") UUID id, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
+    int updatePassword(@Param("id") UUID id, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
 }
