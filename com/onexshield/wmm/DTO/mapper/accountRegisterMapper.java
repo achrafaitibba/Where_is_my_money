@@ -1,9 +1,9 @@
-package com.onexshield.wmm.DTOMapper;
+package com.onexshield.wmm.DTO.mapper;
 
 import com.onexshield.wmm.model.*;
-import com.onexshield.wmm.requestDTO.accountRequestDTO;
-import com.onexshield.wmm.requestDTO.securityAnswerRequestDTO;
-import com.onexshield.wmm.responseDTO.accountResponseDTO;
+import com.onexshield.wmm.DTO.request.accountRequest;
+import com.onexshield.wmm.DTO.request.securityAnswerRequest;
+import com.onexshield.wmm.DTO.response.accountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,45 +13,45 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 @Service
-public class accountRegisterMapper implements Function<accountRequestDTO, account> {
+public class accountRegisterMapper implements Function<accountRequest, account> {
     @Autowired
     account account;
 
-    public account apply(accountRequestDTO accountRequestDTO){
+    public account apply(accountRequest accountRequest){
         UUID id = UUID.randomUUID();
         List<securityAnswer> securityAnswers = new ArrayList<>();
         address address = new address();
         user user = new user();
-        for(int i = 0; i<accountRequestDTO.securityAnswers().size(); i++){
+        for(int i = 0; i< accountRequest.securityAnswers().size(); i++){
             var as = new securityAnswer();
             var qe = new securityQuestion();
-            as.setAnswer(accountRequestDTO.securityAnswers().get(i).answer());
-            as.setAnswerId(accountRequestDTO.securityAnswers().get(i).answerId());
-            qe.setQuestionId(accountRequestDTO.securityAnswers().get(i).questionId());
+            as.setAnswer(accountRequest.securityAnswers().get(i).answer());
+            as.setAnswerId(accountRequest.securityAnswers().get(i).answerId());
+            qe.setQuestionId(accountRequest.securityAnswers().get(i).questionId());
             as.setQuestion(qe);
             as.setAccount(account);
             securityAnswers.add(as);
         }
-        address.setAddressLabel(accountRequestDTO.addressLabel());
-        address.setCountry(accountRequestDTO.country());
-        address.setCity(accountRequestDTO.city());
+        address.setAddressLabel(accountRequest.addressLabel());
+        address.setCountry(accountRequest.country());
+        address.setCity(accountRequest.city());
         user.setUser_id(id);
-        user.setFirstName(accountRequestDTO.firstName());
-        user.setLastName(accountRequestDTO.lastName());
-        user.setEmail(accountRequestDTO.email());
-        user.setPassword(accountRequestDTO.password());
+        user.setFirstName(accountRequest.firstName());
+        user.setLastName(accountRequest.lastName());
+        user.setEmail(accountRequest.email());
+        user.setPassword(accountRequest.password());
         user.setAddress(address);
-        user.setPhoneNumber(accountRequestDTO.phoneNumber());
-        user.setBirthDate(accountRequestDTO.birthDate());
+        user.setPhoneNumber(accountRequest.phoneNumber());
+        user.setBirthDate(accountRequest.birthDate());
         account.setAccountId(id);
-        account.setCurrency(currency.valueOf(accountRequestDTO.currency()));
+        account.setCurrency(currency.valueOf(accountRequest.currency()));
         account.setUser(user);
         account.setSecurityAnswers(securityAnswers);
         return  account;
     }
 
-    public accountResponseDTO accountToAccountReponseDTO(account account){
-        return new accountResponseDTO(
+    public accountResponse accountToAccountReponseDTO(account account){
+        return new accountResponse(
                 account.getAccountId(),
                 account.getUser().getFirstName(),
                 account.getUser().getLastName(),
@@ -66,7 +66,7 @@ public class accountRegisterMapper implements Function<accountRequestDTO, accoun
                 account.getSecurityAnswers()
                         .stream()
                         .map(
-                                securityAnswer -> new securityAnswerRequestDTO(
+                                securityAnswer -> new securityAnswerRequest(
                                         securityAnswer.getAnswerId(),
                                         securityAnswer.getAnswer(),
                                         securityAnswer.getQuestion().getQuestionId())

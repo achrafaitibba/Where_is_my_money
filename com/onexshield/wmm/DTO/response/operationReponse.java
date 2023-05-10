@@ -1,8 +1,8 @@
-package com.onexshield.wmm.responseDTO;
+package com.onexshield.wmm.DTO.response;
 
 import java.util.UUID;
 
-public record operationReponseDTO(
+public record operationReponse(
         UUID operationId,
         double amount,
         String operationType,

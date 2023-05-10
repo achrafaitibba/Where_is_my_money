@@ -1,8 +1,8 @@
-package com.onexshield.wmm.requestDTO;
+package com.onexshield.wmm.DTO.request;
 
 import java.util.UUID;
 
-public record securityAnswerRequestDTO(
+public record securityAnswerRequest(
         UUID answerId,
         String answer,
         Integer questionId

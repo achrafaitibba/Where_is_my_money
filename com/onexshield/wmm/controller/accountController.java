@@ -1,7 +1,7 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.requestDTO.accountRequestDTO;
-import com.onexshield.wmm.responseDTO.accountResponseDTO;
+import com.onexshield.wmm.DTO.request.accountRequest;
+import com.onexshield.wmm.DTO.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,17 +17,17 @@ public class accountController {
     accountService accountService;
 
     @PostMapping("/register")
-    public accountResponseDTO addAccount(@RequestBody accountRequestDTO account){
+    public accountResponse addAccount(@RequestBody accountRequest account){
         return accountService.addAccount(account);
     }
 
     @GetMapping("/find/{email}")
-    public accountResponseDTO findByEmail(@PathVariable String email){
+    public accountResponse findByEmail(@PathVariable String email){
         return accountService.findByEmail(email);
     }
 
     @PutMapping("/update/{email}")
-    public accountResponseDTO updateAccount(@RequestBody accountRequestDTO account, @PathVariable String email){
+    public accountResponse updateAccount(@RequestBody accountRequest account, @PathVariable String email){
         return accountService.updateAccount(account, email);
     }
 

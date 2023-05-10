@@ -1,7 +1,7 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.requestDTO.operationRequestDTO;
-import com.onexshield.wmm.responseDTO.operationReponseDTO;
+import com.onexshield.wmm.DTO.request.operationRequest;
+import com.onexshield.wmm.DTO.response.operationReponse;
 import com.onexshield.wmm.service.operationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +16,16 @@ public class operationController {
     operationService operationService;
 
     @PostMapping("/add")
-    public operationReponseDTO addOperation(@RequestBody operationRequestDTO operation){
+    public operationReponse addOperation(@RequestBody operationRequest operation){
         return operationService.createOperation(operation);
     }
 
     @PutMapping("/update/{id}")
-    public operationReponseDTO updateOperation(@RequestBody operationRequestDTO operationRequestDTO, @PathVariable UUID id){
-        return operationService.updateOperation(operationRequestDTO, id);
+    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable UUID id){
+        return operationService.updateOperation(operationRequest, id);
     }
     @GetMapping("/all/{id}")
-    public List<operationReponseDTO> getAll(@PathVariable UUID id){
+    public List<operationReponse> getAll(@PathVariable UUID id){
         return operationService.getAllOperationsByAccount(id);
     }
 

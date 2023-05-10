@@ -1,14 +1,13 @@
-package com.onexshield.wmm.responseDTO;
+package com.onexshield.wmm.DTO.response;
 
 
-import com.onexshield.wmm.requestDTO.securityAnswerRequestDTO;
+import com.onexshield.wmm.DTO.request.securityAnswerRequest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 
-public record accountResponseDTO (
+public record accountResponse(
         UUID id,
         String firstName,
         String lastName,
@@ -20,7 +19,7 @@ public record accountResponseDTO (
         String city,
         String birthDate,
         String creationDate,
-        List<securityAnswerRequestDTO> securityAnswers
+        List<securityAnswerRequest> securityAnswers
 ) {
 
 }

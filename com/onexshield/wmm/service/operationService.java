@@ -4,10 +4,10 @@ import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.repository.IOperationRepository;
 import com.onexshield.wmm.repository.IAccountRepository;
-import com.onexshield.wmm.DTOMapper.operationRegisterMapper;
+import com.onexshield.wmm.DTO.mapper.operationRegisterMapper;
 
-import com.onexshield.wmm.requestDTO.operationRequestDTO;
-import com.onexshield.wmm.responseDTO.operationReponseDTO;
+import com.onexshield.wmm.DTO.request.operationRequest;
+import com.onexshield.wmm.DTO.response.operationReponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class operationService {
     IAccountRepository iAccountRepository;
     @Autowired
     operationRegisterMapper operationRegisterMapper;
-    public operationReponseDTO createOperation(operationRequestDTO operation){
+    public operationReponse createOperation(operationRequest operation){
         Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.accountId()));
         if(account1.isPresent()){
             return operationRegisterMapper.operationToOperationResponse(
@@ -43,11 +43,11 @@ public class operationService {
 
     }
 
-    public List<operationReponseDTO> getAllOperationsByAccount(UUID id){
+    public List<operationReponse> getAllOperationsByAccount(UUID id){
         List<operation> operations = iOperationRepository.getAllByAccount_AccountId(id);
         return operations
                 .stream()
-                .map(operation -> new operationReponseDTO(
+                .map(operation -> new operationReponse(
                         operation.getOperationId(),
                         operation.getAmount(),
                         operation.getOperationType().toString(),
@@ -57,8 +57,8 @@ public class operationService {
                 .collect(Collectors.toList());
     }
 
-    public operationReponseDTO updateOperation(operationRequestDTO operationRequestDTO, UUID id) {
-        operation operation = operationRegisterMapper.apply(operationRequestDTO);
+    public operationReponse updateOperation(operationRequest operationRequest, UUID id) {
+        operation operation = operationRegisterMapper.apply(operationRequest);
         operation.setOperationId(id);
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.save(operation));
 

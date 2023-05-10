@@ -1,9 +1,9 @@
-package com.onexshield.wmm.requestDTO;
+package com.onexshield.wmm.DTO.request;
 
 import java.util.Date;
 import java.util.List;
 
-public record accountRequestDTO(
+public record accountRequest(
          String firstName,
          String lastName,
          String email,
@@ -14,6 +14,6 @@ public record accountRequestDTO(
          String country,
          String city,
          Date birthDate,
-         List<securityAnswerRequestDTO> securityAnswers
+         List<securityAnswerRequest> securityAnswers
 ) {
 }
