@@ -6,6 +6,7 @@ import java.util.List;
 public record accountRequest(
          String firstName,
          String lastName,
+         String gender,
          String email,
          String password,
          String phoneNumber,

@@ -38,6 +38,7 @@ public class accountRegisterMapper implements Function<accountRequest, account> 
         user.setUser_id(id);
         user.setFirstName(accountRequest.firstName());
         user.setLastName(accountRequest.lastName());
+        user.setGender(gender.valueOf(accountRequest.gender()));
         user.setEmail(accountRequest.email());
         user.setPassword(accountRequest.password());
         user.setAddress(address);
@@ -55,6 +56,7 @@ public class accountRegisterMapper implements Function<accountRequest, account> 
                 account.getAccountId(),
                 account.getUser().getFirstName(),
                 account.getUser().getLastName(),
+                account.getUser().getGender().toString(),
                 account.getUser().getEmail(),
                 account.getUser().getPhoneNumber(),
                 account.getCurrency().toString(),

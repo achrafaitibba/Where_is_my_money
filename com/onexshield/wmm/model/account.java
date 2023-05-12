@@ -29,7 +29,6 @@ public class account {
     private Date creationDate = new Date();
 
     @NotNull
-    @Column(name = "currency")
     @Enumerated(EnumType.STRING)
     private currency currency;
 

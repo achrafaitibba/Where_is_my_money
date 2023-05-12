@@ -11,6 +11,7 @@ public record accountResponse(
         UUID id,
         String firstName,
         String lastName,
+        String gender,
         String email,
         String phoneNumber,
         String currency,

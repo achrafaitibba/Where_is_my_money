@@ -32,11 +32,12 @@ public class user  {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email", unique = true)
+    @Enumerated(EnumType.STRING)
+    private gender gender;
+
+    @Column(unique = true)
     private String email;
 
-
-    @Column(name = "password")
     private String password;
 
     @NotNull
