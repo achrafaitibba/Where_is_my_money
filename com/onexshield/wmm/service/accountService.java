@@ -42,6 +42,7 @@ public class accountService {
         account account1 = accountRegisterMapper.apply(account);
         account1.setAccountId(id);
         account1.getUser().setUser_id(id);
+        account1.getUser().setPassword(iAccountRepository.findByAccountId(id).getUser().getPassword());
         return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.save(account1));
     }
     public void deleteAccount(String email) {
