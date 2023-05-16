@@ -11,13 +11,12 @@ import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.repository.ITokenRepository;
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
-import com.onexshield.wmm.response.registraterAndAuthenticationResponse;
+import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static java.util.stream.Collectors.toList;
@@ -27,21 +26,19 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class accountService {
     private final IAccountRepository repository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final ITokenRepository ITokenRepository;
     private final accountMapper accountMapper;
 
-    public registraterAndAuthenticationResponse register(registerRequest request) {
+    public accountResponse register(registerRequest request) {
 
         account savedUser = repository.save(accountMapper.requestToAccount(request));
         var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
         var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
         saveUserToken(savedUser, jwtToken);
-        return registraterAndAuthenticationResponse.builder()
-                .email(savedUser.getUsername())
-                .firstname(savedUser.getPerson().getFirstName())
+        return accountResponse.builder()
+
                 .refreshToken(refreshToken)
                 .accessToken(jwtToken)
                 .build();
@@ -49,7 +46,7 @@ public class accountService {
 
 
 
-    public registraterAndAuthenticationResponse authenticate(authenticationRequest request) {
+    public accountResponse authenticate(authenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -62,7 +59,7 @@ public class accountService {
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return registraterAndAuthenticationResponse.builder()
+        return accountResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
@@ -111,7 +108,7 @@ public class accountService {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
-                var authResonse = registraterAndAuthenticationResponse.builder()
+                var authResonse = accountResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();

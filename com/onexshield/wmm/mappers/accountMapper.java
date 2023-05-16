@@ -3,6 +3,7 @@ package com.onexshield.wmm.mappers;
 
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.request.registerRequest;
+import com.onexshield.wmm.response.accountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -55,5 +56,14 @@ public class accountMapper {
                 .role(role.USER)
                 .build();
 
+    }
+
+
+    public accountResponse accountResponse(account account){
+        return accountResponse.builder()
+
+
+
+                .build();
     }
 }
