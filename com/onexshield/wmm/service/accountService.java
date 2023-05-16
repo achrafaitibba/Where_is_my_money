@@ -8,10 +8,10 @@ import com.onexshield.wmm.authentication_configuration.token.TokenType;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.mappers.accountMapper;
 import com.onexshield.wmm.repository.IAccountRepository;
-import com.onexshield.wmm.repository.TokenRepository;
+import com.onexshield.wmm.repository.ITokenRepository;
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
-import com.onexshield.wmm.response.AuthenticationResponse;
+import com.onexshield.wmm.response.registraterAndAuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +30,16 @@ public class accountService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final TokenRepository tokenRepository;
+    private final ITokenRepository ITokenRepository;
     private final accountMapper accountMapper;
 
-    public AuthenticationResponse register(registerRequest request) {
+    public registraterAndAuthenticationResponse register(registerRequest request) {
 
         account savedUser = repository.save(accountMapper.requestToAccount(request));
         var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
         var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
         saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder()
+        return registraterAndAuthenticationResponse.builder()
                 .email(savedUser.getUsername())
                 .firstname(savedUser.getPerson().getFirstName())
                 .refreshToken(refreshToken)
@@ -49,7 +49,7 @@ public class accountService {
 
 
 
-    public AuthenticationResponse authenticate(authenticationRequest request) {
+    public registraterAndAuthenticationResponse authenticate(authenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -62,14 +62,14 @@ public class accountService {
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder()
+        return registraterAndAuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
 
     }
     private void revokeAllUserTokens(account account){
-        var validUserTokens = tokenRepository.findAllValidTokensByUser(account.getAccountId());
+        var validUserTokens = ITokenRepository.findAllValidTokensByUser(account.getAccountId());
         if( validUserTokens.isEmpty())
             return;
         validUserTokens
@@ -80,7 +80,7 @@ public class accountService {
                     return t;
                 })
                 .collect(toList());
-        tokenRepository.saveAll(validUserTokens);
+        ITokenRepository.saveAll(validUserTokens);
     }
     private void saveUserToken(account account, String jwtToken) {
         var token = Token.builder()
@@ -90,7 +90,7 @@ public class accountService {
                 .expired(false)
                 .revoked(false)
                 .build();
-        tokenRepository.save(token);
+        ITokenRepository.save(token);
     }
 
     public void refreshToken(HttpServletRequest request,
@@ -111,7 +111,7 @@ public class accountService {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
-                var authResonse = AuthenticationResponse.builder()
+                var authResonse = registraterAndAuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();

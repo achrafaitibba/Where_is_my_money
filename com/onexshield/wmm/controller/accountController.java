@@ -4,7 +4,7 @@ package com.onexshield.wmm.controller;
 
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
-import com.onexshield.wmm.response.AuthenticationResponse;
+import com.onexshield.wmm.response.registraterAndAuthenticationResponse;
 import com.onexshield.wmm.service.accountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,14 +22,14 @@ public class accountController {
     private final accountService accountService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<registraterAndAuthenticationResponse> register(
             @RequestBody registerRequest request
     ){
         return ResponseEntity.ok(accountService.register(request));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<registraterAndAuthenticationResponse> register(
             @RequestBody authenticationRequest request
     ){
         return ResponseEntity.ok(accountService.authenticate(request));

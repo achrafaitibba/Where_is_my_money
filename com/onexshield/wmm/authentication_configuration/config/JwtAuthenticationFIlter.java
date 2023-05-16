@@ -1,6 +1,6 @@
 package com.onexshield.wmm.authentication_configuration.config;
 
-import com.onexshield.wmm.repository.TokenRepository;
+import com.onexshield.wmm.repository.ITokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ public class JwtAuthenticationFIlter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-    private final TokenRepository tokenRepository;
+    private final ITokenRepository ITokenRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -41,7 +41,7 @@ public class JwtAuthenticationFIlter extends OncePerRequestFilter {
         userEmail = jwtService.extractUsername(jwt);
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-             var isTokenValid = tokenRepository.findByToken(jwt)
+             var isTokenValid = ITokenRepository.findByToken(jwt)
                      .map(t -> !t.isExpired() && !t.isRevoked())
                      .orElse(false);
             if(jwtService.isTokenValid(jwt, userDetails) && isTokenValid){

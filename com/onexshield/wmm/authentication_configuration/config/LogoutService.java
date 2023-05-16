@@ -1,6 +1,6 @@
 package com.onexshield.wmm.authentication_configuration.config;
 
-import com.onexshield.wmm.repository.TokenRepository;
+import com.onexshield.wmm.repository.ITokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
-    private final TokenRepository tokenRepository;
+    private final ITokenRepository ITokenRepository;
 
     @Override
     public void logout(HttpServletRequest request,
@@ -25,12 +25,12 @@ public class LogoutService implements LogoutHandler {
             return;
         }
         jwt = authHeader.substring(7);
-        var storedToken = tokenRepository.findByToken(jwt)
+        var storedToken = ITokenRepository.findByToken(jwt)
                 .orElse(null);
         if(storedToken != null){
             storedToken.setExpired(true);
             storedToken.setRevoked(true);
-            tokenRepository.save(storedToken);
+            ITokenRepository.save(storedToken);
         }
 
     }
