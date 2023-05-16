@@ -8,18 +8,18 @@ import com.onexshield.wmm.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
+@Transactional
 public class accountController {
     private final accountService accountService;
+
 
     @PostMapping("/register")
     public ResponseEntity<accountResponse> register(
@@ -35,6 +35,11 @@ public class accountController {
         return ResponseEntity.ok(accountService.authenticate(request));
 
     }
+    @DeleteMapping("/delete/{id}")
+    public void deleteAccount(@PathVariable Integer id){
+        accountService.deleteAccount(id);
+        }
+
 
     @PostMapping("/refresh-token")
     public void refreshToken(
