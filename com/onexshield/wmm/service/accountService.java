@@ -1,56 +1,126 @@
 package com.onexshield.wmm.service;
 
-import com.onexshield.wmm.DTO.mapper.accountRegisterMapper;
-import com.onexshield.wmm.model.*;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onexshield.wmm.authentication_configuration.config.JwtService;
+import com.onexshield.wmm.authentication_configuration.token.Token;
+import com.onexshield.wmm.authentication_configuration.token.TokenType;
+import com.onexshield.wmm.model.account;
+import com.onexshield.wmm.mappers.accountMapper;
 import com.onexshield.wmm.repository.IAccountRepository;
-import com.onexshield.wmm.repository.IUserRepository;
-import com.onexshield.wmm.DTO.request.accountRequest;
-import com.onexshield.wmm.DTO.response.accountResponse;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.onexshield.wmm.repository.TokenRepository;
+import com.onexshield.wmm.request.authenticationRequest;
+import com.onexshield.wmm.request.registerRequest;
+import com.onexshield.wmm.response.AuthenticationResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import static java.util.stream.Collectors.toList;
 
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class accountService {
-    @Autowired
-    IAccountRepository iAccountRepository ;
-    @Autowired
-    account account;
-    @Autowired
-    user user;
-    @Autowired
-    accountRegisterMapper accountRegisterMapper;
-    @Autowired
-    IUserRepository iUserRepository;
+    private final IAccountRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
+    private final accountMapper accountMapper;
 
-    public accountResponse addAccount(accountRequest accountDTO){
-        return accountRegisterMapper.accountToAccountReponseDTO(
-                iAccountRepository.save(accountRegisterMapper.apply(accountDTO))
+    public AuthenticationResponse register(registerRequest request) {
+
+        account savedUser = repository.save(accountMapper.requestToAccount(request));
+        var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
+        var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
+        saveUserToken(savedUser, jwtToken);
+        return AuthenticationResponse.builder()
+                .email(savedUser.getUsername())
+                .firstname(savedUser.getPerson().getFirstName())
+                .refreshToken(refreshToken)
+                .accessToken(jwtToken)
+                .build();
+    }
+
+
+
+    public AuthenticationResponse authenticate(authenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
         );
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .build();
+
+    }
+    private void revokeAllUserTokens(account account){
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(account.getAccountId());
+        if( validUserTokens.isEmpty())
+            return;
+        validUserTokens
+                .stream()
+                .map(t -> {
+                    t.setExpired(true);
+                    t.setRevoked(true);
+                    return t;
+                })
+                .collect(toList());
+        tokenRepository.saveAll(validUserTokens);
+    }
+    private void saveUserToken(account account, String jwtToken) {
+        var token = Token.builder()
+                .account(account)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
     }
 
-    public accountResponse findByEmail(String email) {
-        return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.findByUser_Email(email));
+    public void refreshToken(HttpServletRequest request,
+                             HttpServletResponse response
+    )throws Exception {
+        final String authHeader = request.getHeader("Authorization");
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+            return;
+        }
+        refreshToken = authHeader.substring(7); // 7 = "Bearer".length + 1 , space
+        // extract user email from JWT token; because we set the email as username in the user Model
+        userEmail = jwtService.extractUsername(refreshToken);
+        if(userEmail != null ){
+            var user = this.repository.findByEmail(userEmail).orElseThrow();
+            if(jwtService.isTokenValid(refreshToken, user)){
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+                var authResonse = AuthenticationResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+                new ObjectMapper()
+                        .writeValue(
+                                response.getOutputStream(),
+                                authResonse);
+            }
+        }
     }
 
-    public accountResponse updateAccount(accountRequest account, String email) {
-        UUID id = iAccountRepository.findByUser_Email(email).getAccountId();
-        account account1 = accountRegisterMapper.apply(account);
-        account1.setAccountId(id);
-        account1.getUser().setUser_id(id);
-        account1.getUser().setPassword(iAccountRepository.findByAccountId(id).getUser().getPassword());
-        return accountRegisterMapper.accountToAccountReponseDTO(iAccountRepository.save(account1));
-    }
-    public void deleteAccount(String email) {
-        iAccountRepository.setInactive(email);
-    }
-
-
-    public int updatePassword(UUID id, String oldPassword, String newPassword) {
-        return iUserRepository.updatePassword(id, oldPassword, newPassword);
-    }
 }

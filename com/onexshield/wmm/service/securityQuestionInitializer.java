@@ -1,5 +1,7 @@
 package com.onexshield.wmm.service;
 
+
+
 import com.onexshield.wmm.model.securityQuestion;
 import com.onexshield.wmm.repository.ISercurityQuestionRepository;
 import jakarta.annotation.PostConstruct;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class securityQuestionInitializer {

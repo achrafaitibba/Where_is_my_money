@@ -4,21 +4,22 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "security_answer")
 public class securityAnswer {
     @Id
     @Column(name = "answer_id")
-    private UUID answerId = UUID.randomUUID();
+    @GeneratedValue
+    private Integer answerId;
 
     @NotNull
     private String answer;

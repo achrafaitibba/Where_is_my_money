@@ -1,47 +1,47 @@
 package com.onexshield.wmm.controller;
 
-import com.onexshield.wmm.DTO.request.accountRequest;
-import com.onexshield.wmm.DTO.response.accountResponse;
-import com.onexshield.wmm.service.accountService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+
+import com.onexshield.wmm.request.authenticationRequest;
+import com.onexshield.wmm.request.registerRequest;
+import com.onexshield.wmm.response.AuthenticationResponse;
+import com.onexshield.wmm.service.accountService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/account")
+@RequiredArgsConstructor
 public class accountController {
-    @Autowired
-    accountService accountService;
+    private final accountService accountService;
 
     @PostMapping("/register")
-    public accountResponse addAccount(@RequestBody accountRequest account){
-        return accountService.addAccount(account);
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody registerRequest request
+    ){
+        return ResponseEntity.ok(accountService.register(request));
     }
 
-    @GetMapping("/find/{email}")
-    public accountResponse findByEmail(@PathVariable String email){
-        return accountService.findByEmail(email);
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody authenticationRequest request
+    ){
+        return ResponseEntity.ok(accountService.authenticate(request));
+
     }
 
-    @PutMapping("/update/{email}")
-    public accountResponse updateAccount(@RequestBody accountRequest account, @PathVariable String email){
-        return accountService.updateAccount(account, email);
+    @PostMapping("/refresh-token")
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    )throws Exception{
+        accountService.refreshToken(request, response);
     }
-
-    @DeleteMapping("/delete/{email}")
-    public void deleteAccount(@PathVariable String email){
-        accountService.deleteAccount(email);}
-
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
-    public ResponseEntity<String> updatePassword(@PathVariable UUID id, @PathVariable String oldPassword, @PathVariable String newPassword){
-        if(accountService.updatePassword(id, oldPassword, newPassword) == 1)
-            return ResponseEntity.ok("Password updated successfully");
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Old password incorrect");
-    }
-
 
 }

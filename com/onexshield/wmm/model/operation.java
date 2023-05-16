@@ -14,7 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "operation")
 @Component
 public class operation {
 
@@ -24,10 +23,8 @@ public class operation {
     private UUID operationId;
 
     @NotNull
-    @Column(name = "amount")
     private double amount;
 
-    @NotNull
     @Column(name = "transaction_date")
     private Date transactionDate = new Date();
 
@@ -37,7 +34,6 @@ public class operation {
     private operationType operationType;
 
     @NotNull
-    @Column(name = "description")
     private String description;
 
     @NotNull
