@@ -27,14 +27,14 @@ public class accountController {
     public ResponseEntity<accountResponse> register(
             @RequestBody registerRequest request
     ){
-        return ResponseEntity.ok(accountService.register(request)); //todo, what if account INACTIVE, what should be the return
+        return ResponseEntity.ok(accountService.register(request)); //todo , what if account INACTIVE, what should be the return
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<accountResponse> register(
             @RequestBody authenticationRequest request
     ){
-        return ResponseEntity.ok(accountService.authenticate(request)); //todo, what if account INACTIVE, what should be the return
+        return ResponseEntity.ok(accountService.authenticate(request)); //todo , what if account INACTIVE, what should be the return
 
     }
     @DeleteMapping("/delete/{id}")
