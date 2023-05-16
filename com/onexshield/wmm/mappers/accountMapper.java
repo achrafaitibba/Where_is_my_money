@@ -22,7 +22,7 @@ public class accountMapper {
 
     public account requestToAccount(registerRequest request){
         Integer id = new Random().nextInt();
-        account_.setAccountId(id);
+        account_.setAccountId(Math.abs(id));
         List<securityAnswer> securityAnswers = new ArrayList<>();
         for(int i = 0; i< request.getSecurityAnswers().size(); i++){
             var as = new securityAnswer();

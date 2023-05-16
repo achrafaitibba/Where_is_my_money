@@ -15,22 +15,28 @@ import com.onexshield.wmm.request.registerRequest;
 import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class accountService {
     private final IAccountRepository accountRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final ITokenRepository ITokenRepository;
     private final accountMapper accountMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public accountResponse register(registerRequest request) {
 
@@ -118,5 +124,12 @@ public class accountService {
         revokeAllUserTokens(accountRepository.findByAccountId(id));
 
     }
+
+    public int updatePassword(Integer id, String oldPassword, String newPassword) {
+        if(passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
+            return accountRepository.updatePassword(id, passwordEncoder.encode(newPassword));
+        return 0;
+    }
+
 
 }

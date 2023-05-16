@@ -10,13 +10,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 public class accountController {
     private final accountService accountService;
 
@@ -40,6 +43,13 @@ public class accountController {
         accountService.deleteAccount(id);
         }
 
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
+    public ResponseEntity<String> updatePassword(@PathVariable Integer id, @PathVariable String oldPassword, @PathVariable String newPassword){
+        if(accountService.updatePassword(id, oldPassword, newPassword) == 1)
+            return ResponseEntity.ok("Password updated successfully");
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Old password incorrect");
+    }
 
     @PostMapping("/refresh-token")
     public void refreshToken(

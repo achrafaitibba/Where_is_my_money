@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface IAccountRepository extends JpaRepository<account,Integer> {
 
@@ -20,5 +21,10 @@ public interface IAccountRepository extends JpaRepository<account,Integer> {
             " a.accountStatus = com.onexshield.wmm.model.status.INACTIVE " +
             "where a.accountId = ?1 ")
     void setInactive(@Param("email") Integer id);
+
+
+    @Modifying
+    @Query("update account a set a.password = ?2 where a.accountId = ?1")
+    int updatePassword(@Param("id") Integer id, @Param("newPassword") String newPassword);
 
 }
