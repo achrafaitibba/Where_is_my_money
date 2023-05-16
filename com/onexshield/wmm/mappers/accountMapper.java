@@ -4,6 +4,7 @@ package com.onexshield.wmm.mappers;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.request.registerRequest;
 import com.onexshield.wmm.response.accountResponse;
+import com.onexshield.wmm.response.securityAnswerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -59,11 +60,35 @@ public class accountMapper {
     }
 
 
-    public accountResponse accountResponse(account account){
+    public accountResponse accountToResponse(account account,
+                                           String accessToken,
+                                           String refreshToken){
         return accountResponse.builder()
-
-
-
+                .accountId(account.getAccountId())
+                .firstName(account.getPerson().getFirstName())
+                .lastName(account.getPerson().getLastName())
+                .birthDate(account.getPerson().getBirthDate())
+                .gender(String.valueOf(account.getPerson().getGender()))
+                .phoneNumber(account.getPerson().getPhoneNumber())
+                .addressLabel(account.getPerson().getAddress().getAddressLabel())
+                .country(account.getPerson().getAddress().getCountry())
+                .city(account.getPerson().getAddress().getCity())
+                .email(account.getEmail())
+                .currency(String.valueOf(account.getCurrency()))
+                .creationDate(account.getCreationDate())
+                .securityAnswers(account.getSecurityAnswers()
+                        .stream()
+                        .map(
+                                securityAnswer -> new securityAnswerResponse(
+                                        securityAnswer.getAnswerId(),
+                                        securityAnswer.getAnswer(),
+                                        securityAnswer.getQuestion().getQuestion(),
+                                        securityAnswer.getQuestion().getQuestionId()
+                                )
+                        ).toList()
+                )
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 }

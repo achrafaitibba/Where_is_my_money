@@ -44,7 +44,7 @@ public class SecurityConfigurationFilter {
 
 
                 .logout()
-                .logoutUrl("/api/v1/auth/logout")
+                .logoutUrl("/api/v1/account/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler(
                         (request,

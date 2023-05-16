@@ -37,14 +37,8 @@ public class accountService {
         var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
         var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
         saveUserToken(savedUser, jwtToken);
-        return accountResponse.builder()
-
-                .refreshToken(refreshToken)
-                .accessToken(jwtToken)
-                .build();
+        return accountMapper.accountToResponse(savedUser, jwtToken, refreshToken);
     }
-
-
 
     public accountResponse authenticate(authenticationRequest request) {
         authenticationManager.authenticate(
@@ -53,17 +47,13 @@ public class accountService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail())
+        account user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return accountResponse.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
-
+        return accountMapper.accountToResponse(user, jwtToken, refreshToken);
     }
     private void revokeAllUserTokens(account account){
         var validUserTokens = ITokenRepository.findAllValidTokensByUser(account.getAccountId());
