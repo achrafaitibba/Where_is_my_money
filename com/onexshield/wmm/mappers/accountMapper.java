@@ -21,8 +21,8 @@ public class accountMapper {
     private final PasswordEncoder passwordEncoder;
 
     public account requestToAccount(registerRequest request){
-        Integer id = new Random().nextInt();
-        account_.setAccountId(Math.abs(id));
+        Integer id = Math.abs(new Random().nextInt());
+        account_.setAccountId(id);
         List<securityAnswer> securityAnswers = new ArrayList<>();
         for(int i = 0; i< request.getSecurityAnswers().size(); i++){
             var as = new securityAnswer();

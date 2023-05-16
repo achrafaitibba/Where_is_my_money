@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/operation")
-public class operationController {
+public class operationController { //todo, review all the endpoints in this controller
     @Autowired
     operationService operationService;
 
