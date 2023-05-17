@@ -25,14 +25,16 @@ public class operationController { //todo ,review all the endpoints in this cont
     public List<operationReponse> getAll(@PathVariable Integer id){
         return operationService.getAllOperationsByAccount(id);
     }
+    @DeleteMapping("/delete/{id}") //todo , change the return type
+    public void deleteOperation(@PathVariable Integer id){
+        operationService.deleteOperation(id);
+    }
+    
     @PutMapping("/update/{id}")
     public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
         return operationService.updateOperation(operationRequest, id);
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteOperation(@PathVariable Integer id){
-        operationService.deleteOperation(id);
-    }
+
 }
