@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/operation")
@@ -29,7 +28,7 @@ public class operationController { //todo ,review all the endpoints in this cont
     public void deleteOperation(@PathVariable Integer id){
         operationService.deleteOperation(id);
     }
-    
+
     @PutMapping("/update/{id}")
     public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
         return operationService.updateOperation(operationRequest, id);
