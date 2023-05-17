@@ -34,6 +34,8 @@ public class SecurityConfigurationFilter {
                 .permitAll()
                 .requestMatchers("/api/v1/account/authenticate")
                 .permitAll()
+                .requestMatchers("/api/v1/account/password-recovery/*/*")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

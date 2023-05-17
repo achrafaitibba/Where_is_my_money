@@ -4,6 +4,7 @@ package com.onexshield.wmm.controller;
 
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
+import com.onexshield.wmm.request.securityAnswerRequest;
 import com.onexshield.wmm.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -50,8 +52,13 @@ public class accountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Old password incorrect");
     }
 
+    @PutMapping("/password-recovery/{email}/{newPassword}")
+    public ResponseEntity<Integer>  recoverPassword(@RequestBody List<securityAnswerRequest> request,
+                               @PathVariable String email,
+                               @PathVariable String newPassword){
+        return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
+    }
 
-    // todo password recovery with securityQuestions
     // todo update person infos, security infos, account infos :  an endpoint for each of them !?
     @PostMapping("/refresh-token")
     public void refreshToken(

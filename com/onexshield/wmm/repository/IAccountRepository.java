@@ -27,4 +27,8 @@ public interface IAccountRepository extends JpaRepository<account,Integer> {
     @Query("update account a set a.password = ?2 where a.accountId = ?1")
     int updatePassword(@Param("id") Integer id, @Param("newPassword") String newPassword);
 
+    @Modifying
+    @Query("update account a set a.password = ?2 where a.email = ?1")
+    int updatePassword(@Param("email") String email, @Param("newPassword") String newPassword);
+
 }

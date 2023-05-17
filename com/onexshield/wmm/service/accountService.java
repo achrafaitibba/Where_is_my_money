@@ -7,11 +7,14 @@ import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.mappers.accountMapper;
+import com.onexshield.wmm.model.securityAnswer;
 import com.onexshield.wmm.model.status;
 import com.onexshield.wmm.repository.IAccountRepository;
+import com.onexshield.wmm.repository.ISecurityAnswerRepository;
 import com.onexshield.wmm.repository.ITokenRepository;
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
+import com.onexshield.wmm.request.securityAnswerRequest;
 import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +25,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -36,6 +42,7 @@ public class accountService {
     private final ITokenRepository ITokenRepository;
     private final accountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ISecurityAnswerRepository securityAnswerRepository;
 
     public accountResponse register(registerRequest request) {
 
@@ -131,4 +138,17 @@ public class accountService {
     }
 
 
+    public int recoverPassword(List<securityAnswerRequest> request, String email, String newPassword) {
+        int c = 0;
+        int updatedSuccess = 0;
+        for (securityAnswerRequest r: request) {
+            securityAnswer sa = securityAnswerRepository.findByAccount_EmailAndQuestionQuestionId(email, r.getQuestionId());
+            if(sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())){
+                c++;
+            }
+        }
+        if(c == 3)
+            updatedSuccess = accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
+        return updatedSuccess ;
+    }
 }
