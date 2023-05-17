@@ -1,4 +1,4 @@
-package com.onexshield.wmm.authentication_configuration.config;
+package com.onexshield.wmm.authentication_configuration.token;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

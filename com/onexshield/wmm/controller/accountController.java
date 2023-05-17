@@ -50,6 +50,9 @@ public class accountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Old password incorrect");
     }
 
+
+    // todo password recovery with securityQuestions
+    // todo update person infos, security infos, account infos :  an endpoint for each of them !?
     @PostMapping("/refresh-token")
     public void refreshToken(
             HttpServletRequest request,

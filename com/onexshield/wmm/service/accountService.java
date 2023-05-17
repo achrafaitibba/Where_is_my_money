@@ -2,7 +2,7 @@ package com.onexshield.wmm.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onexshield.wmm.authentication_configuration.config.JwtService;
+import com.onexshield.wmm.authentication_configuration.token.JwtService;
 import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
 import com.onexshield.wmm.model.account;

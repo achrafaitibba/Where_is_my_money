@@ -11,7 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/operation")
-public class operationController { //todo ,review all the endpoints in this controller
+public class operationController {
+    //todo ,review all the endpoints in this controller
+    //todo hardcoding pagination and sorting, or use graphQL ?
     @Autowired
     operationService operationService;
 
