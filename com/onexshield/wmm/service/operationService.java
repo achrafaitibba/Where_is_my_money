@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -42,8 +41,8 @@ public class operationService {
 
     }
 
-    public List<operationReponse> getAllOperationsByAccount(UUID id){
-        List<operation> operations = iOperationRepository.getAllByAccount_AccountId(id);
+    public List<operationReponse> getAllOperationsByAccount(Integer id){
+        List<operation> operations = iOperationRepository.findAllByAccount_AccountId(id);
         return operations
                 .stream()
                 .map(operation -> new operationReponse(
@@ -56,14 +55,14 @@ public class operationService {
                 .collect(Collectors.toList());
     }
 
-    public operationReponse updateOperation(operationRequest operationRequest, UUID id) {
+    public operationReponse updateOperation(operationRequest operationRequest, Integer id) {
         operation operation = operationRegisterMapper.apply(operationRequest);
         operation.setOperationId(id);
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.save(operation));
 
     }
 
-    public void deleteOperation(UUID id) {
+    public void deleteOperation(Integer id) {
         iOperationRepository.deleteById(id);
     }
 }

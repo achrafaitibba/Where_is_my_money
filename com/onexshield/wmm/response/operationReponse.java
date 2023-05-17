@@ -1,9 +1,8 @@
 package com.onexshield.wmm.response;
 
-import java.util.UUID;
 
 public record operationReponse(
-        UUID operationId,
+        Integer operationId,
         double amount,
         String operationType,
         String description,

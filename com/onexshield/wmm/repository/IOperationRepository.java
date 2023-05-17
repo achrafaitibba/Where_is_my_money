@@ -9,8 +9,10 @@ import java.util.UUID;
 
 
 @Repository
-public interface IOperationRepository extends JpaRepository<operation, UUID> {
-    List<operation> getAllByAccount_AccountId(UUID id);
+public interface IOperationRepository extends JpaRepository<operation, Integer> {
+
     operation findByOperationId(UUID id); // todo , why I created this method ?
 
+
+    List<operation> findAllByAccount_AccountId(Integer id);
 }

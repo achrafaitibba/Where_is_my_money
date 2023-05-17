@@ -21,17 +21,18 @@ public class operationController { //todo ,review all the endpoints in this cont
         return operationService.createOperation(operation);
     }
 
-    @PutMapping("/update/{id}")
-    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable UUID id){
-        return operationService.updateOperation(operationRequest, id);
-    }
     @GetMapping("/all/{id}")
-    public List<operationReponse> getAll(@PathVariable UUID id){
+    public List<operationReponse> getAll(@PathVariable Integer id){
         return operationService.getAllOperationsByAccount(id);
     }
+    @PutMapping("/update/{id}")
+    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
+        return operationService.updateOperation(operationRequest, id);
+    }
+
 
     @DeleteMapping("/delete/{id}")
-    public void deleteOperation(@PathVariable UUID id){
+    public void deleteOperation(@PathVariable Integer id){
         operationService.deleteOperation(id);
     }
 }
