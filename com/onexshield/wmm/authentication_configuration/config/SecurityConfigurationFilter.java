@@ -32,7 +32,7 @@ public class SecurityConfigurationFilter {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/account/register")
                 .permitAll()
-                .requestMatchers("/api/v1/account/authentication")
+                .requestMatchers("/api/v1/account/authenticate")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

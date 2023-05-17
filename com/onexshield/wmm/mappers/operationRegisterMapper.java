@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -22,7 +23,7 @@ public class operationRegisterMapper implements Function<operationRequest, opera
     public operation apply(operationRequest operationRequest){
         account a = new account();
         a.setAccountId(operationRequest.accountId());
-        operation.setOperationId(UUID.randomUUID());
+        operation.setOperationId(Math.abs(new Random().nextInt()));
         operation.setAmount(operationRequest.amount());
         operation.setOperationType(operationType.valueOf(operationRequest.operationType()));
         operation.setDescription(operationRequest.description());
