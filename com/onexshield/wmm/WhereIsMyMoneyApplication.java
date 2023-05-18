@@ -10,4 +10,6 @@ public class WhereIsMyMoneyApplication {
 		SpringApplication.run(WhereIsMyMoneyApplication.class, args);
 	}
 
+
+	// todo user records/ classes for requests/responses ?
 }

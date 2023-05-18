@@ -2,22 +2,18 @@ package com.onexshield.wmm.controller;
 
 
 
-import com.onexshield.wmm.request.authenticationRequest;
-import com.onexshield.wmm.request.registerRequest;
-import com.onexshield.wmm.request.securityAnswerRequest;
-import com.onexshield.wmm.request.userInfoRequest;
+import com.onexshield.wmm.request.*;
 import com.onexshield.wmm.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/v1/account")
@@ -60,16 +56,17 @@ public class accountController {
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
-
-
     @PutMapping("/update/user-infos/{id}")
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request, @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
 
-    // todo update security infos, account infos :  an endpoint for each of them !?
-    
+    @PutMapping("/update/account-infos/{id}")
+    public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request, @PathVariable Integer id){
+        return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
+    }
 
+    // todo update security infos
     @PostMapping("/refresh-token") // todo , keep using it or no ?
     public void refreshToken(
             HttpServletRequest request,

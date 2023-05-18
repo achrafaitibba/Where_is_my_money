@@ -5,19 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onexshield.wmm.authentication_configuration.token.JwtService;
 import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
-import com.onexshield.wmm.model.account;
+import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.mappers.accountMapper;
-import com.onexshield.wmm.model.gender;
-import com.onexshield.wmm.model.securityAnswer;
-import com.onexshield.wmm.model.status;
 import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.repository.IAddressRepository;
 import com.onexshield.wmm.repository.ISecurityAnswerRepository;
 import com.onexshield.wmm.repository.ITokenRepository;
-import com.onexshield.wmm.request.authenticationRequest;
-import com.onexshield.wmm.request.registerRequest;
-import com.onexshield.wmm.request.securityAnswerRequest;
-import com.onexshield.wmm.request.userInfoRequest;
+import com.onexshield.wmm.request.*;
 import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -174,6 +168,25 @@ public class accountService {
                             .getAddressId()
             ); // todo , check if address updated successfully , it should return 1;
         }
+        var jwtToken = jwtService.generateToken(accountToUpdate);
+        var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
+        revokeAllUserTokens(accountToUpdate);
+        saveUserToken(accountToUpdate, jwtToken);
+        return accountMapper.accountToResponse(accountRepository.save(accountToUpdate),
+                jwtToken,
+                refreshToken);
+
+    }
+
+    public accountResponse updateAccountInfos(accountInfoRequest request, Integer id) {
+        account accountToUpdate = accountRepository.findByAccountId(id);
+        if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate == null){
+            return null;
+        } else {
+            accountToUpdate.setCurrency(currency.valueOf(request.getCurrency()));
+            accountToUpdate.setEmail(request.getEmail());
+        }
+
         var jwtToken = jwtService.generateToken(accountToUpdate);
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
         revokeAllUserTokens(accountToUpdate);
