@@ -7,14 +7,17 @@ import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.mappers.accountMapper;
+import com.onexshield.wmm.model.gender;
 import com.onexshield.wmm.model.securityAnswer;
 import com.onexshield.wmm.model.status;
 import com.onexshield.wmm.repository.IAccountRepository;
+import com.onexshield.wmm.repository.IAddressRepository;
 import com.onexshield.wmm.repository.ISecurityAnswerRepository;
 import com.onexshield.wmm.repository.ITokenRepository;
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
 import com.onexshield.wmm.request.securityAnswerRequest;
+import com.onexshield.wmm.request.userInfoRequest;
 import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -43,6 +46,7 @@ public class accountService {
     private final accountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
     private final ISecurityAnswerRepository securityAnswerRepository;
+    private final IAddressRepository addressRepository;
 
     public accountResponse register(registerRequest request) {
 
@@ -150,5 +154,33 @@ public class accountService {
         if(c == 3)
             updatedSuccess = accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
         return updatedSuccess ;
+    }
+
+    public accountResponse updateUserInfos(userInfoRequest request, Integer id) {
+        account accountToUpdate = accountRepository.findByAccountId(id);
+        if(accountToUpdate != null){
+            accountToUpdate.getPerson().setFirstName(request.getFirstName());
+            accountToUpdate.getPerson().setLastName(request.getLastName());
+            accountToUpdate.getPerson().setGender(gender.valueOf(request.getGender()));
+            accountToUpdate.getPerson().setBirthDate(request.getBirthDate());
+            accountToUpdate.getPerson().setPhoneNumber(request.getPhoneNumber());
+            addressRepository.updateByAddressId(
+                    request.getAddressLabel(),
+                    request.getCountry(),
+                    request.getCity(),
+                    accountToUpdate
+                            .getPerson()
+                            .getAddress()
+                            .getAddressId()
+            ); // todo , check if address updated successfully , it should return 1;
+        }
+        var jwtToken = jwtService.generateToken(accountToUpdate);
+        var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
+        revokeAllUserTokens(accountToUpdate);
+        saveUserToken(accountToUpdate, jwtToken);
+        return accountMapper.accountToResponse(accountRepository.save(accountToUpdate),
+                jwtToken,
+                refreshToken);
+
     }
 }

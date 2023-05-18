@@ -5,6 +5,7 @@ package com.onexshield.wmm.controller;
 import com.onexshield.wmm.request.authenticationRequest;
 import com.onexshield.wmm.request.registerRequest;
 import com.onexshield.wmm.request.securityAnswerRequest;
+import com.onexshield.wmm.request.userInfoRequest;
 import com.onexshield.wmm.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public class accountController {
         accountService.deleteAccount(id);
         }
 
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") // todo , return String ?? do a better return , think about something else
     public ResponseEntity<String> updatePassword(@PathVariable Integer id, @PathVariable String oldPassword, @PathVariable String newPassword){
         if(accountService.updatePassword(id, oldPassword, newPassword) == 1)
             return ResponseEntity.ok("Password updated successfully");
@@ -59,8 +60,17 @@ public class accountController {
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
-    // todo update person infos, security infos, account infos :  an endpoint for each of them !?
-    @PostMapping("/refresh-token")
+
+
+    @PutMapping("/update/user-infos/{id}")
+    public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request, @PathVariable Integer id){
+        return ResponseEntity.ok(accountService.updateUserInfos(request, id));
+    }
+
+    // todo update security infos, account infos :  an endpoint for each of them !?
+    
+
+    @PostMapping("/refresh-token") // todo , keep using it or no ?
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
