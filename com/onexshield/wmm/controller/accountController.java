@@ -26,14 +26,15 @@ public class accountController {
     public ResponseEntity<accountResponse> register(
             @RequestBody registerRequest request
     ){
-        return ResponseEntity.ok(accountService.register(request)); //todo , what if account INACTIVE, what should be the return
+        return ResponseEntity.ok(accountService.register(request));
+        //todo /what if account already exists, or exists and INACTIVE, what should be the return
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<accountResponse> register(
             @RequestBody authenticationRequest request
     ){
-        return ResponseEntity.ok(accountService.authenticate(request)); //todo , what if account INACTIVE, what should be the return
+        return ResponseEntity.ok(accountService.authenticate(request)); //todo /what if account INACTIVE, what should be the return
 
     }
     @DeleteMapping("/delete/{id}")
@@ -41,7 +42,7 @@ public class accountController {
         accountService.deleteAccount(id);
         }
 
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") // todo , return String ?? do a better return , think about something else
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") // todo /return String ?? do a better return, think about something else
     public ResponseEntity<String> updatePassword(@PathVariable Integer id, @PathVariable String oldPassword, @PathVariable String newPassword){
         if(accountService.updatePassword(id, oldPassword, newPassword) == 1)
             return ResponseEntity.ok("Password updated successfully");
@@ -66,8 +67,12 @@ public class accountController {
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
     }
 
-    // todo update security infos
-    @PostMapping("/refresh-token") // todo , keep using it or no ?
+    @PutMapping("update/security-infos/{id}")
+    public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerRequest> request, @PathVariable Integer id){
+        return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
+    }
+
+    @PostMapping("/refresh-token") // todo /keep using it or no ?
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response

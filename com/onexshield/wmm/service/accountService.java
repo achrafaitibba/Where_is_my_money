@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -195,5 +196,24 @@ public class accountService {
                 jwtToken,
                 refreshToken);
 
+    }
+
+    public accountResponse updateSecurityInfos(List<securityAnswerRequest> request, Integer id) {
+        account accountToUpdate = accountRepository.findByAccountId(id);
+        for(securityAnswerRequest sa : request){
+            securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(
+                    sa.getAnswerId(),
+                    id,
+                    sa.getAnswer(),
+                    sa.getQuestionId()
+            );
+        };
+        var jwtToken = jwtService.generateToken(accountToUpdate);
+        var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
+        revokeAllUserTokens(accountToUpdate);
+        saveUserToken(accountToUpdate, jwtToken);
+        return accountMapper.accountToResponse(accountRepository.save(accountToUpdate),
+                jwtToken,
+                refreshToken);
     }
 }
