@@ -4,18 +4,17 @@ package com.onexshield.wmm.controller;
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.response.operationReponse;
 import com.onexshield.wmm.service.operationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/operation")
+@RequiredArgsConstructor
 public class operationController {
-    //todo ,review all the endpoints in this controller
-    //todo hardcoding pagination and sorting, or use graphQL ?
-    @Autowired
-    operationService operationService;
+        //todo hardcoding pagination and sorting, or use graphQL ?
+    private final operationService operationService;
 
     @PostMapping("/add")
     public operationReponse addOperation(@RequestBody operationRequest operation){
@@ -26,6 +25,7 @@ public class operationController {
     public List<operationReponse> getAll(@PathVariable Integer id){
         return operationService.getAllOperationsByAccount(id);
     }
+
     @DeleteMapping("/delete/{id}") //todo , change the return type ?
     public void deleteOperation(@PathVariable Integer id){
         operationService.deleteOperation(id);

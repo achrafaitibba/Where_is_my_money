@@ -5,16 +5,17 @@ package com.onexshield.wmm.service;
 import com.onexshield.wmm.model.securityQuestion;
 import com.onexshield.wmm.repository.ISercurityQuestionRepository;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class securityQuestionInitializer {
-    @Autowired
-    ISercurityQuestionRepository iSercurityQuestionRepository;
+
+    private final ISercurityQuestionRepository iSercurityQuestionRepository;
 
     @PostConstruct
     public void initiateSecurityQuestions(){

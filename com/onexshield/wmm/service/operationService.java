@@ -8,7 +8,7 @@ import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.response.operationReponse;
 import com.onexshield.wmm.mappers.operationRegisterMapper;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -18,17 +18,14 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class operationService {
-    @Autowired
-    IOperationRepository iOperationRepository;
-    @Autowired
-    account account;
-    @Autowired
-    IAccountRepository iAccountRepository;
-    @Autowired
-    operationRegisterMapper operationRegisterMapper;
+
+    private final IOperationRepository iOperationRepository;
+    private final IAccountRepository iAccountRepository;
+    private final operationRegisterMapper operationRegisterMapper;
     public operationReponse createOperation(operationRequest operation){
-        Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.accountId()));
+        Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
             return operationRegisterMapper.operationToOperationResponse(
                     iOperationRepository.save(

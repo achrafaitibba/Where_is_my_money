@@ -6,27 +6,25 @@ import com.onexshield.wmm.model.operationType;
 
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.response.operationReponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Random;
-import java.util.UUID;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class operationRegisterMapper implements Function<operationRequest, operation> {
-
-    @Autowired
-    operation operation;
+    private final operation operation;
 
     public operation apply(operationRequest operationRequest){
         account a = new account();
-        a.setAccountId(operationRequest.accountId());
+        a.setAccountId(operationRequest.getAccountId());
         operation.setOperationId(Math.abs(new Random().nextInt()));
-        operation.setAmount(operationRequest.amount());
-        operation.setOperationType(operationType.valueOf(operationRequest.operationType()));
-        operation.setDescription(operationRequest.description());
+        operation.setAmount(operationRequest.getAmount());
+        operation.setOperationType(operationType.valueOf(operationRequest.getOperationType()));
+        operation.setDescription(operationRequest.getDescription());
         operation.setAccount(a);
         return operation;
     }
