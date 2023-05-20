@@ -7,9 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IOperationRepository extends JpaRepository<operation, Integer> {
-
-    operation findByOperationId(UUID id); //todo , why I created this method ?
-
-
     List<operation> findAllByAccount_AccountId(Integer id);
 }

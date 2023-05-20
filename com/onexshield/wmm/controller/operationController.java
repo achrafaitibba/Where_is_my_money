@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/api/v1/operation")
 @RequiredArgsConstructor
 public class operationController {
-        //todo hardcoding pagination and sorting, or use graphQL ?
     private final operationService operationService;
 
     @PostMapping("/add")
@@ -37,7 +36,7 @@ public class operationController {
         return ResponseEntity.ok(operationService.getOperation(id));
     }
 
-    @PutMapping("/update/{id}") //todo test it if it have the same problem as accountUpdateInfos
+    @PutMapping("/update/{id}")
     public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
         return operationService.updateOperation(operationRequest, id);
     }
