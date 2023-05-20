@@ -225,8 +225,8 @@ public class accountService {
 
     public accountResponse updateAccountInfos(accountInfoRequest request, Integer id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
-        if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate == null){
-            return null;
+        if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
+            throw new accountRequestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
         } else {
             accountToUpdate.setCurrency(currency.valueOf(request.getCurrency()));
             accountToUpdate.setEmail(request.getEmail());
