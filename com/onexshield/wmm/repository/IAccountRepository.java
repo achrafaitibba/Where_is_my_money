@@ -20,7 +20,7 @@ public interface IAccountRepository extends JpaRepository<account,Integer> {
     @Query("update account a set" +
             " a.accountStatus = com.onexshield.wmm.model.status.INACTIVE " +
             "where a.accountId = ?1 ")
-    void setInactive(@Param("email") Integer id);
+    int setInactive(@Param("email") Integer id);
 
 
     @Modifying

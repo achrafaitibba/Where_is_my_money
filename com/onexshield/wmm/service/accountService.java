@@ -150,10 +150,9 @@ public class accountService {
         }
     }
 
-    public void deleteAccount(Integer id) {
-        accountRepository.setInactive(id);
-        revokeAllUserTokens(accountRepository.findByAccountId(id));
-
+    public int deleteAccount(Integer id) {
+            revokeAllUserTokens(accountRepository.findByAccountId(id));
+            return accountRepository.setInactive(id);
     }
 
     public int updatePassword(Integer id, String oldPassword, String newPassword) {

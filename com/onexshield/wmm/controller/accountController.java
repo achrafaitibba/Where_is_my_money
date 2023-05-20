@@ -30,16 +30,18 @@ public class accountController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<accountResponse> authenticate(  //todo , what to do if password incorrect
+    public ResponseEntity<accountResponse> authenticate(
             @RequestBody authenticationRequest request
     ){
         return ResponseEntity.ok(accountService.authenticate(request));
 
     }
-    @DeleteMapping("/delete/{id}") //todo return OK if account deleted successfully
-    public void deleteAccount(@PathVariable Integer id){
-        accountService.deleteAccount(id);
-        }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Integer> deleteAccount(@PathVariable Integer id){
+
+        return ResponseEntity.ok(accountService.deleteAccount(id));
+
+    }
 
     @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") // todo /return String ?? do a better return, think about something else
     public ResponseEntity<String> updatePassword(@PathVariable Integer id, @PathVariable String oldPassword, @PathVariable String newPassword){
