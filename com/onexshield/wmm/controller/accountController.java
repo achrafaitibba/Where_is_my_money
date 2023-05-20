@@ -62,7 +62,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
 
-    @PutMapping("/update/account-infos/{id}") 
+    @PutMapping("/update/account-infos/{id}")
     public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request,
                                                               @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));

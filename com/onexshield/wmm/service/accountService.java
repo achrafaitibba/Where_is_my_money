@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onexshield.wmm.authentication_configuration.token.JwtService;
 import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
-import com.onexshield.wmm.exception.accountRequestException;
+import com.onexshield.wmm.exception.requestException;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.mappers.accountMapper;
 import com.onexshield.wmm.repository.IAccountRepository;
@@ -47,11 +47,11 @@ public class accountService {
     public accountResponse register(registerRequest request) {
         if(accountRepository.findByEmail(request.getEmail()).isPresent()){
             if(accountRepository.findByEmail(request.getEmail()).get().getAccountStatus().equals(status.INACTIVE)){
-                throw new accountRequestException("The account you are trying to reach has been deleted",
+                throw new requestException("The account you are trying to reach has been deleted",
                         HttpStatus.BAD_REQUEST);
 
             }else{
-                throw new accountRequestException("Account already exist",
+                throw new requestException("Account already exist",
                         HttpStatus.CONFLICT);
             }
 
@@ -68,13 +68,13 @@ public class accountService {
     public accountResponse authenticate(authenticationRequest request) {
         Optional<account> toAuthenticate = accountRepository.findByEmail(request.getEmail());
         if(!toAuthenticate.isPresent()){
-            throw new accountRequestException("Account doesn't exist",
+            throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
         }else if(toAuthenticate.isPresent()){
             if(!passwordEncoder.matches(request.getPassword(),toAuthenticate.get().getPassword())){
-                throw new accountRequestException("The password you entred is incorrect", HttpStatus.CONFLICT);
+                throw new requestException("The password you entred is incorrect", HttpStatus.CONFLICT);
             }else if(toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)){
-                throw new accountRequestException("The account you are trying to reach has been deleted",
+                throw new requestException("The account you are trying to reach has been deleted",
                         HttpStatus.BAD_REQUEST);
             }
         }
@@ -165,7 +165,7 @@ public class accountService {
     public Object recoverPassword(List<securityAnswerRequest> request, String email, String newPassword) {
         int c = 0;
         if(!accountRepository.findByEmail(email).isPresent()){
-            throw new accountRequestException("Account doesn't exist",
+            throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
         }else {
             for (securityAnswerRequest r: request) {
@@ -177,7 +177,7 @@ public class accountService {
             if(c == 3)
                 return accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
             else
-                throw new accountRequestException("Security Questions OR Answers are incorrect",
+                throw new requestException("Security Questions OR Answers are incorrect",
                         HttpStatus.UNAUTHORIZED);
         }
     }
@@ -194,7 +194,7 @@ public class accountService {
                     request.getAddressLabel() == null ||
                     request.getCountry() == null ||
                     request.getCity() == null ){
-                throw new accountRequestException("All fields are required",
+                throw new requestException("All fields are required",
                         HttpStatus.BAD_REQUEST);
             }else{
                 accountToUpdate.getPerson().setFirstName(request.getFirstName());
@@ -226,7 +226,7 @@ public class accountService {
     public accountResponse updateAccountInfos(accountInfoRequest request, Integer id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
-            throw new accountRequestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
+            throw new requestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
         } else {
             accountToUpdate.setCurrency(currency.valueOf(request.getCurrency()));
             accountToUpdate.setEmail(request.getEmail());

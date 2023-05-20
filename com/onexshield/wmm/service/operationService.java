@@ -1,6 +1,6 @@
 package com.onexshield.wmm.service;
 
-import com.onexshield.wmm.exception.accountRequestException;
+import com.onexshield.wmm.exception.requestException;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.repository.IOperationRepository;
@@ -35,7 +35,7 @@ public class operationService {
                     )
             );
         }else {
-            throw new accountRequestException("Account doesn't exist", HttpStatus.NOT_FOUND);
+            throw new requestException("Account doesn't exist", HttpStatus.NOT_FOUND);
         }
 
     }

@@ -2,14 +2,14 @@ package com.onexshield.wmm.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class accountRequestException extends RuntimeException{
+public class requestException extends RuntimeException{
 
     private HttpStatus httpStatus;
-    public accountRequestException(String message) {
+    public requestException(String message) {
         super(message);
     }
 
-    public accountRequestException(String message, HttpStatus httpStatus){
+    public requestException(String message, HttpStatus httpStatus){
         super(message);
         this.httpStatus = httpStatus;
     }
