@@ -43,12 +43,11 @@ public class accountController {
 
     }
 
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") // todo /return String ?? do a better return, think about something else
-    public ResponseEntity<String> updatePassword(@PathVariable Integer id, @PathVariable String oldPassword, @PathVariable String newPassword){
-        if(accountService.updatePassword(id, oldPassword, newPassword) == 1)
-            return ResponseEntity.ok("Password updated successfully");
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Old password incorrect");
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
+    public ResponseEntity<Integer> updatePassword(@PathVariable Integer id,
+                                                  @PathVariable String oldPassword,
+                                                  @PathVariable String newPassword){
+        return ResponseEntity.ok(accountService.updatePassword(id, oldPassword, newPassword));
     }
 
     @PutMapping("/password-recovery/{email}/{newPassword}")
@@ -63,7 +62,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
 
-    @PutMapping("/update/account-infos/{id}")
+    @PutMapping("/update/account-infos/{id}") //todo , new email should be unique error
     public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request, @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
     }
