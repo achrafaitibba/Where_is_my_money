@@ -162,18 +162,24 @@ public class accountService {
     }
 
 
-    public int recoverPassword(List<securityAnswerRequest> request, String email, String newPassword) {
+    public Object recoverPassword(List<securityAnswerRequest> request, String email, String newPassword) {
         int c = 0;
-        int updatedSuccess = 0;
-        for (securityAnswerRequest r: request) {
-            securityAnswer sa = securityAnswerRepository.findByAccount_EmailAndQuestionQuestionId(email, r.getQuestionId());
-            if(sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())){
-                c++;
+        if(!accountRepository.findByEmail(email).isPresent()){
+            throw new accountRequestException("Account doesn't exist",
+                    HttpStatus.NOT_FOUND);
+        }else {
+            for (securityAnswerRequest r: request) {
+                securityAnswer sa = securityAnswerRepository.findByAccount_EmailAndQuestionQuestionId(email, r.getQuestionId());
+                if(sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())){
+                    c++;
+                }
             }
+            if(c == 3)
+                return accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
+            else
+                throw new accountRequestException("Security Questions OR Answers are incorrect",
+                        HttpStatus.UNAUTHORIZED);
         }
-        if(c == 3)
-            updatedSuccess = accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
-        return updatedSuccess ;
     }
 
     public accountResponse updateUserInfos(userInfoRequest request, Integer id) {

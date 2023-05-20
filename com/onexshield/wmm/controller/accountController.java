@@ -50,7 +50,7 @@ public class accountController {
     }
 
     @PutMapping("/password-recovery/{email}/{newPassword}")
-    public ResponseEntity<Integer> recoverPassword(@RequestBody List<securityAnswerRequest> request,
+    public ResponseEntity<Object> recoverPassword(@RequestBody List<securityAnswerRequest> request,
                                                    @PathVariable String email,
                                                    @PathVariable String newPassword){
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
