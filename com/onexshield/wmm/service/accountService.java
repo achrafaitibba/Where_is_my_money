@@ -185,20 +185,33 @@ public class accountService {
     public accountResponse updateUserInfos(userInfoRequest request, Integer id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountToUpdate != null){
-            accountToUpdate.getPerson().setFirstName(request.getFirstName());
-            accountToUpdate.getPerson().setLastName(request.getLastName());
-            accountToUpdate.getPerson().setGender(gender.valueOf(request.getGender()));
-            accountToUpdate.getPerson().setBirthDate(request.getBirthDate());
-            accountToUpdate.getPerson().setPhoneNumber(request.getPhoneNumber());
-            addressRepository.updateByAddressId(
-                    request.getAddressLabel(),
-                    request.getCountry(),
-                    request.getCity(),
-                    accountToUpdate
-                            .getPerson()
-                            .getAddress()
-                            .getAddressId()
-            );
+            if(
+                    request.getFirstName() == null ||
+                    request.getLastName() == null ||
+                    request.getGender() == null ||
+                    request.getBirthDate() == null ||
+                    request.getPhoneNumber() == null ||
+                    request.getAddressLabel() == null ||
+                    request.getCountry() == null ||
+                    request.getCity() == null ){
+                throw new accountRequestException("All fields are required",
+                        HttpStatus.BAD_REQUEST);
+            }else{
+                accountToUpdate.getPerson().setFirstName(request.getFirstName());
+                accountToUpdate.getPerson().setLastName(request.getLastName());
+                accountToUpdate.getPerson().setGender(gender.valueOf(request.getGender()));
+                accountToUpdate.getPerson().setBirthDate(request.getBirthDate());
+                accountToUpdate.getPerson().setPhoneNumber(request.getPhoneNumber());
+                addressRepository.updateByAddressId(
+                        request.getAddressLabel(),
+                        request.getCountry(),
+                        request.getCity(),
+                        accountToUpdate
+                                .getPerson()
+                                .getAddress()
+                                .getAddressId()
+                );
+            }
         }
         var jwtToken = jwtService.generateToken(accountToUpdate);
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);

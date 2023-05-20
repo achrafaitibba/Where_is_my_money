@@ -56,7 +56,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
-    @PutMapping("/update/user-infos/{id}")   // todo , check if address updated successfully , it should return 1;
+    @PutMapping("/update/user-infos/{id}")
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request,
                                                            @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
