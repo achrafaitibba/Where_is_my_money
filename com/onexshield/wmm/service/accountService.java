@@ -70,10 +70,14 @@ public class accountService {
         if(!toAuthenticate.isPresent()){
             throw new accountRequestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
-        } else if (toAuthenticate.isPresent() && toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)) {
-            throw new accountRequestException("The account you are trying to reach has been deleted",
-                    HttpStatus.BAD_REQUEST);
-        }else{
+        }else if(toAuthenticate.isPresent()){
+            if(!passwordEncoder.matches(request.getPassword(),toAuthenticate.get().getPassword())){
+                throw new accountRequestException("The password you entred is incorrect", HttpStatus.CONFLICT);
+            }else if(toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)){
+                throw new accountRequestException("The account you are trying to reach has been deleted",
+                        HttpStatus.BAD_REQUEST);
+            }
+        }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -87,7 +91,7 @@ public class accountService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return accountMapper.accountToResponse(user, jwtToken, refreshToken);
-        }
+
     }
 
 
@@ -189,7 +193,7 @@ public class accountService {
                             .getPerson()
                             .getAddress()
                             .getAddressId()
-            ); // todo , check if address updated successfully , it should return 1;
+            );
         }
         var jwtToken = jwtService.generateToken(accountToUpdate);
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);

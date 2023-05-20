@@ -31,7 +31,7 @@ public class operationController {
         operationService.deleteOperation(id);
     }
 
-    @PutMapping("/update/{id}") // todo test it if it have the same problem as accountUpdateInfos
+    @PutMapping("/update/{id}") //todo test it if it have the same problem as accountUpdateInfos
     public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
         return operationService.updateOperation(operationRequest, id);
     }

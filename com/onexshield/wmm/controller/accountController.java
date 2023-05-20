@@ -30,7 +30,7 @@ public class accountController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<accountResponse> authenticate(
+    public ResponseEntity<accountResponse> authenticate(  //todo , what to do if password incorrect
             @RequestBody authenticationRequest request
     ){
         return ResponseEntity.ok(accountService.authenticate(request));
@@ -56,7 +56,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
-    @PutMapping("/update/user-infos/{id}")
+    @PutMapping("/update/user-infos/{id}")   // todo , check if address updated successfully , it should return 1;
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request, @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
