@@ -27,14 +27,13 @@ public class accountController {
             @RequestBody registerRequest request
     ){
         return ResponseEntity.ok(accountService.register(request));
-        //todo /what if account already exists, or exists and INACTIVE, what should be the return
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<accountResponse> register(
+    public ResponseEntity<accountResponse> authenticate(
             @RequestBody authenticationRequest request
     ){
-        return ResponseEntity.ok(accountService.authenticate(request)); //todo /what if account INACTIVE, what should be the return
+        return ResponseEntity.ok(accountService.authenticate(request));
 
     }
     @DeleteMapping("/delete/{id}")

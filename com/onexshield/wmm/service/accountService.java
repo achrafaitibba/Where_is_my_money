@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onexshield.wmm.authentication_configuration.token.JwtService;
 import com.onexshield.wmm.authentication_configuration.token.Token;
 import com.onexshield.wmm.authentication_configuration.token.TokenType;
+import com.onexshield.wmm.exception.accountRequestException;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.mappers.accountMapper;
 import com.onexshield.wmm.repository.IAccountRepository;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -42,15 +45,35 @@ public class accountService {
     private final IAddressRepository addressRepository;
 
     public accountResponse register(registerRequest request) {
+        if(accountRepository.findByEmail(request.getEmail()).isPresent()){
+            if(accountRepository.findByEmail(request.getEmail()).get().getAccountStatus().equals(status.INACTIVE)){
+                throw new accountRequestException("The account you are trying to reach has been deleted",
+                        HttpStatus.BAD_REQUEST);
 
-        account savedUser = accountRepository.save(accountMapper.requestToAccount(request));
-        var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
-        var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
-        saveUserToken(savedUser, jwtToken);
-        return accountMapper.accountToResponse(savedUser, jwtToken, refreshToken);
+            }else{
+                throw new accountRequestException("Account already exist",
+                        HttpStatus.CONFLICT);
+            }
+
+        }else{
+            account savedUser = accountRepository.save(accountMapper.requestToAccount(request));
+            var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
+            var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
+            saveUserToken(savedUser, jwtToken);
+            return accountMapper.accountToResponse(savedUser, jwtToken, refreshToken);
+        }
+
     }
 
     public accountResponse authenticate(authenticationRequest request) {
+        Optional<account> toAuthenticate = accountRepository.findByEmail(request.getEmail());
+        if(!toAuthenticate.isPresent()){
+            throw new accountRequestException("Account doesn't exist",
+                    HttpStatus.NOT_FOUND);
+        } else if (toAuthenticate.isPresent() && toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)) {
+            throw new accountRequestException("The account you are trying to reach has been deleted",
+                    HttpStatus.BAD_REQUEST);
+        }else{
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -59,14 +82,15 @@ public class accountService {
         );
         account user = accountRepository.findByEmail(request.getEmail())
                 .orElseThrow();
-        if(user.getAccountStatus().equals(status.INACTIVE)) // to check if the account is ACTIVE before authentication, if INACTIVE ignores the rest
-            return null;
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return accountMapper.accountToResponse(user, jwtToken, refreshToken);
+        }
     }
+
+
     private void revokeAllUserTokens(account account){
         var validUserTokens = ITokenRepository.findAllValidTokensByUser(account.getAccountId());
         if( validUserTokens.isEmpty())
