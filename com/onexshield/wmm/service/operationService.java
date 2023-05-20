@@ -1,5 +1,6 @@
 package com.onexshield.wmm.service;
 
+import com.onexshield.wmm.exception.accountRequestException;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.repository.IOperationRepository;
@@ -9,6 +10,7 @@ import com.onexshield.wmm.response.operationReponse;
 import com.onexshield.wmm.mappers.operationRegisterMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +35,7 @@ public class operationService {
                     )
             );
         }else {
-            throw new IllegalArgumentException("Account doesn't exist");
+            throw new accountRequestException("Account doesn't exist", HttpStatus.NOT_FOUND);
         }
 
     }

@@ -36,7 +36,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.authenticate(request));
 
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}") //todo return OK if account deleted successfully
     public void deleteAccount(@PathVariable Integer id){
         accountService.deleteAccount(id);
         }
