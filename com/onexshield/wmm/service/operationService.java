@@ -64,4 +64,8 @@ public class operationService {
     public void deleteOperation(Integer id) {
         iOperationRepository.deleteById(id);
     }
+
+    public operationReponse getOperation(Integer id) {
+        return operationRegisterMapper.operationToOperationResponse(iOperationRepository.findById(id).orElseThrow());
+    }
 }
