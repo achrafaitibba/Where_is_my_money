@@ -10,7 +10,5 @@ public class WhereIsMyMoneyApplication {
 		SpringApplication.run(WhereIsMyMoneyApplication.class, args);
 	}
 
-
-	//todo user records/ classes for requests/responses ?
 	//todo create some object to avoid creating object everytime i try to test
 }

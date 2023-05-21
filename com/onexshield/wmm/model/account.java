@@ -1,7 +1,7 @@
 package com.onexshield.wmm.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.onexshield.wmm.authentication_configuration.token.Token;
+import com.onexshield.wmm.authentication_configuration.token.token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -63,7 +63,7 @@ public class account implements UserDetails {
     private List<securityAnswer> securityAnswers;
 
     @OneToMany(mappedBy = "account")
-    private List<Token> tokens;
+    private List<token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

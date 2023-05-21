@@ -1,5 +1,5 @@
 package com.onexshield.wmm.authentication_configuration.token;
 
-public enum TokenType {
+public enum tokenType {
     BEARER
 }

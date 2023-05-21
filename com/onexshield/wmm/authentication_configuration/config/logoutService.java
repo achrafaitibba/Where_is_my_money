@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LogoutService implements LogoutHandler {
+public class logoutService implements LogoutHandler {
 
     private final ITokenRepository ITokenRepository;
 

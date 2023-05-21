@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Token {
+public class token {
     @Id
     @GeneratedValue
     private Integer id;
@@ -20,7 +20,7 @@ public class Token {
     private String token;
 
     @Enumerated(EnumType.STRING)
-    private TokenType tokenType;
+    private com.onexshield.wmm.authentication_configuration.token.tokenType tokenType;
 
     private boolean expired;
     private boolean revoked;
