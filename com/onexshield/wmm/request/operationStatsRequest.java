@@ -11,6 +11,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class operationStatsRequest {
     private String startDate;
-    private columnFrameRequest columnFrameRequest;
+    private columnFrameRequest columnFrame;
     private String operationType;
 }

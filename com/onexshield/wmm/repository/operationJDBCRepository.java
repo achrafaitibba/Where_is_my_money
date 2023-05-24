@@ -27,7 +27,7 @@ public class operationJDBCRepository {
         Connection connection = new connection().getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet ;
-        if(request.getColumnFrameRequest().equals(columnFrameRequest.DAY)){
+        if(request.getColumnFrame().equals(columnFrameRequest.DAY)){
             query = "select sum(amount),transaction_date from operation where " +
                     " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
                     "group by transaction_date";
@@ -38,7 +38,7 @@ public class operationJDBCRepository {
                         resultSet.getString(2)
                 ));
             }
-        } else if (request.getColumnFrameRequest().equals(columnFrameRequest.WEEK)) {
+        } else if (request.getColumnFrame().equals(columnFrameRequest.WEEK)) {
             query = "select sum(amount),YEAR(transaction_date),MONTH(transaction_date),WEEK(transaction_date) from operation where " +
                     " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
                     "group by YEAR(transaction_date),MONTH(transaction_date),WEEK(transaction_date)";
@@ -50,7 +50,7 @@ public class operationJDBCRepository {
                         resultSet.getString(2)+"-"+resultSet.getString(3)+"-Week:"+resultSet.getString(4)
                 ));
             }
-        }else if (request.getColumnFrameRequest().equals(columnFrameRequest.MONTH)) {
+        }else if (request.getColumnFrame().equals(columnFrameRequest.MONTH)) {
             query = "select sum(amount),YEAR(transaction_date),MONTH(transaction_date) from operation where " +
                     " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
                     "group by YEAR(transaction_date),MONTH(transaction_date)";
@@ -63,7 +63,7 @@ public class operationJDBCRepository {
                 ));
             }
 
-        }else if (request.getColumnFrameRequest().equals(columnFrameRequest.YEAR)) {
+        }else if (request.getColumnFrame().equals(columnFrameRequest.YEAR)) {
             query = "select sum(amount),YEAR(transaction_date) from operation where " +
                     " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
                     "group by YEAR(transaction_date)";
