@@ -17,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
+// you can use the following instead of implementing
+// it inside the apiConfiguration that will be applied for all the api
+//@SecurityRequirement(name = "bearerAuth")
 public class accountController {
     private final accountService accountService;
 
