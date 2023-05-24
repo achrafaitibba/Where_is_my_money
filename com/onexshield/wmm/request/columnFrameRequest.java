@@ -1,6 +1,6 @@
 package com.onexshield.wmm.request;
 
-public enum columnFrame {
+public enum columnFrameRequest {
     DAY,
     WEEK,
     MONTH,

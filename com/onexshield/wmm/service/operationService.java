@@ -3,11 +3,9 @@ package com.onexshield.wmm.service;
 import com.onexshield.wmm.exception.requestException;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
-import com.onexshield.wmm.model.operationType;
 import com.onexshield.wmm.repository.IOperationRepository;
 import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.repository.operationJDBCRepository;
-import com.onexshield.wmm.request.columnFrame;
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
 import com.onexshield.wmm.response.operationReponse;
@@ -18,11 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
