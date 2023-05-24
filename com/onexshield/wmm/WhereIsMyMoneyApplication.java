@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 public class WhereIsMyMoneyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WhereIsMyMoneyApplication.class, args);
 	}
 
-	//todo create some object to avoid creating object everytime i try to test
+	//todo create some objects to avoid creating objects everytime i try to test
 }

@@ -46,7 +46,7 @@ public class operationController {
     }
 
 
-    @GetMapping("/all/stats/{id}")
+    @GetMapping("/all/stats/{id}") // todo / add limits? max result for each frame:31 for day/week/month, 10 for year?
     public ResponseEntity<List<operationStatsResponse>> getStats(@RequestBody operationStatsRequest request,
                                           @PathVariable Integer id) throws Exception{
         return ResponseEntity.ok(operationService.getStats(id, request));

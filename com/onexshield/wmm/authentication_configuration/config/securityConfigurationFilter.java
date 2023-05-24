@@ -33,8 +33,20 @@ public class securityConfigurationFilter {
                 .requestMatchers(
                         "/api/v1/account/register",
                         "/api/v1/account/password-recovery/*/*",
-                        "/api/v1/account/authenticate"
-                        )
+                        "/api/v1/account/authenticate",
+                        "/api/v1/questions",
+                        "/swagger-ui/index.html#",
+                        "/v2/api-docs",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-ressources",
+                        "/swagger-ressources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui/**",
+                        "/webjars/**",
+                        "/swagger-ui.html"
+                ) 
                 .permitAll()
                 .anyRequest()
                 .authenticated()
