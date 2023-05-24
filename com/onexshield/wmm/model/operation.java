@@ -25,6 +25,7 @@ public class operation {
     private double amount;
 
     @Column(name = "transaction_date")
+    @Temporal(TemporalType.DATE)
     private Date transactionDate = new Date();
 
     @NotNull

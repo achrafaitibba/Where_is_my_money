@@ -1,6 +1,7 @@
 package com.onexshield.wmm.controller;
 
 
+import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
 import com.onexshield.wmm.response.operationReponse;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,7 +22,7 @@ public class operationController {
     private final operationService operationService;
 
     @PostMapping("/add")
-    public ResponseEntity<operationReponse> addOperation(@RequestBody operationRequest operation){
+    public ResponseEntity<operationReponse> addOperation (@RequestBody operationRequest operation)throws Exception{
         return ResponseEntity.ok(operationService.createOperation(operation));
     }
 
@@ -46,11 +49,8 @@ public class operationController {
 
     @GetMapping("/all/stats/{id}")
     public ResponseEntity<List<operationStatsResponse>> getStats(@RequestBody operationStatsRequest request,
-                                                                 @PathVariable Integer id){
-        return ResponseEntity.ok(operationService.getStats(request, id));
-
+                                          @PathVariable Integer id) throws Exception{
+        return ResponseEntity.ok(operationService.getStats(id, request));
     }
-
-
 
 }

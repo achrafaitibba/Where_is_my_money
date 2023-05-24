@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @Data
 public class operationStatsResponse {
-    private String rangeDate;
-    private int sum;
+    private double sum;
+    private String date;
+
 }

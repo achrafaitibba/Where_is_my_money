@@ -6,6 +6,7 @@ import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.model.operationType;
 import com.onexshield.wmm.repository.IOperationRepository;
 import com.onexshield.wmm.repository.IAccountRepository;
+import com.onexshield.wmm.repository.operationJDBCRepository;
 import com.onexshield.wmm.request.columnFrame;
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -32,6 +34,7 @@ public class operationService {
     private final IOperationRepository iOperationRepository;
     private final IAccountRepository iAccountRepository;
     private final operationRegisterMapper operationRegisterMapper;
+    private final operationJDBCRepository operationJDBCRepository;
     public operationReponse createOperation(operationRequest operation){
         Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
@@ -75,31 +78,7 @@ public class operationService {
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.findById(id).orElseThrow());
     }
 
-    public List<operationStatsResponse> getStats(operationStatsRequest request, Integer id) {
-//        List<operation> allOperations= iOperationRepository.findAllByAccount_AccountId(id);
-//        int sum = 0;
-//        String rangeDate = new SimpleDateFormat("dd-MMM-YY").format(Date.parse(request.getStartDate().toString()));
-//        Date incrementedDate = request.getStartDate();
-//        List<operationStatsResponse> response = new ArrayList<>();
-//        if(request.getColumnFrame().equals(columnFrame.DAY)){
-//            for(operation op: allOperations){
-//                if(request.getOperationType().equals(operationType.EXPENSE)){
-//                    if(op.getOperationType().equals(operationType.EXPENSE) & op.getTransactionDate().after(incrementedDate)){
-//                        sum += op.getAmount();
-//                        Calendar c = Calendar.getInstance();
-//                        c.setTime(incrementedDate);
-//                        c.add(Calendar.DATE, 1);
-//                        incrementedDate = c.getTime();
-//                    }
-//
-//
-//                }
-//            }
-//            operationStatsResponse os = new operationStatsResponse(rangeDate, sum);
-//            response.add(os);
-//
-//        }
-
-        return null;
+    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{
+        return operationJDBCRepository.getStats(id, request);
     }
 }

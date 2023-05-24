@@ -30,11 +30,11 @@ public class securityConfigurationFilter {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/account/register")
-                .permitAll()
-                .requestMatchers("/api/v1/account/authenticate")
-                .permitAll()
-                .requestMatchers("/api/v1/account/password-recovery/*/*")
+                .requestMatchers(
+                        "/api/v1/account/register",
+                        "/api/v1/account/password-recovery/*/*",
+                        "/api/v1/account/authenticate"
+                        )
                 .permitAll()
                 .anyRequest()
                 .authenticated()

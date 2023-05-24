@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @Data
 public class operationStatsRequest {
-    private Date startDate;
+    private String startDate;
     private columnFrame columnFrame;
-    private operationType operationType;
+    private String operationType;
 }
