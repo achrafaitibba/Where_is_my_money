@@ -46,7 +46,7 @@ public class securityConfigurationFilter {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html"
-                ) 
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
