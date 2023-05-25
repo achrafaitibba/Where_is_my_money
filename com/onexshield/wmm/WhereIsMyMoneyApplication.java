@@ -10,6 +10,5 @@ public class WhereIsMyMoneyApplication {
 
 	//todo create some objects to avoid creating objects everytime i try to test
 	//todo convert input to upperCase to avoid error while comparing/inserting/updating
-	//todo update dates to return only date, no time > operation,account...
 	//todo use UUID
 }

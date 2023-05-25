@@ -19,17 +19,17 @@ import java.util.function.Function;
 public class operationRegisterMapper implements Function<operationRequest, operation> {
     private final operation operation;
 
-    //todo use builder here to follow the same pattern as accountMapper
     public operation apply(operationRequest operationRequest){
         account a = new account();
         a.setAccountId(operationRequest.getAccountId());
-        operation.setOperationId(Math.abs(new Random().nextInt()));
-        operation.setAmount(operationRequest.getAmount());
-        operation.setOperationType(operationRequest.getOperationType());
-        operation.setDescription(operationRequest.getDescription());
-        operation.setTransactionDate(new Date());
-        operation.setAccount(a);
-        return operation;
+        return operation.builder()
+                .operationId(Math.abs(new Random().nextInt()))
+                .amount(operationRequest.getAmount())
+                .operationType(operationRequest.getOperationType())
+                .description(operationRequest.getDescription())
+                .transactionDate(new Date())
+                .account(a)
+                .build();
     }
 
     public operationReponse operationToOperationResponse(operation operation){

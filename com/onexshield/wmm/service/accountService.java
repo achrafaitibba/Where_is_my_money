@@ -70,7 +70,7 @@ public class accountService {
                     HttpStatus.NOT_FOUND);
         }else if(toAuthenticate.isPresent()){
             if(!passwordEncoder.matches(request.getPassword(),toAuthenticate.get().getPassword())){
-                throw new requestException("The password you entred is incorrect", HttpStatus.CONFLICT);
+                throw new requestException("The password you entered is incorrect", HttpStatus.CONFLICT);
             }else if(toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)){
                 throw new requestException("The account you are trying to reach has been deleted",
                         HttpStatus.BAD_REQUEST);
