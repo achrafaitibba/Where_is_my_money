@@ -1,8 +1,6 @@
 package com.onexshield.wmm.request;
 
 import com.onexshield.wmm.model.currency;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 
 @AllArgsConstructor

@@ -11,5 +11,6 @@ public class WhereIsMyMoneyApplication {
 	//todo create some objects to avoid creating objects everytime i try to test
 	//todo / change db to postgreSQL ?
 	//todo /change schemes in api documentation or hide them ?
+	//todo /remove create/drop, to have permanent data in database
 
 }

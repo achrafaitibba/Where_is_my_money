@@ -20,7 +20,7 @@ public class token {
     private String token;
 
     @Enumerated(EnumType.STRING)
-    private com.onexshield.wmm.authentication_configuration.token.tokenType tokenType;
+    private tokenType tokenType;
 
     private boolean expired;
     private boolean revoked;

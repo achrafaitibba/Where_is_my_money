@@ -2,14 +2,12 @@ package com.onexshield.wmm.mappers;
 
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
-import com.onexshield.wmm.model.operationType;
 
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.response.operationReponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.function.Function;
