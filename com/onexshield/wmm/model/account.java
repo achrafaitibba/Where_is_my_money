@@ -46,6 +46,7 @@ public class account implements UserDetails {
     private role role;
 
     @Column(name = "creation_date")
+    @Temporal(TemporalType.DATE)
     private Date creationDate ;
 
     @NotNull

@@ -1,5 +1,9 @@
 package com.onexshield.wmm.request;
 
+import com.onexshield.wmm.model.gender;
+import com.onexshield.wmm.model.currency;
+
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,14 +20,15 @@ public class registerRequest {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private String gender;
+    private gender gender;
     private String phoneNumber;
     private String addressLabel;
     private String country;
     private String city;
     private String email;
     private String password;
-    private String currency;
+    private currency currency;
+    @Size(min = 3, max = 3, message = "3 security questions are required")
     private List<securityAnswerRequest> securityAnswers;
 
 }

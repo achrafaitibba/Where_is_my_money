@@ -1,5 +1,8 @@
 package com.onexshield.wmm.request;
 
+import com.onexshield.wmm.model.currency;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,5 +11,5 @@ import lombok.*;
 @Data
 public class accountInfoRequest {
     private String email;
-    private String currency;
+    private currency currency;
 }

@@ -50,9 +50,9 @@ public class operationService {
                 .map(operation -> new operationReponse(
                         operation.getOperationId(),
                         operation.getAmount(),
-                        operation.getOperationType().toString(),
+                        operation.getOperationType(),
                         operation.getDescription(),
-                        new SimpleDateFormat("yyyy-dd-MM").format(operation.getTransactionDate()),
+                        operation.getTransactionDate(),
                         operation.getAccount().getAccountId()))
                 .collect(Collectors.toList());
     }

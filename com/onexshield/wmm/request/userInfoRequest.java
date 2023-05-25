@@ -1,5 +1,7 @@
 package com.onexshield.wmm.request;
 
+import com.onexshield.wmm.model.gender;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,7 @@ import java.util.Date;
 public class userInfoRequest {
     private String firstName;
     private String lastName;
-    private String gender;
+    private gender gender;
     private Date birthDate;
     private String phoneNumber;
     private String addressLabel;

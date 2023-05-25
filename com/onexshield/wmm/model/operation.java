@@ -26,7 +26,7 @@ public class operation {
 
     @Column(name = "transaction_date")
     @Temporal(TemporalType.DATE)
-    private Date transactionDate = new Date();
+    private Date transactionDate;
 
     @NotNull
     @Column(name = "operation_type")

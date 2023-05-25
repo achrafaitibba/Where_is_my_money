@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "aitibbaachraf@gmail.com",
                         url = "https://achrafaitibba.com"
                 ),
-                description = "OpenApi documentation for 'where is my money' API",
+                description = "OpenApi documentation for 'where is my money' API", //todo / check this page to put more infos about api
                 title = "Where is my money API",
                 version = "1.0"
         ),

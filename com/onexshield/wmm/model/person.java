@@ -35,6 +35,7 @@ public class person {
 
     @NotNull
     @Column(name = "birth_date")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)

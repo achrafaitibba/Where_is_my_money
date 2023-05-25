@@ -197,7 +197,7 @@ public class accountService {
             }else{
                 accountToUpdate.getPerson().setFirstName(request.getFirstName());
                 accountToUpdate.getPerson().setLastName(request.getLastName());
-                accountToUpdate.getPerson().setGender(gender.valueOf(request.getGender()));
+                accountToUpdate.getPerson().setGender(request.getGender());
                 accountToUpdate.getPerson().setBirthDate(request.getBirthDate());
                 accountToUpdate.getPerson().setPhoneNumber(request.getPhoneNumber());
                 addressRepository.updateByAddressId(
@@ -226,7 +226,7 @@ public class accountService {
         if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
             throw new requestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
         } else {
-            accountToUpdate.setCurrency(currency.valueOf(request.getCurrency()));
+            accountToUpdate.setCurrency(request.getCurrency());
             accountToUpdate.setEmail(request.getEmail());
         }
 

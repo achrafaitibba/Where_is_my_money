@@ -1,6 +1,12 @@
 package com.onexshield.wmm.response;
 
+import com.onexshield.wmm.model.gender;
+import com.onexshield.wmm.model.currency;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,13 +24,14 @@ public class accountResponse {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private String gender;
+    private gender gender;
     private String phoneNumber;
     private String addressLabel;
     private String country;
     private String city;
     private String email;
-    private String currency;
+    private currency currency;
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
     private List<securityAnswerResponse> securityAnswers;
 

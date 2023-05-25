@@ -5,6 +5,11 @@ package com.onexshield.wmm.controller;
 import com.onexshield.wmm.request.*;
 import com.onexshield.wmm.response.accountResponse;
 import com.onexshield.wmm.service.accountService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/account")
 @RequiredArgsConstructor
+@Tag(name = "Account")
 // you can use the following instead of implementing
 // it inside the apiConfiguration that will be applied for all the api
 //@SecurityRequirement(name = "bearerAuth")
@@ -24,6 +30,21 @@ public class accountController {
     private final accountService accountService;
 
 
+    @Operation(
+            description = "To create a new account",
+            summary = "This is the endpoint to create a new account", // todo  , check this
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized / Invalid Token",
+                            responseCode = "403"
+                    )
+
+            }
+    )
     @PostMapping("/register")
     public ResponseEntity<accountResponse> register(
             @RequestBody registerRequest request

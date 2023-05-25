@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -18,13 +19,15 @@ import java.util.function.Function;
 public class operationRegisterMapper implements Function<operationRequest, operation> {
     private final operation operation;
 
+    //todo use builder here to follow the same pattern as accountMapper
     public operation apply(operationRequest operationRequest){
         account a = new account();
         a.setAccountId(operationRequest.getAccountId());
         operation.setOperationId(Math.abs(new Random().nextInt()));
         operation.setAmount(operationRequest.getAmount());
-        operation.setOperationType(operationType.valueOf(operationRequest.getOperationType()));
+        operation.setOperationType(operationRequest.getOperationType());
         operation.setDescription(operationRequest.getDescription());
+        operation.setTransactionDate(new Date());
         operation.setAccount(a);
         return operation;
     }
@@ -33,9 +36,9 @@ public class operationRegisterMapper implements Function<operationRequest, opera
         return new operationReponse(
                 operation.getOperationId(),
                 operation.getAmount(),
-                operation.getOperationType().toString(),
+                operation.getOperationType(),
                 operation.getDescription(),
-                new SimpleDateFormat("yyyy-dd-MM").format(operation.getTransactionDate()),
+                operation.getTransactionDate(),
                 operation.getAccount().getAccountId()
         );
     }

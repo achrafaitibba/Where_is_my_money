@@ -1,9 +1,15 @@
 package com.onexshield.wmm.response;
 
+import com.onexshield.wmm.model.operationType;
+
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @Builder
@@ -12,8 +18,9 @@ import lombok.NoArgsConstructor;
 public class operationReponse {
     private Integer operationId;
     private double amount;
-    private String operationType;
+    private operationType operationType;
     private String description;
-    private String operationDate;
+    @Temporal(TemporalType.DATE)
+    private Date operationDate;
     private Integer accountId;
 }
