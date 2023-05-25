@@ -164,7 +164,9 @@ public class accountService {
     public int updatePassword(Integer id, String oldPassword, String newPassword) {
         if(passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
             return accountRepository.updatePassword(id, passwordEncoder.encode(newPassword));
-        return 0;
+        else
+            throw new requestException("Incorrect password",
+                    HttpStatus.CONFLICT);
     }
 
 

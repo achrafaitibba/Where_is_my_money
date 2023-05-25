@@ -9,7 +9,9 @@ import java.sql.DriverManager;
 import java.util.Properties;
 @Component
 public class connection {
-    public Connection getConnection()throws Exception{ //todo /use spring @value
+    public Connection getConnection()throws Exception{
+        //todo use JDBC TEMPLATE
+        //todo /use spring @value
         Properties properties=new Properties();
         try (InputStream is = new FileInputStream("src/main/resources/application.properties")) {
             properties.load(is);

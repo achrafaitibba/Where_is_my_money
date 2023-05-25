@@ -116,8 +116,12 @@ public class accountController {
             description = "To reset the password you need to pass the account id, the old password and the new password via url params",
             responses = {
                     @ApiResponse(
-                            description = "If it return 1 = success, 0 = account already deleted",
+                            description = "If it return 1 = success",
                             responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "The password you entered is incorrect",
+                            responseCode = "409"
                     ),
                     @ApiResponse(
                             description = "Anything else, it returns Forbidden 403",
@@ -125,14 +129,33 @@ public class accountController {
                     )
             }
     )
-
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") //todo you stopped the documentaion here hh
     public ResponseEntity<Integer> updatePassword(@PathVariable Integer id,
                                                   @PathVariable String oldPassword,
                                                   @PathVariable String newPassword){
         return ResponseEntity.ok(accountService.updatePassword(id, oldPassword, newPassword));
     }
 
+    @Operation(
+            summary = "Password recovery",
+            description = "To recover the password you need to pass the email and the new password via url params <br>" +
+                    "And you should insert the security questions chosen while the account creation, with the corresponding answer" +
+                    " inserted by the user while creating their account, all the security answer should be inside the request body",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "The EMAIL/username you entered doesn't exist",
+                            responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "Security Questions OR Answers are incorrect",
+                            responseCode = "403"
+                    )
+            }
+    )
     @PutMapping("/password-recovery/{email}/{newPassword}")
     public ResponseEntity<Object> recoverPassword(@RequestBody List<securityAnswerRequest> request,
                                                    @PathVariable String email,

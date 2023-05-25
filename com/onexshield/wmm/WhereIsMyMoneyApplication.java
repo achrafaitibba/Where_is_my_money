@@ -9,4 +9,5 @@ public class WhereIsMyMoneyApplication {
 	}
 
 	//todo create some objects to avoid creating objects everytime i try to test
+	//todo / change db to postgreSQL ?
 }
