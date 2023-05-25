@@ -116,7 +116,7 @@ public class accountController {
             description = "To reset the password you need to pass the account id, the old password and the new password via url params",
             responses = {
                     @ApiResponse(
-                            description = "If it return 1 = success",
+                            description = "Success, response body = 1",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -143,7 +143,7 @@ public class accountController {
                     " inserted by the user while creating their account, all the security answer should be inside the request body",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "Success, response body = 1",
                             responseCode = "200"
                     ),
                     @ApiResponse(
