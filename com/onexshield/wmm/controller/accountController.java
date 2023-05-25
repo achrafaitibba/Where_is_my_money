@@ -147,7 +147,7 @@ public class accountController {
                             responseCode = "200"
                     ),
                     @ApiResponse(
-                            description = "The EMAIL/username you entered doesn't exist",
+                            description = "The EMAIL/username you entered doesn't belong to anyone",
                             responseCode = "404"
                     ),
                     @ApiResponse(
