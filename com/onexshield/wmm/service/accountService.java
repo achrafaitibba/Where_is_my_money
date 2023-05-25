@@ -220,6 +220,9 @@ public class accountService {
                                 .getAddressId()
                 );
             }
+        }else{
+            throw new requestException("Account doesn't exist",
+                    HttpStatus.NOT_FOUND);
         }
         var jwtToken = jwtService.generateToken(accountToUpdate);
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
