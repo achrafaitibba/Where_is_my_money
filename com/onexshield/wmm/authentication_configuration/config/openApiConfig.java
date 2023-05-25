@@ -14,9 +14,15 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 contact = @Contact(
                         name = "Achraf Ait Ibba",
                         email = "aitibbaachraf@gmail.com",
-                        url = "https://achrafaitibba.com"
+                        url = "https://achrafaitibba.com/wmm"
                 ),
-                description = "OpenApi documentation for 'where is my money' API", //todo / check this page to put more infos about api
+                description = "Documentation for 'where is my money' API: " +
+                        "This is a sample application that provides" +
+                        " a comprehensive demonstration of tracking life transactions" +
+                        " to help users understand or remember where their money is spent and where it comes from." +
+                        " The app comes with intuitive visualization(User Interface) tools to enable users" +
+                        " to get a clear picture of their expenses/incomes" +
+                        " and make informed decisions.",
                 title = "Where is my money API",
                 version = "1.0"
         ),
