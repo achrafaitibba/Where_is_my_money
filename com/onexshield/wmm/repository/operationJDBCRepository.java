@@ -21,7 +21,7 @@ public class operationJDBCRepository {
 
 
     // todo / try a better way, that's a very ugly code, but it works anyways
-    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{ // todo /date format to pass :"2020-03-25"
+    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{
         String query = "";
         List<operationStatsResponse> responses = new ArrayList<>();
         Connection connection = new connection().getConnection();
