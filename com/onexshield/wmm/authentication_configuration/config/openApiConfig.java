@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         "This is a sample application that provides" +
                         " a comprehensive demonstration of tracking life transactions" +
                         " to help users understand or remember where their money is spent and where it comes from." +
-                        " The app comes with intuitive visualization(User Interface) tools to enable users" +
+                        " The app comes with intuitive visualization(You will find the front end in my github repo) tools to enable users" +
                         " to get a clear picture of their expenses/incomes" +
                         " and make informed decisions.",
                 title = "Where is my money API",
