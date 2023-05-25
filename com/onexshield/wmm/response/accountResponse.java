@@ -23,6 +23,7 @@ public class accountResponse {
     private Integer accountId;
     private String firstName;
     private String lastName;
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
     private gender gender;
     private String phoneNumber;

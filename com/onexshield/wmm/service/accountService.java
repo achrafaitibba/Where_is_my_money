@@ -149,8 +149,16 @@ public class accountService {
     }
 
     public int deleteAccount(Integer id) {
+        account account = accountRepository.findByAccountId(id);
+        int i = 0;
+        if(account != null){
             revokeAllUserTokens(accountRepository.findByAccountId(id));
-            return accountRepository.setInactive(id);
+             i = accountRepository.setInactive(id);
+        }else{
+            throw new requestException("Account doesn't exist",
+                    HttpStatus.NOT_FOUND);
+        }
+        return  i;
     }
 
     public int updatePassword(Integer id, String oldPassword, String newPassword) {

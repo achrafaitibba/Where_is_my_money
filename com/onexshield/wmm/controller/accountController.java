@@ -31,16 +31,24 @@ public class accountController {
 
 
     @Operation(
-            description = "To create a new account",
-            summary = "This is the endpoint to create a new account", // todo  , check this
+            summary = "Registration",
+            description = "To create a new account you need to provide the infos below int the Example Value|Schema.<br>" +
+                    "The accepted values for gender('MALE','FEMALE') must be UPPER_CASE<br>" +
+                    "The accepted values for currency('MAD','EUR','USD') must be UPPER_CASE<br> " +
+                    "The accepted format for birth date ('YYYY-MM-DD')" +
+                    "The security questions must have a list of 3 security questions/answers",
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200"
                     ),
                     @ApiResponse(
-                            description = "Unauthorized / Invalid Token",
-                            responseCode = "403"
+                            description = "The account you are trying to reach has been deleted",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Account already exist",
+                            responseCode = "409"
                     )
 
             }
@@ -52,6 +60,29 @@ public class accountController {
         return ResponseEntity.ok(accountService.register(request));
     }
 
+    @Operation(
+            summary = "Authentication",
+            description = "To authenticate you need to enter the username/email and the password corresponding the the email used",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "The account you are trying to reach has been deleted",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
+                            description = "Account doesn't exist",
+                            responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "The password you entered is incorrect",
+                            responseCode = "409"
+                    )
+
+            }
+    )
     @PostMapping("/authenticate")
     public ResponseEntity<accountResponse> authenticate(
             @RequestBody authenticationRequest request
@@ -59,12 +90,41 @@ public class accountController {
         return ResponseEntity.ok(accountService.authenticate(request));
 
     }
+    @Operation(
+            summary = "Account deletion",
+            description = "To delete an account you need to pass the account id via url params",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Account doesn't exist",
+                            responseCode = "404"
+                    )
+            }
+    )
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Integer> deleteAccount(@PathVariable Integer id){
 
         return ResponseEntity.ok(accountService.deleteAccount(id));
 
     }
+
+    @Operation(
+            summary = "Password reset",
+            description = "To reset the password you need to pass the account id, the old password and the new password via url params",
+            responses = {
+                    @ApiResponse(
+                            description = "If it return 1 = success, 0 = account already deleted",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Anything else, it returns Forbidden 403",
+                            responseCode = "403"
+                    )
+            }
+    )
 
     @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
     public ResponseEntity<Integer> updatePassword(@PathVariable Integer id,

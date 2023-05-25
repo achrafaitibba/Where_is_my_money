@@ -3,6 +3,8 @@ package com.onexshield.wmm.request;
 import com.onexshield.wmm.model.gender;
 import com.onexshield.wmm.model.currency;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,7 @@ import java.util.List;
 public class registerRequest {
     private String firstName;
     private String lastName;
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
     private gender gender;
     private String phoneNumber;
