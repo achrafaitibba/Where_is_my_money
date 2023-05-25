@@ -180,8 +180,8 @@ public class accountController {
                                                                @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
     }
-
-    @PostMapping("/refresh-token") // todo /keep using it or no ?
+    @Hidden
+    @PostMapping("/refresh-token")
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
