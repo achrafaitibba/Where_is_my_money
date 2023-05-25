@@ -129,7 +129,7 @@ public class accountController {
                     )
             }
     )
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}") //todo you stopped the documentaion here hh
+    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
     public ResponseEntity<Integer> updatePassword(@PathVariable Integer id,
                                                   @PathVariable String oldPassword,
                                                   @PathVariable String newPassword){
