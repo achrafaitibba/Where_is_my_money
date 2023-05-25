@@ -15,6 +15,7 @@ import com.onexshield.wmm.response.accountResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -253,7 +254,7 @@ public class accountService {
 
     }
 
-    public accountResponse updateSecurityInfos(List<securityAnswerRequest> request, Integer id) {
+    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, Integer id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         for(securityAnswerRequest sa : request){
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(

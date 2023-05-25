@@ -120,12 +120,12 @@ public class accountController {
                             responseCode = "200"
                     ),
                     @ApiResponse(
-                            description = "The password you entered is incorrect",
-                            responseCode = "409"
-                    ),
-                    @ApiResponse(
                             description = "Anything else, it returns Forbidden 403",
                             responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "The password you entered is incorrect",
+                            responseCode = "409"
                     )
             }
     )
@@ -147,12 +147,12 @@ public class accountController {
                             responseCode = "200"
                     ),
                     @ApiResponse(
-                            description = "The EMAIL/username you entered doesn't belong to anyone",
-                            responseCode = "404"
-                    ),
-                    @ApiResponse(
                             description = "Security Questions OR Answers are incorrect",
                             responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "The EMAIL/username you entered doesn't belong to anyone",
+                            responseCode = "404"
                     )
             }
     )
@@ -163,18 +163,71 @@ public class accountController {
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
+    @Operation(
+            summary = "User infos update",
+            description = "To update user infos you should pass the account id via the url path. <br>" +
+                    "Also you should not ignore/clear/delete any value of any property",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Forbidden or token expired",
+                            responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "All fields are required",
+                            responseCode = "404"
+                    )
+            }
+    )
     @PutMapping("/update/user-infos/{id}")
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request,
                                                            @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
-
+    @Operation(
+            summary = "Account infos update",
+            description = "To update account infos you should pass the account id via the url path. <br>" +
+                    "Also you should not ignore/clear/delete email <br>" +
+                    "The new email should be unique",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Forbidden or token expired",
+                            responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "The email you provided is already associated with another account.",
+                            responseCode = "409"
+                    )
+            }
+    )
     @PutMapping("/update/account-infos/{id}")
     public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request,
                                                               @PathVariable Integer id){
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
     }
-
+    @Operation(
+            summary = "Security Questions/Answers update",
+            description = "To updateSecurity Questions/Answers you should pass the account id via the url path. <br>" +
+                    "Also you should select 3 security questions and insert their answers<br>" +
+                    "The new email should be unique",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Forbidden or token expired",
+                            responseCode = "403"
+                    )
+            }
+    )
     @PutMapping("update/security-infos/{id}")
     public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerRequest> request,
                                                                @PathVariable Integer id){
