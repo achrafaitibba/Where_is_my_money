@@ -1,7 +1,7 @@
 package com.onexshield.wmm.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.onexshield.wmm.authentication_configuration.token.token;
+import com.onexshield.wmm.configuration.token.token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package com.onexshield.wmm.authentication_configuration.config;
+package com.onexshield.wmm.configuration.documentation;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;

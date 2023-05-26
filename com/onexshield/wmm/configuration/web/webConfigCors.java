@@ -1,4 +1,4 @@
-package com.onexshield.wmm.authentication_configuration.config;
+package com.onexshield.wmm.configuration.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

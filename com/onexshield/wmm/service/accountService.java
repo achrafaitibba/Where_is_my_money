@@ -2,7 +2,7 @@ package com.onexshield.wmm.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onexshield.wmm.authentication_configuration.token.tokenType;
+import com.onexshield.wmm.configuration.token.tokenType;
 import com.onexshield.wmm.exception.requestException;
 import com.onexshield.wmm.model.*;
 import com.onexshield.wmm.mappers.accountMapper;
@@ -35,7 +35,7 @@ import static java.util.stream.Collectors.toList;
 @Transactional
 public class accountService {
     private final IAccountRepository accountRepository;
-    private final com.onexshield.wmm.authentication_configuration.token.jwtService jwtService;
+    private final com.onexshield.wmm.configuration.token.jwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final ITokenRepository ITokenRepository;
     private final accountMapper accountMapper;
@@ -109,7 +109,7 @@ public class accountService {
         ITokenRepository.saveAll(validUserTokens);
     }
     private void saveUserToken(account account, String jwtToken) {
-        var token = com.onexshield.wmm.authentication_configuration.token.token.builder()
+        var token = com.onexshield.wmm.configuration.token.token.builder()
                 .account(account)
                 .token(jwtToken)
                 .tokenType(tokenType.BEARER)

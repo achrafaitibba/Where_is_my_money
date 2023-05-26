@@ -1,7 +1,7 @@
 package com.onexshield.wmm.repository;
 
 
-import com.onexshield.wmm.authentication_configuration.token.token;
+import com.onexshield.wmm.configuration.token.token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

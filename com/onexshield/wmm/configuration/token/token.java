@@ -1,4 +1,4 @@
-package com.onexshield.wmm.authentication_configuration.token;
+package com.onexshield.wmm.configuration.token;
 
 import com.onexshield.wmm.model.account;
 import jakarta.persistence.*;

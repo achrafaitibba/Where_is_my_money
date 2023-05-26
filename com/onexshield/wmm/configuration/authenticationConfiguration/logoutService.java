@@ -1,4 +1,4 @@
-package com.onexshield.wmm.authentication_configuration.config;
+package com.onexshield.wmm.configuration.authenticationConfiguration;
 
 import com.onexshield.wmm.repository.ITokenRepository;
 import jakarta.servlet.http.HttpServletRequest;

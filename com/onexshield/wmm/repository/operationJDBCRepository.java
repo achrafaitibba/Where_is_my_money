@@ -1,11 +1,12 @@
 package com.onexshield.wmm.repository;
 
+import com.onexshield.wmm.mappers.operationStatsMapper;
 import com.onexshield.wmm.request.columnFrameRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
 import com.onexshield.wmm.response.operationStatsResponse;
-import com.onexshield.wmm.dataSource.connection;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -14,76 +15,54 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.onexshield.wmm.model.operationType.EXPENSE;
+import static com.onexshield.wmm.request.columnFrameRequest.DAY;
+
 @Repository
 @Data
 @RequiredArgsConstructor
 public class operationJDBCRepository {
 
-    private final connection connection_;
+    private final JdbcTemplate jdbcTemplate;
 
-    // todo / try a better way, that's a very ugly code, but it works anyways
-    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{
-        String query = "";
-        List<operationStatsResponse> responses = new ArrayList<>();
-        Connection connection = connection_.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet ;
-        if(request.getColumnFrame().equals(columnFrameRequest.DAY)){
-            query = "select sum(amount),transaction_date from operation where " +
-                    " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
-                    "group by transaction_date";
-            resultSet= statement.executeQuery(query);
-            while(resultSet.next()){
-                responses.add(new operationStatsResponse(
-                        resultSet.getDouble(1),
-                        resultSet.getString(2)
-                ));
+    public String queryBuilder(Integer id, operationStatsRequest request){
+        String querySelection = "";
+        String queryGroupBy = "";
+        switch (request.getColumnFrame()){
+            case DAY -> {
+                querySelection = "sum(amount), transaction_date";
+                queryGroupBy = "transaction_date";
             }
-        } else if (request.getColumnFrame().equals(columnFrameRequest.WEEK)) {
-            query = "select sum(amount),YEAR(transaction_date),MONTH(transaction_date),WEEK(transaction_date) from operation where " +
-                    " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
-                    "group by YEAR(transaction_date),MONTH(transaction_date),WEEK(transaction_date)";
+            case WEEK -> {
+                querySelection = "sum(amount), YEAR(transaction_date), MONTH(transaction_date), WEEK(transaction_date)";
+                queryGroupBy = "YEAR(transaction_date), MONTH(transaction_date), WEEK(transaction_date)";
 
-            resultSet= statement.executeQuery(query);
-            while(resultSet.next()){
-                responses.add(new operationStatsResponse(
-                        resultSet.getDouble(1),
-                        resultSet.getString(2)+"-"+resultSet.getString(3)+"-Week:"+resultSet.getString(4)
-                ));
             }
-        }else if (request.getColumnFrame().equals(columnFrameRequest.MONTH)) {
-            query = "select sum(amount),YEAR(transaction_date),MONTH(transaction_date) from operation where " +
-                    " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
-                    "group by YEAR(transaction_date),MONTH(transaction_date)";
+            case MONTH -> {
+                querySelection = "sum(amount), YEAR(transaction_date), MONTH(transaction_date)";
+                queryGroupBy = "YEAR(transaction_date), MONTH(transaction_date)";
 
-            resultSet= statement.executeQuery(query);
-            while(resultSet.next()){
-                responses.add(new operationStatsResponse(
-                        resultSet.getDouble(1),
-                        resultSet.getString(2)+"-"+resultSet.getString(3)
-                ));
+            }
+            case YEAR -> {
+                querySelection = "sum(amount), YEAR(transaction_date)";
+                queryGroupBy = "YEAR(transaction_date)";
             }
 
-        }else if (request.getColumnFrame().equals(columnFrameRequest.YEAR)) {
-            query = "select sum(amount),YEAR(transaction_date) from operation where " +
-                    " account_account_id = "+id+" and operation_type = '"+request.getOperationType()+"' and transaction_date >= '"+request.getStartDate()+ "' " +
-                    "group by YEAR(transaction_date)";
-
-            resultSet= statement.executeQuery(query);
-            while(resultSet.next()){
-                responses.add(new operationStatsResponse(
-                        resultSet.getDouble(1),
-                        resultSet.getString(2)
-                ));
-            }
         }
-
-
-
-        statement.close();
-        connection.close();
-        return responses;
+        return          "SELECT "+querySelection+" from operation where account_account_id = "+id+" " +
+                        "and operation_type = '"+request.getOperationType()+"' " +
+                        "and transaction_date >= '"+request.getStartDate()+"' " +
+                        "group by "+queryGroupBy+"";
     }
+    public List<operationStatsResponse> getStats1(Integer id, operationStatsRequest request)throws Exception {
+        return jdbcTemplate.query(queryBuilder(id, request), new operationStatsMapper());
+    }
+
+
+//day         new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2));
+//week        new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2)+"-"+resultSet.getString(3)+"-Week:"+resultSet.getString(4)));
+//month       new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2)+"-"+resultSet.getString(3)));
+//year        new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2));
 
 
 }
