@@ -36,18 +36,15 @@ public class operationJDBCRepository {
             case WEEK -> {
                 querySelection = "sum(amount), YEAR(transaction_date), MONTH(transaction_date), WEEK(transaction_date)";
                 queryGroupBy = "YEAR(transaction_date), MONTH(transaction_date), WEEK(transaction_date)";
-
             }
             case MONTH -> {
                 querySelection = "sum(amount), YEAR(transaction_date), MONTH(transaction_date)";
                 queryGroupBy = "YEAR(transaction_date), MONTH(transaction_date)";
-
             }
             case YEAR -> {
                 querySelection = "sum(amount), YEAR(transaction_date)";
                 queryGroupBy = "YEAR(transaction_date)";
             }
-
         }
         return          "SELECT "+querySelection+" from operation where account_account_id = "+id+" " +
                         "and operation_type = '"+request.getOperationType()+"' " +
