@@ -7,7 +7,7 @@ public class requestException extends RuntimeException{
     private HttpStatus httpStatus;
     public requestException(String message) {
         super(message);
-    } //todo , unused !
+    }
 
     public requestException(String message, HttpStatus httpStatus){
         super(message);

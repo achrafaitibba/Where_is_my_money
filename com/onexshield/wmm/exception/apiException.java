@@ -19,7 +19,6 @@ public class apiException {
         this.timestamp = timestamp;
     }
 
-    //todo /unused methods ! remove them ?
     public String getMessage() {
         return message;
     }
