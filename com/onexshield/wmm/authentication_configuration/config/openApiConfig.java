@@ -16,12 +16,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "aitibbaachraf@gmail.com",
                         url = "https://achrafaitibba.com/wmm"
                 ),
-                description = "Documentation for 'where is my money' API: " +
-                        "This is a sample application that provides" +
-                        " a comprehensive demonstration of tracking life transactions" +
-                        " to help users understand or remember where their money is spent and where it comes from." +
-                        " The app comes with intuitive visualization(You will find the front end in my github repo) tools to enable users" +
-                        " to get a clear picture of their expenses/incomes" +
+                description = "<b>Documentation for 'where is my money' API:</b> <br>" +
+                        "This is a sample application that provides a comprehensive <br>" +
+                        "demonstration of tracking life transactions to help users <br>" +
+                        "understand or remember where their money is spent and where it comes from.<br>" +
+                        " The app comes with intuitive visualization(You will find the front end in my github repo)<br>" +
+                        " tools to enable users to get a clear picture of their expenses/incomes<br>" +
                         " and make informed decisions.",
                 title = "Where is my money API",
                 version = "1.0"
