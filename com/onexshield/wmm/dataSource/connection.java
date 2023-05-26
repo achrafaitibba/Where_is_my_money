@@ -1,6 +1,10 @@
 package com.onexshield.wmm.dataSource;
 
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -9,18 +13,24 @@ import java.sql.DriverManager;
 import java.util.Properties;
 @Component
 public class connection {
+    @Value("${app.database.driver-class-name}")
+    private String driver;
+    @Value("${app.database.url}")
+    private String url;
+
+    @Value("${app.database.username}")
+    private String user;
+
+    @Value("${app.database.password}")
+    private String password;
+
     public Connection getConnection()throws Exception{
-        //todo use JDBC TEMPLATE
-        //todo /use spring @value
-        Properties properties=new Properties();
-        try (InputStream is = new FileInputStream("src/main/resources/application.properties")) {
-            properties.load(is);
-        }
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        //todo /use JDBC TEMPLATE
+        Class.forName(driver);
         return DriverManager.getConnection(
-                properties.getProperty("dataBase.url"),
-                properties.getProperty("dataBase.user"),
-                properties.getProperty("dataBase.password"));
+                url,
+                user,
+                password);
     }
 
 }

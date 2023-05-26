@@ -19,12 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class operationJDBCRepository {
 
+    private final connection connection_;
 
     // todo / try a better way, that's a very ugly code, but it works anyways
     public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{
         String query = "";
         List<operationStatsResponse> responses = new ArrayList<>();
-        Connection connection = new connection().getConnection();
+        Connection connection = connection_.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet ;
         if(request.getColumnFrame().equals(columnFrameRequest.DAY)){
