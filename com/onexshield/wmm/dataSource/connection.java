@@ -13,15 +13,15 @@ import java.sql.DriverManager;
 import java.util.Properties;
 @Component
 public class connection {
-    @Value("${app.database.driver-class-name}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driver;
-    @Value("${app.database.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${app.database.username}")
+    @Value("${spring.datasource.username}")
     private String user;
 
-    @Value("${app.database.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
     public Connection getConnection()throws Exception{
