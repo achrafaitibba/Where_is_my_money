@@ -1,7 +1,6 @@
 package com.onexshield.wmm.repository;
 
 import com.onexshield.wmm.mappers.operationStatsMapper;
-import com.onexshield.wmm.request.columnFrameRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
 import com.onexshield.wmm.response.operationStatsResponse;
 import lombok.Data;
@@ -9,14 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.onexshield.wmm.model.operationType.EXPENSE;
-import static com.onexshield.wmm.request.columnFrameRequest.DAY;
 
 @Repository
 @Data
