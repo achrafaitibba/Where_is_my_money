@@ -5,7 +5,7 @@ import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.operation;
 import com.onexshield.wmm.repository.IOperationRepository;
 import com.onexshield.wmm.repository.IAccountRepository;
-import com.onexshield.wmm.repository.operationStatsDAO;
+import com.onexshield.wmm.repository.operationRepositoryJDBC;
 import com.onexshield.wmm.request.operationRequest;
 import com.onexshield.wmm.request.operationStatsRequest;
 import com.onexshield.wmm.response.operationReponse;
@@ -27,7 +27,7 @@ public class operationService {
     private final IOperationRepository iOperationRepository;
     private final IAccountRepository iAccountRepository;
     private final operationRegisterMapper operationRegisterMapper;
-    private final operationStatsDAO operationStatsdao;
+    private final operationRepositoryJDBC operationStatsdao;
     public operationReponse createOperation(operationRequest operation){
         Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
