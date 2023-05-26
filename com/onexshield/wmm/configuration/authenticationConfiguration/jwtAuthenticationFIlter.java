@@ -1,6 +1,7 @@
 package com.onexshield.wmm.configuration.authenticationConfiguration;
 
 import com.onexshield.wmm.repository.ITokenRepository;
+import com.onexshield.wmm.configuration.token.jwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class jwtAuthenticationFIlter extends OncePerRequestFilter {
 
-    private final com.onexshield.wmm.configuration.token.jwtService jwtService;
+    private final jwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final ITokenRepository ITokenRepository;
 
