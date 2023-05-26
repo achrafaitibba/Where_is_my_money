@@ -11,6 +11,4 @@ public class WhereIsMyMoneyApplication {
 	//todo create some objects to avoid creating objects everytime i try to test
 	//todo /change schemes in api documentation or hide them ?
 	//todo /add dependencies and full project to github not only the src file
-	//todo /check properties of accountService and all other classes to remover bad importation as below
-	//todo private final com.onexshield.wmm.authentication_configuration.token.jwtService jwtService
 }

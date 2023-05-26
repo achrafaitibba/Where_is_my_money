@@ -3,7 +3,7 @@ package com.onexshield.wmm.service;
 
 
 import com.onexshield.wmm.model.securityQuestion;
-import com.onexshield.wmm.repository.ISercurityQuestionRepository;
+import com.onexshield.wmm.repository.ISecurityQuestionRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class securityQuestionInitializer {
 
-    private final ISercurityQuestionRepository iSercurityQuestionRepository;
+    private final ISecurityQuestionRepository iSecurityQuestionRepository;
 
     @PostConstruct
     public void initiateSecurityQuestions(){
@@ -35,17 +35,17 @@ public class securityQuestionInitializer {
         question7.setQuestion("What is the name of your favorite teacher?");
         securityQuestion question8 = new securityQuestion();
         question8.setQuestion("What is your favorite book?");
-        iSercurityQuestionRepository.save(question1);
-        iSercurityQuestionRepository.save(question2);
-        iSercurityQuestionRepository.save(question3);
-        iSercurityQuestionRepository.save(question4);
-        iSercurityQuestionRepository.save(question5);
-        iSercurityQuestionRepository.save(question6);
-        iSercurityQuestionRepository.save(question7);
-        iSercurityQuestionRepository.save(question8);
+        iSecurityQuestionRepository.save(question1);
+        iSecurityQuestionRepository.save(question2);
+        iSecurityQuestionRepository.save(question3);
+        iSecurityQuestionRepository.save(question4);
+        iSecurityQuestionRepository.save(question5);
+        iSecurityQuestionRepository.save(question6);
+        iSecurityQuestionRepository.save(question7);
+        iSecurityQuestionRepository.save(question8);
     }
 
     public List<securityQuestion> getAll() {
-        return iSercurityQuestionRepository.findAll();
+        return iSecurityQuestionRepository.findAll();
     }
 }
