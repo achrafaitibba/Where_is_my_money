@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 @Data
 @RequiredArgsConstructor
-public class operationJDBCRepository {
+public class operationStatsDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
