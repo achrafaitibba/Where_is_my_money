@@ -54,7 +54,7 @@ public class operationJDBCRepository {
                         "and transaction_date >= '"+request.getStartDate()+"' " +
                         "group by "+queryGroupBy+"";
     }
-    public List<operationStatsResponse> getStats1(Integer id, operationStatsRequest request)throws Exception {
+    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception {
         return jdbcTemplate.query(queryBuilder(id, request), new operationStatsMapper());
     }
 

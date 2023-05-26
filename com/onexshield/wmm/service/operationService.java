@@ -72,6 +72,6 @@ public class operationService {
     }
 
     public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception{
-        return operationJDBCRepository.getStats1(id, request);
+        return operationJDBCRepository.getStats(id, request);
     }
 }
