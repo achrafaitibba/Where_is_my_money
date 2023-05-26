@@ -59,10 +59,6 @@ public class operationJDBCRepository {
     }
 
 
-//day         new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2));
-//week        new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2)+"-"+resultSet.getString(3)+"-Week:"+resultSet.getString(4)));
-//month       new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2)+"-"+resultSet.getString(3)));
-//year        new operationStatsResponse(resultSet.getDouble(1),resultSet.getString(2));
 
 
 }
