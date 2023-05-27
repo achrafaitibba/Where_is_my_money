@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,7 +22,7 @@ public class operation {
     @Id
     @NotNull
     @Column(name = "operation_id")
-    private Integer operationId;
+    private UUID operationId;
 
     @NotNull
     private double amount;

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,5 +17,5 @@ public class operationRequest {
     private double amount ;
     private operationType operationType ;
     private String description ;
-    private Integer accountId;
+    private UUID accountId;
 }

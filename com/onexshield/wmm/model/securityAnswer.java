@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class securityAnswer {
     @Id
     @Column(name = "answer_id")
     @GeneratedValue
-    private Integer answerId;
+    private UUID answerId;
 
     @NotNull
     private String answer;

@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class accountResponse {
-    private Integer accountId;
+    private UUID accountId;
     private String firstName;
     private String lastName;
     @Temporal(TemporalType.DATE)

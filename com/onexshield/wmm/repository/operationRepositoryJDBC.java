@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Data
@@ -17,7 +18,7 @@ public class operationRepositoryJDBC {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public String queryBuilder(Integer id, operationStatsRequest request){
+    public String queryBuilder(UUID id, operationStatsRequest request){
         String querySelection = "";
         String queryGroupBy = "";
         switch (request.getColumnFrame()){
@@ -43,7 +44,7 @@ public class operationRepositoryJDBC {
                         "and transaction_date >= '"+request.getStartDate()+"' " +
                         "group by "+queryGroupBy+"";
     }
-    public List<operationStatsResponse> getStats(Integer id, operationStatsRequest request)throws Exception {
+    public List<operationStatsResponse> getStats(UUID id, operationStatsRequest request)throws Exception {
         return jdbcTemplate.query(queryBuilder(id, request), new operationStatsMapper());
     }
 

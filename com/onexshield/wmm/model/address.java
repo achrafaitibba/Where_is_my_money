@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class address {
     @Id
     @Column(name = "address_id")
     @GeneratedValue
-    private Integer addressId ;
+    private UUID addressId ;
 
     @Column(name = "address_label")
     private String addressLabel;

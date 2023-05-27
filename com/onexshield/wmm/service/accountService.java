@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
@@ -150,7 +151,7 @@ public class accountService {
         }
     }
 
-    public int deleteAccount(Integer id) {
+    public int deleteAccount(UUID id) {
         account account = accountRepository.findByAccountId(id);
         int i = 0;
         if(account != null){
@@ -163,7 +164,7 @@ public class accountService {
         return  i;
     }
 
-    public int updatePassword(Integer id, String oldPassword, String newPassword) {
+    public int updatePassword(UUID id, String oldPassword, String newPassword) {
         if(passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
             return accountRepository.updatePassword(id, passwordEncoder.encode(newPassword));
         else
@@ -192,7 +193,7 @@ public class accountService {
         }
     }
 
-    public accountResponse updateUserInfos(userInfoRequest request, Integer id) {
+    public accountResponse updateUserInfos(userInfoRequest request, UUID id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountToUpdate != null){
             if(
@@ -236,7 +237,7 @@ public class accountService {
 
     }
 
-    public accountResponse updateAccountInfos(accountInfoRequest request, Integer id) {
+    public accountResponse updateAccountInfos(accountInfoRequest request, UUID id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
             throw new requestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
@@ -255,7 +256,7 @@ public class accountService {
 
     }
 
-    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, Integer id) {
+    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, UUID id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         for(securityAnswerRequest sa : request){
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(

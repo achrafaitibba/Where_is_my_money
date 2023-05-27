@@ -10,17 +10,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class operationReponse {
-    private Integer operationId;
+    private UUID operationId;
     private double amount;
     private operationType operationType;
     private String description;
     @Temporal(TemporalType.DATE)
     private Date operationDate;
-    private Integer accountId;
+    private UUID accountId;
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -24,7 +25,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         " tools to enable users to get a clear picture of their expenses/incomes<br>" +
                         " and make informed decisions.",
                 title = "Where is my money API",
-                version = "1.0"
+                version = "1.0",
+                license = @License(
+                        name = "MIT License",
+                        url = "https://github.com/achrafaitibba/where_is_my_money/blob/master/LICENSE.md"
+                )
         ),
         servers = {
                 @Server(

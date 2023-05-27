@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Component
@@ -21,7 +18,7 @@ public class accountMapper {
     private final PasswordEncoder passwordEncoder;
 
     public account requestToAccount(registerRequest request){
-        Integer id = Math.abs(new Random().nextInt());
+        UUID id = UUID.randomUUID();
         account_.setAccountId(id);
         List<securityAnswer> securityAnswers = new ArrayList<>();
         for(int i = 0; i< request.getSecurityAnswers().size(); i++){

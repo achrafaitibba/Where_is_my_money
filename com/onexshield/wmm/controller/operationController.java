@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/operation")
@@ -61,7 +62,7 @@ public class operationController {
             }
     )
     @GetMapping("/all/{id}")
-    public ResponseEntity<List<operationReponse>> getAll(@PathVariable Integer id){
+    public ResponseEntity<List<operationReponse>> getAll(@PathVariable UUID id){
         return ResponseEntity.ok(operationService.getAllOperationsByAccount(id));
     }
 
@@ -80,7 +81,7 @@ public class operationController {
             }
     )
     @DeleteMapping("/delete/{id}")
-    public void deleteOperation(@PathVariable Integer id){
+    public void deleteOperation(@PathVariable UUID id){
         operationService.deleteOperation(id);
     }
 
@@ -99,7 +100,7 @@ public class operationController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<operationReponse> getOpereration(@PathVariable Integer id){
+    public ResponseEntity<operationReponse> getOpereration(@PathVariable UUID id){
         return ResponseEntity.ok(operationService.getOperation(id));
     }
     @Operation(
@@ -117,7 +118,7 @@ public class operationController {
             }
     )
     @PutMapping("/update/{id}")
-    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Integer id){
+    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable UUID id){
         return operationService.updateOperation(operationRequest, id);
     }
 
@@ -142,7 +143,7 @@ public class operationController {
     )
     @GetMapping("/all/stats/{id}")
     public ResponseEntity<List<operationStatsResponse>> getStats(@RequestBody operationStatsRequest request,
-                                          @PathVariable Integer id) throws Exception{
+                                          @PathVariable UUID id) throws Exception{
         return ResponseEntity.ok(operationService.getStats(id, request));
     }
 

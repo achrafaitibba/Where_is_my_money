@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -21,7 +22,7 @@ public class operationRegisterMapper implements Function<operationRequest, opera
         account a = new account();
         a.setAccountId(operationRequest.getAccountId());
         return operation.builder()
-                .operationId(Math.abs(new Random().nextInt()))
+                .operationId(UUID.randomUUID())
                 .amount(operationRequest.getAmount())
                 .operationType(operationRequest.getOperationType())
                 .description(operationRequest.getDescription())

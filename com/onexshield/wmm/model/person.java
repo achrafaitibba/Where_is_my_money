@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 @Data
@@ -23,7 +24,7 @@ public class person {
     @Id
     @Column(name = "person_id")
     @GeneratedValue
-    private Integer personId;
+    private UUID personId;
 
     @NotNull
     @Column(name = "first_name")

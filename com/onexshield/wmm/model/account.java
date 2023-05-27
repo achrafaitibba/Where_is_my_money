@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -28,7 +29,7 @@ import java.util.List;
 public class account implements UserDetails {
     @Id
     @Column(name = "account_id")
-    private Integer accountId;
+    private UUID accountId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_person_id", referencedColumnName = "person_id")

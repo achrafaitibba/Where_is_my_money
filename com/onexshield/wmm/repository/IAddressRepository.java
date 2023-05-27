@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface IAddressRepository extends JpaRepository<address, Integer> {
+import java.util.UUID;
+
+public interface IAddressRepository extends JpaRepository<address, UUID> {
     @Modifying
     @Query("""
 update address a set a.addressLabel = ?1 , a.country = ?2 , a.city = ?3 where a.addressId = ?4
@@ -13,5 +15,5 @@ update address a set a.addressLabel = ?1 , a.country = ?2 , a.city = ?3 where a.
     int updateByAddressId(String addressLabel,
                               String country,
                               String city,
-                              Integer id);
+                              UUID id);
 }

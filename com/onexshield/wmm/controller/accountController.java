@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -104,7 +105,7 @@ public class accountController {
             }
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Integer> deleteAccount(@PathVariable Integer id){
+    public ResponseEntity<Integer> deleteAccount(@PathVariable UUID id){
 
         return ResponseEntity.ok(accountService.deleteAccount(id));
 
@@ -129,7 +130,7 @@ public class accountController {
             }
     )
     @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
-    public ResponseEntity<Integer> updatePassword(@PathVariable Integer id,
+    public ResponseEntity<Integer> updatePassword(@PathVariable UUID id,
                                                   @PathVariable String oldPassword,
                                                   @PathVariable String newPassword){
         return ResponseEntity.ok(accountService.updatePassword(id, oldPassword, newPassword));
@@ -183,7 +184,7 @@ public class accountController {
     )
     @PutMapping("/update/user-infos/{id}")
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request,
-                                                           @PathVariable Integer id){
+                                                           @PathVariable UUID id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
     @Operation(
@@ -208,7 +209,7 @@ public class accountController {
     )
     @PutMapping("/update/account-infos/{id}")
     public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request,
-                                                              @PathVariable Integer id){
+                                                              @PathVariable UUID id){
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
     }
     @Operation(
@@ -229,7 +230,7 @@ public class accountController {
     )
     @PutMapping("update/security-infos/{id}")
     public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerRequest> request,
-                                                               @PathVariable Integer id){
+                                                               @PathVariable UUID id){
         return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
     }
     @Hidden
