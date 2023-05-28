@@ -12,5 +12,5 @@ public class WhereIsMyMoneyApplication {
 	//todo /add dependencies and full project to github not only the src file
 	//todo /use UUID for questions? or long?
 	//todo /test everything with UUID
-	//todo /testing and mocking
+	//todo /testing and mockingr
 }
