@@ -21,7 +21,7 @@ public class address {
     @Id
     @Column(name = "address_id")
     @GeneratedValue
-    private UUID addressId ;
+    private Long addressId ;
 
     @Column(name = "address_label")
     private String addressLabel;

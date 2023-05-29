@@ -62,7 +62,7 @@ public class operationController {
             }
     )
     @GetMapping("/all/{id}")
-    public ResponseEntity<List<operationReponse>> getAll(@PathVariable UUID id){
+    public ResponseEntity<List<operationReponse>> getAll(@PathVariable Long id){
         return ResponseEntity.ok(operationService.getAllOperationsByAccount(id));
     }
 
@@ -81,7 +81,7 @@ public class operationController {
             }
     )
     @DeleteMapping("/delete/{id}")
-    public void deleteOperation(@PathVariable UUID id){
+    public void deleteOperation(@PathVariable Long id){
         operationService.deleteOperation(id);
     }
 
@@ -100,7 +100,7 @@ public class operationController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<operationReponse> getOpereration(@PathVariable UUID id){
+    public ResponseEntity<operationReponse> getOpereration(@PathVariable Long id){
         return ResponseEntity.ok(operationService.getOperation(id));
     }
     @Operation(
@@ -118,7 +118,7 @@ public class operationController {
             }
     )
     @PutMapping("/update/{id}")
-    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable UUID id){
+    public operationReponse updateOperation(@RequestBody operationRequest operationRequest, @PathVariable Long id){
         return operationService.updateOperation(operationRequest, id);
     }
 
@@ -143,7 +143,7 @@ public class operationController {
     )
     @GetMapping("/all/stats/{id}")
     public ResponseEntity<List<operationStatsResponse>> getStats(@RequestBody operationStatsRequest request,
-                                          @PathVariable UUID id) throws Exception{
+                                          @PathVariable Long id) throws Exception{
         return ResponseEntity.ok(operationService.getStats(id, request));
     }
 

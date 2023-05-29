@@ -151,7 +151,7 @@ public class accountService {
         }
     }
 
-    public int deleteAccount(UUID id) {
+    public int deleteAccount(Long id) {
         account account = accountRepository.findByAccountId(id);
         int i = 0;
         if(account != null){
@@ -164,7 +164,7 @@ public class accountService {
         return  i;
     }
 
-    public int updatePassword(UUID id, String oldPassword, String newPassword) {
+    public int updatePassword(Long id, String oldPassword, String newPassword) {
         if(passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
             return accountRepository.updatePassword(id, passwordEncoder.encode(newPassword));
         else
@@ -193,7 +193,7 @@ public class accountService {
         }
     }
 
-    public accountResponse updateUserInfos(userInfoRequest request, UUID id) {
+    public accountResponse updateUserInfos(userInfoRequest request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountToUpdate != null){
             if(
@@ -231,13 +231,14 @@ public class accountService {
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
         revokeAllUserTokens(accountToUpdate);
         saveUserToken(accountToUpdate, jwtToken);
-        return accountMapper.accountToResponse(accountRepository.save(accountToUpdate),
+        return accountMapper.accountToResponse(
+                accountRepository.save(accountToUpdate),
                 jwtToken,
                 refreshToken);
 
     }
 
-    public accountResponse updateAccountInfos(accountInfoRequest request, UUID id) {
+    public accountResponse updateAccountInfos(accountInfoRequest request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
             throw new requestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
@@ -256,7 +257,7 @@ public class accountService {
 
     }
 
-    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, UUID id) {
+    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
         for(securityAnswerRequest sa : request){
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(

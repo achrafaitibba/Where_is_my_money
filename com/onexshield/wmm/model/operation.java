@@ -22,7 +22,7 @@ public class operation {
     @Id
     @NotNull
     @Column(name = "operation_id")
-    private UUID operationId;
+    private Long operationId;
 
     @NotNull
     private double amount;

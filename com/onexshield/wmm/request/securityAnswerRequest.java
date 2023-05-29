@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class securityAnswerRequest {
-    private UUID answerId;
+    private Long answerId;
     private String answer;
     private Integer questionId;
 }

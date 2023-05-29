@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface IOperationRepository extends JpaRepository<operation, UUID> {
-    List<operation> findAllByAccount_AccountId(UUID id);
+public interface IOperationRepository extends JpaRepository<operation, Long> {
+    List<operation> findAllByAccount_AccountId(Long id);
 
 }

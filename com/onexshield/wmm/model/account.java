@@ -29,7 +29,7 @@ import java.util.UUID;
 public class account implements UserDetails {
     @Id
     @Column(name = "account_id")
-    private UUID accountId;
+    private Long accountId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_person_id", referencedColumnName = "person_id")

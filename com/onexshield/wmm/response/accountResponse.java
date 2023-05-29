@@ -20,11 +20,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class accountResponse {
-    private UUID accountId;
+    private Long accountId;
     private String firstName;
     private String lastName;
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    //@Temporal(TemporalType.DATE)
+    private String birthDate;
     private gender gender;
     private String phoneNumber;
     private String addressLabel;

@@ -42,7 +42,7 @@ public class operationService {
 
     }
 
-    public List<operationReponse> getAllOperationsByAccount(UUID id){
+    public List<operationReponse> getAllOperationsByAccount(Long id){
         List<operation> operations = iOperationRepository.findAllByAccount_AccountId(id);
         return operations
                 .stream()
@@ -56,22 +56,22 @@ public class operationService {
                 .collect(Collectors.toList());
     }
 
-    public operationReponse updateOperation(operationRequest operationRequest, UUID id) {
+    public operationReponse updateOperation(operationRequest operationRequest, Long id) {
         operation operation = operationRegisterMapper.apply(operationRequest);
         operation.setOperationId(id);
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.save(operation));
 
     }
 
-    public void deleteOperation(UUID id) {
+    public void deleteOperation(Long id) {
         iOperationRepository.deleteById(id);
     }
 
-    public operationReponse getOperation(UUID id) {
+    public operationReponse getOperation(Long id) {
         return operationRegisterMapper.operationToOperationResponse(iOperationRepository.findById(id).orElseThrow());
     }
 
-    public List<operationStatsResponse> getStats(UUID id, operationStatsRequest request)throws Exception{
+    public List<operationStatsResponse> getStats(Long id, operationStatsRequest request)throws Exception{
         return operationStatsdao.getStats(id, request);
     }
 }

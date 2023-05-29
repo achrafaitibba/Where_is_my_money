@@ -17,5 +17,5 @@ public class operationRequest {
     private double amount ;
     private operationType operationType ;
     private String description ;
-    private UUID accountId;
+    private Long accountId;
 }

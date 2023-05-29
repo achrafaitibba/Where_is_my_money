@@ -21,7 +21,7 @@ public class securityAnswer {
     @Id
     @Column(name = "answer_id")
     @GeneratedValue
-    private UUID answerId;
+    private Long answerId;
 
     @NotNull
     private String answer;

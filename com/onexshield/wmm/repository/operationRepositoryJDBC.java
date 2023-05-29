@@ -18,7 +18,7 @@ public class operationRepositoryJDBC {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public String queryBuilder(UUID id, operationStatsRequest request){
+    public String queryBuilder(Long id, operationStatsRequest request){
         String querySelection = "";
         String queryGroupBy = "";
         switch (request.getColumnFrame()){
@@ -44,7 +44,7 @@ public class operationRepositoryJDBC {
                         "and transaction_date >= '"+request.getStartDate()+"' " +
                         "group by "+queryGroupBy+"";
     }
-    public List<operationStatsResponse> getStats(UUID id, operationStatsRequest request)throws Exception {
+    public List<operationStatsResponse> getStats(Long id, operationStatsRequest request)throws Exception {
         return jdbcTemplate.query(queryBuilder(id, request), new operationStatsMapper());
     }
 

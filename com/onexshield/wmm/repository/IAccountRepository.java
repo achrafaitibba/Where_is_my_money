@@ -11,22 +11,22 @@ import java.util.Optional;
 import java.util.UUID;
 
 
-public interface IAccountRepository extends JpaRepository<account, UUID> {
+public interface IAccountRepository extends JpaRepository<account, Long> {
 
     Optional<account> findByEmail(String email);
 
-    account findByAccountId(UUID integer);
+    account findByAccountId(Long integer);
 
     @Modifying
     @Query("update account a set" +
             " a.accountStatus = com.onexshield.wmm.model.status.INACTIVE " +
             "where a.accountId = ?1 ")
-    int setInactive(@Param("email") UUID id);
+    int setInactive(@Param("email") Long id);
 
 
     @Modifying
     @Query("update account a set a.password = ?2 where a.accountId = ?1")
-    int updatePassword(@Param("id") UUID id, @Param("newPassword") String newPassword);
+    int updatePassword(@Param("id") Long id, @Param("newPassword") String newPassword);
 
     @Modifying
     @Query("update account a set a.password = ?2 where a.email = ?1")

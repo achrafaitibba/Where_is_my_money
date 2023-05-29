@@ -17,11 +17,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class operationReponse {
-    private UUID operationId;
+    private Long operationId;
     private double amount;
     private operationType operationType;
     private String description;
     @Temporal(TemporalType.DATE)
     private Date operationDate;
-    private UUID accountId;
+    private Long accountId;
 }

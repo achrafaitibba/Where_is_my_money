@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.UUID;
 
-public interface ISecurityAnswerRepository extends JpaRepository<securityAnswer, UUID> {
+public interface ISecurityAnswerRepository extends JpaRepository<securityAnswer, Long> {
 
     securityAnswer findByAccount_EmailAndQuestionQuestionId(String accountEmail, Integer QuestionId);
 
@@ -15,8 +15,8 @@ public interface ISecurityAnswerRepository extends JpaRepository<securityAnswer,
     @Query("""
 update securityAnswer sa set sa.answer = ?3 , sa.question.questionId = ?4 where sa.answerId = ?1 and sa.account.accountId = ?2
 """)
-    int updateByAccount_AccountIdAndAnswerId(UUID anwerId,
-                                             UUID accountId,
+    int updateByAccount_AccountIdAndAnswerId(Long anwerId,
+                                             Long accountId,
                                              String answer,
                                              Integer questionId);
 }

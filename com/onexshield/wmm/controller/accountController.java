@@ -105,7 +105,7 @@ public class accountController {
             }
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Integer> deleteAccount(@PathVariable UUID id){
+    public ResponseEntity<Integer> deleteAccount(@PathVariable Long id){
 
         return ResponseEntity.ok(accountService.deleteAccount(id));
 
@@ -130,7 +130,7 @@ public class accountController {
             }
     )
     @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
-    public ResponseEntity<Integer> updatePassword(@PathVariable UUID id,
+    public ResponseEntity<Integer> updatePassword(@PathVariable Long id,
                                                   @PathVariable String oldPassword,
                                                   @PathVariable String newPassword){
         return ResponseEntity.ok(accountService.updatePassword(id, oldPassword, newPassword));
@@ -184,7 +184,7 @@ public class accountController {
     )
     @PutMapping("/update/user-infos/{id}")
     public ResponseEntity<accountResponse> updateUserInfos(@RequestBody userInfoRequest request,
-                                                           @PathVariable UUID id){
+                                                           @PathVariable Long id){
         return ResponseEntity.ok(accountService.updateUserInfos(request, id));
     }
     @Operation(
@@ -209,7 +209,7 @@ public class accountController {
     )
     @PutMapping("/update/account-infos/{id}")
     public ResponseEntity<accountResponse> updateAccountInfos(@RequestBody accountInfoRequest request,
-                                                              @PathVariable UUID id){
+                                                              @PathVariable Long id){
         return ResponseEntity.ok(accountService.updateAccountInfos(request, id));
     }
     @Operation(
@@ -230,7 +230,7 @@ public class accountController {
     )
     @PutMapping("update/security-infos/{id}")
     public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerRequest> request,
-                                                               @PathVariable UUID id){
+                                                               @PathVariable Long id){
         return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
     }
     @Hidden

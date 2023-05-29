@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class accountMapper {
     private final PasswordEncoder passwordEncoder;
 
     public account requestToAccount(registerRequest request){
-        UUID id = UUID.randomUUID();
+        Long id = new Random().nextLong();
         account_.setAccountId(id);
         List<securityAnswer> securityAnswers = new ArrayList<>();
         for(int i = 0; i< request.getSecurityAnswers().size(); i++){
@@ -64,7 +65,7 @@ public class accountMapper {
                 .accountId(account.getAccountId())
                 .firstName(account.getPerson().getFirstName())
                 .lastName(account.getPerson().getLastName())
-                .birthDate(account.getPerson().getBirthDate())
+                .birthDate(new SimpleDateFormat("YYYY-MM-dd").format(account.getPerson().getBirthDate()))
                 .gender(account.getPerson().getGender())
                 .phoneNumber(account.getPerson().getPhoneNumber())
                 .addressLabel(account.getPerson().getAddress().getAddressLabel())

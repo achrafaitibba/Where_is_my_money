@@ -24,7 +24,7 @@ public class person {
     @Id
     @Column(name = "person_id")
     @GeneratedValue
-    private UUID personId;
+    private Long personId;
 
     @NotNull
     @Column(name = "first_name")
