@@ -11,12 +11,18 @@
 	<groupId>com.onexshield</groupId>
 	<artifactId>where_is_my_money</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>where_is_my_money</name>
+	<name>Where Is My Money</name>
 	<description>where_is_my_money</description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -94,6 +100,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>wmm</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
