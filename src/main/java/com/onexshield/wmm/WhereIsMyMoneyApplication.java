@@ -22,4 +22,5 @@ public class WhereIsMyMoneyApplication extends SpringBootServletInitializer {
 	//todo /in readMe add: dependencies, version, how to test, link to front-end....
 	//todo /clean the project, check names, remove unused packages, separate dependencies with comments
 	//todo /add cities and countries  endpoint ?
+	//todo /ignore answerId while registration
 }
