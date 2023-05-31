@@ -56,4 +56,5 @@ import io.swagger.v3.oas.annotations.servers.Server;
         in = SecuritySchemeIn.HEADER
 )
 public class openApiConfig {
+
 }
