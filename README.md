@@ -28,7 +28,7 @@ You need to download :
 ```
 - Change directory to :/target
 - Copy the war file and past it to your-tomcat-directory/webapps
-- Change directory to : your-tomcat-directory/bib
+- Change directory to : your-tomcat-directory/bin
 - In command line run the following 
 ```bash
 catalina.bat run
