@@ -20,6 +20,5 @@ public class WhereIsMyMoneyApplication extends SpringBootServletInitializer {
 	//todo /testing and mocking
 	//todo /ignore answerId while registration
 	//todo /solve creation of many question while deploying on Railway
-	//todo /only pos IDs
 	//todo /delete operation by Id, check its return, do what if Id doesn't exist
 }

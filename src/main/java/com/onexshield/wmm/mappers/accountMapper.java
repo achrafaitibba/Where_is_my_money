@@ -19,7 +19,7 @@ public class accountMapper {
     private final PasswordEncoder passwordEncoder;
 
     public account requestToAccount(registerRequest request){
-        Long id = new Random().nextLong();
+        Long id = Math.abs(new Random().nextLong());
         account_.setAccountId(id);
         List<securityAnswer> securityAnswers = new ArrayList<>();
         for(int i = 0; i< request.getSecurityAnswers().size(); i++){
