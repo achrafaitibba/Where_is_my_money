@@ -34,6 +34,7 @@ public class securityConfigurationFilter {
                         "/api/v1/account/register",
                         "/api/v1/account/password-recovery/*/*",
                         "/api/v1/account/authenticate",
+                        "/api/v1/account/emailValidation/*",
                         "/api/v1/questions",
                         "/swagger-ui/index.html#",
                         "/v2/api-docs",

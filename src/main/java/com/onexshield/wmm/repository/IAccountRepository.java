@@ -15,6 +15,11 @@ public interface IAccountRepository extends JpaRepository<account, Long> {
 
     Optional<account> findByEmail(String email);
 
+    @Query("""
+    select case when count(a) > 0 then true else false end from account a where a.email = :email 
+""")
+    boolean existsByEmail(@Param("email") String email);
+
     account findByAccountId(Long integer);
 
     @Modifying

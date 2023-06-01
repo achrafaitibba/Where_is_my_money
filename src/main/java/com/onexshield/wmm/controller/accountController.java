@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -90,12 +91,37 @@ public class accountController {
         return ResponseEntity.ok(accountService.authenticate(request));
 
     }
+
+
+    @Operation(
+            summary = "Email validation",
+            description = "To register you need to enter the username/email to check if the email it's already used or available,",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Email is used by another account",
+                            responseCode = "409"
+                    )
+
+            }
+    )
+    @PostMapping("/emailValidation/{email}")
+    public ResponseEntity<Boolean> emailCheck(
+            @PathVariable String email
+    ){
+        return ResponseEntity.ok(accountService.emailCheck(email));
+    }
+
+
     @Operation(
             summary = "Account deletion",
             description = "To delete an account you need to pass the account id via url params",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "Success, returns true if email is available for use",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -110,6 +136,7 @@ public class accountController {
         return ResponseEntity.ok(accountService.deleteAccount(id));
 
     }
+
 
     @Operation(
             summary = "Password reset",

@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,6 +43,16 @@ public class accountService {
     private final PasswordEncoder passwordEncoder;
     private final ISecurityAnswerRepository securityAnswerRepository;
     private final IAddressRepository addressRepository;
+
+    public boolean emailCheck(String email) {
+        boolean valid = accountRepository.existsByEmail(email);
+        if(valid){
+            throw new requestException("Account already exist",
+                    HttpStatus.CONFLICT);
+        }
+        return true;
+
+    }
 
     public accountResponse register(registerRequest request) {
         if(accountRepository.findByEmail(request.getEmail()).isPresent()){
@@ -275,4 +284,6 @@ public class accountService {
                 jwtToken,
                 refreshToken);
     }
+
+
 }
