@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -23,7 +22,6 @@ public class accountResponse {
     private Long accountId;
     private String firstName;
     private String lastName;
-    //@Temporal(TemporalType.DATE)
     private String birthDate;
     private gender gender;
     private String phoneNumber;

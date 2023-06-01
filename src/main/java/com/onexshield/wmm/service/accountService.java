@@ -38,7 +38,7 @@ public class accountService {
     private final IAccountRepository accountRepository;
     private final jwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final ITokenRepository ITokenRepository;
+    private final ITokenRepository tokenRepository;
     private final accountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
     private final ISecurityAnswerRepository securityAnswerRepository;
@@ -106,7 +106,7 @@ public class accountService {
 
 
     private void revokeAllUserTokens(account account){
-        var validUserTokens = ITokenRepository.findAllValidTokensByUser(account.getAccountId());
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(account.getAccountId());
         if( validUserTokens.isEmpty())
             return;
         validUserTokens
@@ -117,7 +117,7 @@ public class accountService {
                     return t;
                 })
                 .collect(toList());
-        ITokenRepository.saveAll(validUserTokens);
+        tokenRepository.saveAll(validUserTokens);
     }
     private void saveUserToken(account account, String jwtToken) {
         var token = com.onexshield.wmm.configuration.token.token.builder()
@@ -127,7 +127,7 @@ public class accountService {
                 .expired(false)
                 .revoked(false)
                 .build();
-        ITokenRepository.save(token);
+        tokenRepository.save(token);
     }
 
     public void refreshToken(HttpServletRequest request,

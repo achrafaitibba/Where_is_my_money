@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class securityQuestionInitializer {
 
-    private final ISecurityQuestionRepository iSecurityQuestionRepository;
+    private final ISecurityQuestionRepository securityQuestionRepository;
 
     @PostConstruct
     public void initiateSecurityQuestions(){
@@ -35,17 +35,17 @@ public class securityQuestionInitializer {
         question7.setQuestion("What is the name of your favorite teacher?");
         securityQuestion question8 = new securityQuestion();
         question8.setQuestion("What is your favorite book?");
-        iSecurityQuestionRepository.save(question1);
-        iSecurityQuestionRepository.save(question2);
-        iSecurityQuestionRepository.save(question3);
-        iSecurityQuestionRepository.save(question4);
-        iSecurityQuestionRepository.save(question5);
-        iSecurityQuestionRepository.save(question6);
-        iSecurityQuestionRepository.save(question7);
-        iSecurityQuestionRepository.save(question8);
+        securityQuestionRepository.save(question1);
+        securityQuestionRepository.save(question2);
+        securityQuestionRepository.save(question3);
+        securityQuestionRepository.save(question4);
+        securityQuestionRepository.save(question5);
+        securityQuestionRepository.save(question6);
+        securityQuestionRepository.save(question7);
+        securityQuestionRepository.save(question8);
     }
 
     public List<securityQuestion> getAll() {
-        return iSecurityQuestionRepository.findAll();
+        return securityQuestionRepository.findAll();
     }
 }

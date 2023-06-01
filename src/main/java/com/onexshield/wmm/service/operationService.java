@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
 public class operationService {
 
     private final IOperationRepository iOperationRepository;
-    private final IAccountRepository iAccountRepository;
+    private final IAccountRepository accountRepository;
     private final operationRegisterMapper operationRegisterMapper;
-    private final operationRepositoryJDBC operationStatsdao;
+    private final operationRepositoryJDBC operationStatsDao;
     public operationReponse createOperation(operationRequest operation){
-        Optional<account> account1= Optional.ofNullable(iAccountRepository.findByAccountId(operation.getAccountId()));
+        Optional<account> account1= Optional.ofNullable(accountRepository.findByAccountId(operation.getAccountId()));
         if(account1.isPresent()){
             return operationRegisterMapper.operationToOperationResponse(
                     iOperationRepository.save(
@@ -72,6 +72,6 @@ public class operationService {
     }
 
     public List<operationStatsResponse> getStats(Long id, operationStatsRequest request)throws Exception{
-        return operationStatsdao.getStats(id, request);
+        return operationStatsDao.getStats(id, request);
     }
 }

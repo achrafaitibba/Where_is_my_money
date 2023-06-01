@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.UUID;
-
 public interface ISecurityAnswerRepository extends JpaRepository<securityAnswer, Long> {
 
     securityAnswer findByAccount_EmailAndQuestionQuestionId(String accountEmail, Integer QuestionId);
