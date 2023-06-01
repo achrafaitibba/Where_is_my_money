@@ -82,6 +82,11 @@ on Railway.
 ## Front-End repository
 Not available for now hh
 
+## Documentation path
+``` markdown
+https://{HOSTING:PORT}/swagger-ui/index.html
+```
+
 ## Links
 [MIT LICENSE](https://github.com/achrafaitibba/where_is_my_money/blob/master/LICENSE.md)
 
