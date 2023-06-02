@@ -33,12 +33,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
         ),
         servers = {
                 @Server(
-                        description = "Local ENV",
-                        url = "http://localhost:8080"
+                        description = "PROD/test ENV",
+                        url = "https://whereismymoney-production-9d7f.up.railway.app"
                 ),
                 @Server(
-                        description = "Dev/test ENV",
-                        url = "https://achrafaitibba.com"
+                        description = "Local ENV",
+                        url = "http://localhost:8080"
                 )
         },
         security = {
