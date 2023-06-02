@@ -74,6 +74,7 @@ public class accountMapper {
                 .email(account.getEmail())
                 .currency(account.getCurrency())
                 .creationDate(account.getCreationDate())
+                .profileImageId(account.getProfileImage() == null ? null : account.getProfileImage().getImageId())
                 .securityAnswers(account.getSecurityAnswers()
                         .stream()
                         .map(

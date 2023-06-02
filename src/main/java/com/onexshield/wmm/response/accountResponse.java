@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -32,11 +33,10 @@ public class accountResponse {
     private currency currency;
     @Temporal(TemporalType.DATE)
     private Date creationDate;
+    private UUID profileImageId;
     private List<securityAnswerResponse> securityAnswers;
-
     @JsonProperty("access_token")
     private String accessToken;
-
     @JsonProperty("refresh_token")
     private String refreshToken;
 

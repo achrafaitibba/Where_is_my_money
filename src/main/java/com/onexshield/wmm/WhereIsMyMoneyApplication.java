@@ -18,6 +18,6 @@ public class WhereIsMyMoneyApplication extends SpringBootServletInitializer {
 
 	//todo create some objects to avoid creating objects everytime i try to test
 	//todo /testing and mocking
-	//todo /solve creation of many question while deploying on Railway
 	//todo /delete operation by Id, check its return, do what if Id doesn't exist
+	//todo /add pro env to documentation ; https://whereismymoney-production-9d7f.up.railway.app/
 }

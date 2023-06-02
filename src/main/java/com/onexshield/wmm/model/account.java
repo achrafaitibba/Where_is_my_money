@@ -1,5 +1,6 @@
 package com.onexshield.wmm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onexshield.wmm.configuration.token.token;
 import jakarta.persistence.*;
@@ -62,6 +63,11 @@ public class account implements UserDetails {
     @Size(max = 3, min = 3)
     @JsonManagedReference
     private List<securityAnswer> securityAnswers;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_image_id", referencedColumnName = "image_id")
+    @JsonIgnore
+    private profileImage profileImage;
 
     @OneToMany(mappedBy = "account")
     private List<token> tokens;
