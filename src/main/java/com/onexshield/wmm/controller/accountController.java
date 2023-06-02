@@ -181,7 +181,7 @@ public class accountController {
             }
     )
     @PutMapping("/password-recovery/{email}/{newPassword}")
-    public ResponseEntity<Object> recoverPassword(@RequestBody List<securityAnswerRequest> request,
+    public ResponseEntity<Object> recoverPassword(@RequestBody List<securityAnswerRegisterRequest> request,
                                                    @PathVariable String email,
                                                    @PathVariable String newPassword){
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
@@ -253,7 +253,7 @@ public class accountController {
             }
     )
     @PutMapping("update/security-infos/{id}")
-    public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerRequest> request,
+    public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerUpdateRequest> request,
                                                                @PathVariable Long id){
         return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
     }

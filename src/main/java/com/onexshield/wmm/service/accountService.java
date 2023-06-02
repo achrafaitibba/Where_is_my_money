@@ -182,13 +182,13 @@ public class accountService {
     }
 
 
-    public Object recoverPassword(List<securityAnswerRequest> request, String email, String newPassword) {
+    public Object recoverPassword(List<securityAnswerRegisterRequest> request, String email, String newPassword) {
         int c = 0;
         if(!accountRepository.findByEmail(email).isPresent()){
             throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
         }else {
-            for (securityAnswerRequest r: request) {
+            for (securityAnswerRegisterRequest r: request) {
                 securityAnswer sa = securityAnswerRepository.findByAccount_EmailAndQuestionQuestionId(email, r.getQuestionId());
                 if(sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())){
                     c++;
@@ -266,9 +266,9 @@ public class accountService {
 
     }
 
-    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerRequest> request, Long id) {
+    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerUpdateRequest> request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
-        for(securityAnswerRequest sa : request){
+        for(securityAnswerUpdateRequest sa : request){
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(
                     sa.getAnswerId(),
                     id,

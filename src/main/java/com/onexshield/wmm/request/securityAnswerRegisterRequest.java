@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class securityAnswerRequest {
-    private Long answerId;
+public class securityAnswerRegisterRequest {
     private String answer;
     private Integer questionId;
 }

@@ -26,7 +26,6 @@ public class accountMapper {
             var as = new securityAnswer();
             var qe = new securityQuestion();
             as.setAnswer(request.getSecurityAnswers().get(i).getAnswer());
-            as.setAnswerId(request.getSecurityAnswers().get(i).getAnswerId());
             qe.setQuestionId(request.getSecurityAnswers().get(i).getQuestionId());
             as.setQuestion(qe);
             as.setAccount(account_);

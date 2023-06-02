@@ -32,6 +32,6 @@ public class registerRequest {
     private String password;
     private currency currency;
     @Size(min = 3, max = 3, message = "3 security questions are required")
-    private List<securityAnswerRequest> securityAnswers;
+    private List<securityAnswerRegisterRequest> securityAnswers;
 
 }
