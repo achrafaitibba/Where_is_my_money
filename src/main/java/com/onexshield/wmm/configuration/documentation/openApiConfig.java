@@ -34,7 +34,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "PROD/test ENV",
-                        url = "https://whereismymoney-production-9d7f.up.railway.app"
+                        url = "https://wmm.up.railway.app"
                 ),
                 @Server(
                         description = "Local ENV",
