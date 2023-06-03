@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -252,11 +253,12 @@ public class accountController {
                     )
             }
     )
-    @PutMapping("update/security-infos/{id}")
+    @PutMapping("/update/security-infos/{id}")
     public ResponseEntity<accountResponse> updateSecurityInfos(@RequestBody List<securityAnswerUpdateRequest> request,
                                                                @PathVariable Long id){
         return ResponseEntity.ok(accountService.updateSecurityInfos(request, id));
     }
+
     @Hidden
     @PostMapping("/refresh-token")
     public void refreshToken(
