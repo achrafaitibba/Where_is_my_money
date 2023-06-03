@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
@@ -47,7 +46,7 @@ public class accountService {
 
     public boolean emailCheck(String email) {
         boolean valid = accountRepository.existsByEmail(email);
-        if(valid){
+        if (valid) {
             throw new requestException("Account already exist",
                     HttpStatus.CONFLICT);
         }
@@ -56,17 +55,17 @@ public class accountService {
     }
 
     public accountResponse register(registerRequest request) {
-        if(accountRepository.findByEmail(request.getEmail()).isPresent()){
-            if(accountRepository.findByEmail(request.getEmail()).get().getAccountStatus().equals(status.INACTIVE)){
+        if (accountRepository.findByEmail(request.getEmail()).isPresent()) {
+            if (accountRepository.findByEmail(request.getEmail()).get().getAccountStatus().equals(status.INACTIVE)) {
                 throw new requestException("The account you are trying to reach has been deleted",
                         HttpStatus.BAD_REQUEST);
 
-            }else{
+            } else {
                 throw new requestException("Account already exist",
                         HttpStatus.CONFLICT);
             }
 
-        }else{
+        } else {
             account savedUser = accountRepository.save(accountMapper.requestToAccount(request));
             var jwtToken = jwtService.generateToken(accountMapper.requestToAccount(request));
             var refreshToken = jwtService.generateRefreshToken(accountMapper.requestToAccount(request));
@@ -78,13 +77,13 @@ public class accountService {
 
     public accountResponse authenticate(authenticationRequest request) {
         Optional<account> toAuthenticate = accountRepository.findByEmail(request.getEmail());
-        if(!toAuthenticate.isPresent()){
+        if (!toAuthenticate.isPresent()) {
             throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
-        }else if(toAuthenticate.isPresent()){
-            if(!passwordEncoder.matches(request.getPassword(),toAuthenticate.get().getPassword())){
+        } else if (toAuthenticate.isPresent()) {
+            if (!passwordEncoder.matches(request.getPassword(), toAuthenticate.get().getPassword())) {
                 throw new requestException("The password you entered is incorrect", HttpStatus.CONFLICT);
-            }else if(toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)){
+            } else if (toAuthenticate.get().getAccountStatus().equals(status.INACTIVE)) {
                 throw new requestException("The account you are trying to reach has been deleted",
                         HttpStatus.BAD_REQUEST);
             }
@@ -106,76 +105,21 @@ public class accountService {
     }
 
 
-    private void revokeAllUserTokens(account account){
-        var validUserTokens = tokenRepository.findAllValidTokensByUser(account.getAccountId());
-        if( validUserTokens.isEmpty())
-            return;
-        validUserTokens
-                .stream()
-                .map(t -> {
-                    t.setExpired(true);
-                    t.setRevoked(true);
-                    return t;
-                })
-                .collect(toList());
-        tokenRepository.saveAll(validUserTokens);
-    }
-    private void saveUserToken(account account, String jwtToken) {
-        var token = com.onexshield.wmm.configuration.token.token.builder()
-                .account(account)
-                .token(jwtToken)
-                .tokenType(tokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
-        tokenRepository.save(token);
-    }
-
-    public void refreshToken(HttpServletRequest request,
-                             HttpServletResponse response
-    )throws Exception {
-        final String authHeader = request.getHeader("Authorization");
-        final String refreshToken;
-        final String userEmail;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
-            return;
-        }
-        refreshToken = authHeader.substring(7); // 7 = "Bearer".length + 1 , space
-        // extract user email from JWT token; because we set the email as username in the user Model
-        userEmail = jwtService.extractUsername(refreshToken);
-        if(userEmail != null ){
-            var user = this.accountRepository.findByEmail(userEmail).orElseThrow();
-            if(jwtService.isTokenValid(refreshToken, user)){
-                var accessToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
-                saveUserToken(user, accessToken);
-                var authResonse = accountResponse.builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .build();
-                new ObjectMapper()
-                        .writeValue(
-                                response.getOutputStream(),
-                                authResonse);
-            }
-        }
-    }
-
     public int deleteAccount(Long id) {
         account account = accountRepository.findByAccountId(id);
         int i = 0;
-        if(account != null){
+        if (account != null) {
             revokeAllUserTokens(accountRepository.findByAccountId(id));
-             i = accountRepository.setInactive(id);
-        }else{
+            i = accountRepository.setInactive(id);
+        } else {
             throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
         }
-        return  i;
+        return i;
     }
 
     public int updatePassword(Long id, String oldPassword, String newPassword) {
-        if(passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
+        if (passwordEncoder.matches(oldPassword, accountRepository.findByAccountId(id).getPassword()))
             return accountRepository.updatePassword(id, passwordEncoder.encode(newPassword));
         else
             throw new requestException("Incorrect password",
@@ -185,18 +129,18 @@ public class accountService {
 
     public Object recoverPassword(List<securityAnswerRegisterRequest> request, String email, String newPassword) {
         int c = 0;
-        if(!accountRepository.findByEmail(email).isPresent()){
+        if (!accountRepository.findByEmail(email).isPresent()) {
             throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
-        }else {
-            for (securityAnswerRegisterRequest r: request) {
+        } else {
+            for (securityAnswerRegisterRequest r : request) {
                 securityAnswer sa = securityAnswerRepository.findByAccount_EmailAndQuestionQuestionId(email, r.getQuestionId());
-                if(sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())){
+                if (sa.getAnswer().toUpperCase().equals(r.getAnswer().toUpperCase())) {
                     c++;
                 }
             }
-            if(c == 3)
-                return accountRepository.updatePassword(email,passwordEncoder.encode(newPassword));
+            if (c == 3)
+                return accountRepository.updatePassword(email, passwordEncoder.encode(newPassword));
             else
                 throw new requestException("Security Questions OR Answers are incorrect",
                         HttpStatus.UNAUTHORIZED);
@@ -205,19 +149,19 @@ public class accountService {
 
     public accountResponse updateUserInfos(userInfoRequest request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
-        if(accountToUpdate != null){
-            if(
+        if (accountToUpdate != null) {
+            if (
                     request.getFirstName() == null ||
-                    request.getLastName() == null ||
-                    request.getGender() == null ||
-                    request.getBirthDate() == null ||
-                    request.getPhoneNumber() == null ||
-                    request.getAddressLabel() == null ||
-                    request.getCountry() == null ||
-                    request.getCity() == null ){
+                            request.getLastName() == null ||
+                            request.getGender() == null ||
+                            request.getBirthDate() == null ||
+                            request.getPhoneNumber() == null ||
+                            request.getAddressLabel() == null ||
+                            request.getCountry() == null ||
+                            request.getCity() == null) {
                 throw new requestException("All fields are required",
                         HttpStatus.BAD_REQUEST);
-            }else{
+            } else {
                 accountToUpdate.getPerson().setFirstName(request.getFirstName());
                 accountToUpdate.getPerson().setLastName(request.getLastName());
                 accountToUpdate.getPerson().setGender(request.getGender());
@@ -233,7 +177,7 @@ public class accountService {
                                 .getAddressId()
                 );
             }
-        }else{
+        } else {
             throw new requestException("Account doesn't exist",
                     HttpStatus.NOT_FOUND);
         }
@@ -250,7 +194,7 @@ public class accountService {
 
     public accountResponse updateAccountInfos(accountInfoRequest request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
-        if(accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null){
+        if (accountRepository.findByEmail(request.getEmail()).isPresent() && accountToUpdate != null) {
             throw new requestException("The email you provided is already associated with another account.", HttpStatus.CONFLICT);
         } else {
             accountToUpdate.setCurrency(request.getCurrency());
@@ -267,16 +211,17 @@ public class accountService {
 
     }
 
-    public accountResponse updateSecurityInfos(@Size(min = 3,max = 3) List<securityAnswerUpdateRequest> request, Long id) {
+    public accountResponse updateSecurityInfos(@Size(min = 3, max = 3) List<securityAnswerUpdateRequest> request, Long id) {
         account accountToUpdate = accountRepository.findByAccountId(id);
-        for(securityAnswerUpdateRequest sa : request){
+        for (securityAnswerUpdateRequest sa : request) {
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(
                     sa.getAnswerId(),
                     id,
                     sa.getAnswer(),
                     sa.getQuestionId()
             );
-        };
+        }
+        ;
         var jwtToken = jwtService.generateToken(accountToUpdate);
         var refreshToken = jwtService.generateRefreshToken(accountToUpdate);
         revokeAllUserTokens(accountToUpdate);
@@ -286,6 +231,61 @@ public class accountService {
                 refreshToken);
     }
 
+    private void revokeAllUserTokens(account account) {
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(account.getAccountId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens
+                .stream()
+                .map(t -> {
+                    t.setExpired(true);
+                    t.setRevoked(true);
+                    return t;
+                })
+                .collect(toList());
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+    private void saveUserToken(account account, String jwtToken) {
+        var token = com.onexshield.wmm.configuration.token.token.builder()
+                .account(account)
+                .token(jwtToken)
+                .tokenType(tokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
+    public void refreshToken(HttpServletRequest request,
+                             HttpServletResponse response
+    ) throws Exception {
+        final String authHeader = request.getHeader("Authorization");
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return;
+        }
+        refreshToken = authHeader.substring(7); // 7 = "Bearer".length + 1 , space
+        // extract user email from JWT token; because we set the email as username in the user Model
+        userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = this.accountRepository.findByEmail(userEmail).orElseThrow();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+                var authResonse = accountResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+                new ObjectMapper()
+                        .writeValue(
+                                response.getOutputStream(),
+                                authResonse);
+            }
+        }
+    }
 
 
 }

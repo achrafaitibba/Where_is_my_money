@@ -1,6 +1,5 @@
 package com.onexshield.wmm.service;
 
-import com.onexshield.wmm.mappers.accountMapper;
 import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.profileImage;
 import com.onexshield.wmm.repository.IAccountRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
