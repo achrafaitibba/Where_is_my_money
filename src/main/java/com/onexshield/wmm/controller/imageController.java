@@ -1,5 +1,6 @@
 package com.onexshield.wmm.controller;
 
+import com.onexshield.wmm.request.imageDeletionRequest;
 import com.onexshield.wmm.request.profileImageDownloadRequest;
 import com.onexshield.wmm.service.imageService;
 import com.onexshield.wmm.response.profileImageUploadResponse;
@@ -10,12 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/image")
 @RequiredArgsConstructor
 @Tag(name = "Image")
 public class imageController {
     //todo /remove image by account Id or image id ?
+    //todo /documentation
+    //todo /return image Id after creating, by userId
 
     private final imageService imageService;
 
@@ -32,6 +37,12 @@ public class imageController {
         return ResponseEntity.ok()
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageService.downloadImage(request));
+    }
+
+
+    @DeleteMapping("/delete")
+    public void deleteImageByAccountId(@RequestBody imageDeletionRequest request){
+         imageService.deleteByAccountId(request);
     }
 
 }

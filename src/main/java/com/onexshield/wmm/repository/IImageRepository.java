@@ -20,4 +20,6 @@ public interface IImageRepository extends JpaRepository<profileImage, UUID> {
         and a.accountId = :accountId 
 """)
     Optional<profileImage> findByImageIdAndAccountId(@Param("imageId") UUID imageId, @Param("accountId") Long accountId);
+
+
 }

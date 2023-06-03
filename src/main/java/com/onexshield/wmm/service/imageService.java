@@ -5,6 +5,7 @@ import com.onexshield.wmm.model.account;
 import com.onexshield.wmm.model.profileImage;
 import com.onexshield.wmm.repository.IAccountRepository;
 import com.onexshield.wmm.repository.IImageRepository;
+import com.onexshield.wmm.request.imageDeletionRequest;
 import com.onexshield.wmm.request.profileImageDownloadRequest;
 import com.onexshield.wmm.response.profileImageUploadResponse;
 import com.onexshield.wmm.util.imageUtils;
@@ -48,4 +49,11 @@ public class imageService {
 
     }
 
+    public void deleteByAccountId(imageDeletionRequest request ) {
+        Optional<account> account = Optional.ofNullable(accountRepository.findByAccountId(request.getAccountId()));
+        if(account.isPresent()){
+            account.get().setProfileImage(null);
+            imageRepository.deleteById(request.getImageId());
+        }
+    }
 }
