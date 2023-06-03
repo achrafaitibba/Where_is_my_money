@@ -19,8 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Tag(name = "Image")
 public class imageController {
-    //todo /return image Id after creating, by userId
-
+    
     private final imageService imageService;
 
     @Operation(
