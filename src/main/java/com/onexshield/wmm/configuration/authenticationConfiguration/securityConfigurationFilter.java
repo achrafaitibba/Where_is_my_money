@@ -29,7 +29,7 @@ public class securityConfigurationFilter {
         httpSecurity
                 .csrf()
                 .disable()
-                .cors()
+                .cors() // to allow cors from all origins
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
@@ -57,6 +57,7 @@ public class securityConfigurationFilter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) //enable frames, I used it for swagger documentation
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 
