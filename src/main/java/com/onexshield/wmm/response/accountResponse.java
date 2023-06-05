@@ -20,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class accountResponse {
-    private Long accountId;
+    private String accountId;
     private String firstName;
     private String lastName;
     private String birthDate;
@@ -33,7 +33,7 @@ public class accountResponse {
     private currency currency;
     @Temporal(TemporalType.DATE)
     private Date creationDate;
-    private UUID profileImageId;
+    private String profileImageId;
     private List<securityAnswerResponse> securityAnswers;
     @JsonProperty("access_token")
     private String accessToken;

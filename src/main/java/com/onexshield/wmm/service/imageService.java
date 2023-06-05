@@ -37,7 +37,7 @@ public class imageService {
         accountToUpdate.setProfileImage(toSave);
         accountRepository.save(accountToUpdate);
         return profileImageUploadResponse.builder()
-                .imageId(toSave.getImageId())
+                .imageId(String.valueOf(toSave.getImageId()))
                 .build();
     }
 

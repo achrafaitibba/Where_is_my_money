@@ -16,11 +16,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class operationReponse {
-    private Long operationId;
+    private String operationId;
     private double amount;
     private operationType operationType;
     private String description;
     @Temporal(TemporalType.DATE)
     private Date operationDate;
-    private Long accountId;
+    private String accountId;
 }

@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Tag(name = "Image")
 public class imageController {
-    
+
     private final imageService imageService;
 
     @Operation(

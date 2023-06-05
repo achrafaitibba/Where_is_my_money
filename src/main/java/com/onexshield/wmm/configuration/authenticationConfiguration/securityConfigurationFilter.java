@@ -29,6 +29,8 @@ public class securityConfigurationFilter {
         httpSecurity
                 .csrf()
                 .disable()
+                .cors()
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/api/v1/account/register",
@@ -40,8 +42,8 @@ public class securityConfigurationFilter {
                         "/v2/api-docs",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
-                        "/swagger-ressources",
-                        "/swagger-ressources/**",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
                         "/configuration/ui",
                         "/configuration/security",
                         "/swagger-ui/**",

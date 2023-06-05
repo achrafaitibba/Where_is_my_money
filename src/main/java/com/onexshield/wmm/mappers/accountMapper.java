@@ -61,7 +61,7 @@ public class accountMapper {
                                            String accessToken,
                                            String refreshToken){
         return accountResponse.builder()
-                .accountId(account.getAccountId())
+                .accountId(String.valueOf(account.getAccountId()))
                 .firstName(account.getPerson().getFirstName())
                 .lastName(account.getPerson().getLastName())
                 .birthDate(new SimpleDateFormat("YYYY-MM-dd").format(account.getPerson().getBirthDate()))
@@ -73,12 +73,12 @@ public class accountMapper {
                 .email(account.getEmail())
                 .currency(account.getCurrency())
                 .creationDate(account.getCreationDate())
-                .profileImageId(account.getProfileImage() == null ? null : account.getProfileImage().getImageId())
+                .profileImageId(account.getProfileImage() == null ? null : String.valueOf(account.getProfileImage().getImageId()))
                 .securityAnswers(account.getSecurityAnswers()
                         .stream()
                         .map(
                                 securityAnswer -> new securityAnswerResponse(
-                                        securityAnswer.getAnswerId(),
+                                        String.valueOf(securityAnswer.getAnswerId()),
                                         securityAnswer.getAnswer(),
                                         securityAnswer.getQuestion().getQuestion(),
                                         securityAnswer.getQuestion().getQuestionId()

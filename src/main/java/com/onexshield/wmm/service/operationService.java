@@ -47,12 +47,12 @@ public class operationService {
         return operations
                 .stream()
                 .map(operation -> new operationReponse(
-                        operation.getOperationId(),
+                        String.valueOf(operation.getOperationId()),
                         operation.getAmount(),
                         operation.getOperationType(),
                         operation.getDescription(),
                         operation.getTransactionDate(),
-                        operation.getAccount().getAccountId()))
+                        String.valueOf(operation.getAccount().getAccountId())))
                 .collect(Collectors.toList());
     }
 

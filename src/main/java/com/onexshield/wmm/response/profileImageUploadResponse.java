@@ -12,5 +12,5 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class profileImageUploadResponse {
-    private UUID imageId;
+    private String imageId;
 }

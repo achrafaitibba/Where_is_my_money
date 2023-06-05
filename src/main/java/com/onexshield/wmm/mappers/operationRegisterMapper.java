@@ -32,12 +32,12 @@ public class operationRegisterMapper implements Function<operationRequest, opera
 
     public operationReponse operationToOperationResponse(operation operation){
         return new operationReponse(
-                operation.getOperationId(),
+                String.valueOf(operation.getOperationId()),
                 operation.getAmount(),
                 operation.getOperationType(),
                 operation.getDescription(),
                 operation.getTransactionDate(),
-                operation.getAccount().getAccountId()
+                String.valueOf(operation.getAccount().getAccountId())
         );
     }
 
