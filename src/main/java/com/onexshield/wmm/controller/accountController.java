@@ -180,10 +180,10 @@ public class accountController {
                     )
             }
     )
-    @PutMapping("/password-recovery/{email}/{newPassword}")
+    @PutMapping("/password-recovery/{email}")
     public ResponseEntity<Object> recoverPassword(@RequestBody List<securityAnswerRegisterRequest> request,
                                                    @PathVariable String email,
-                                                   @PathVariable String newPassword){
+                                                   @RequestParam(name = "newPassword") String newPassword){
         return ResponseEntity.ok(accountService.recoverPassword(request, email, newPassword));
     }
 
