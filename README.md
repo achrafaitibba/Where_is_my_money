@@ -53,7 +53,8 @@ packaging type. This means that you can run the following command to create some
 ```
 
 ## Testing the application
-To be implemented later hh
+To test the api endpoints the live version, you can use this swagger documentation UI
+[Api Documentation Test](https://achrafaitibba.com/apps/wmm.html)
 
 ## Railway
 
