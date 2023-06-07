@@ -13,5 +13,5 @@ import java.util.UUID;
 @Data
 public class imageDeletionRequest {
     private UUID imageId;
-    private Long accountId;
+    private String accountId;
 }

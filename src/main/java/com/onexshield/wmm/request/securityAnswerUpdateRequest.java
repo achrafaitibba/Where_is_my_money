@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class securityAnswerUpdateRequest {
-    private Long answerId;
+    private String answerId;
     private String answer;
     private Integer questionId;
 }

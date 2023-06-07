@@ -16,5 +16,5 @@ public class operationRequest {
     private double amount ;
     private operationType operationType ;
     private String description ;
-    private Long accountId;
+    private String accountId;
 }

@@ -29,7 +29,7 @@ public class operationService {
     private final operationRegisterMapper operationRegisterMapper;
     private final operationRepositoryJDBC operationStatsDao;
     public operationReponse createOperation(operationRequest operation){
-        Optional<account> account1= Optional.ofNullable(accountRepository.findByAccountId(operation.getAccountId()));
+        Optional<account> account1= Optional.ofNullable(accountRepository.findByAccountId(Long.valueOf(operation.getAccountId())));
         if(account1.isPresent()){
             return operationRegisterMapper.operationToOperationResponse(
                     iOperationRepository.save(

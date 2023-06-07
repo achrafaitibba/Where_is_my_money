@@ -19,7 +19,7 @@ public class operationRegisterMapper implements Function<operationRequest, opera
 
     public operation apply(operationRequest operationRequest){
         account a = new account();
-        a.setAccountId(operationRequest.getAccountId());
+        a.setAccountId(Long.valueOf(operationRequest.getAccountId()));
         return operation.builder()
                 .operationId(Math.abs(new Random().nextLong()))
                 .amount(operationRequest.getAmount())

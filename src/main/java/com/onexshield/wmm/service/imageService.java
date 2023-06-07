@@ -48,7 +48,7 @@ public class imageService {
     }
 
     public void deleteByAccountId(imageDeletionRequest request ) {
-        Optional<account> account = Optional.ofNullable(accountRepository.findByAccountId(request.getAccountId()));
+        Optional<account> account = Optional.ofNullable(accountRepository.findByAccountId(Long.valueOf(request.getAccountId())));
         if(account.isPresent()){
             account.get().setProfileImage(null);
             imageRepository.deleteById(request.getImageId());

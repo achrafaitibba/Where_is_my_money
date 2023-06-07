@@ -215,7 +215,7 @@ public class accountService {
         account accountToUpdate = accountRepository.findByAccountId(id);
         for (securityAnswerUpdateRequest sa : request) {
             securityAnswerRepository.updateByAccount_AccountIdAndAnswerId(
-                    sa.getAnswerId(),
+                    Long.valueOf(sa.getAnswerId()),
                     id,
                     sa.getAnswer(),
                     sa.getQuestionId()
