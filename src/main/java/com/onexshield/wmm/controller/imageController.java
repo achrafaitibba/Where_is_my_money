@@ -57,7 +57,7 @@ public class imageController {
                     )
             }
     )
-    @PostMapping(value = "/")
+    @PostMapping("/")
     public ResponseEntity<?> getImageByAccountId(@RequestBody profileImageDownloadRequest request){
 
         return ResponseEntity.ok()
