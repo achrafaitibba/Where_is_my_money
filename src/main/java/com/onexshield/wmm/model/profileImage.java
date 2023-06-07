@@ -21,6 +21,6 @@ public class profileImage {
     private String imageName;
     private String type;
     @Lob
-    @Column(length = 1000)
+    @Column(length = 100000)
     private byte[] image;
 }
