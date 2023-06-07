@@ -57,8 +57,9 @@ public class imageController {
                     )
             }
     )
-    @GetMapping("/")
+    @PostMapping(value = "/")
     public ResponseEntity<?> getImageByAccountId(@RequestBody profileImageDownloadRequest request){
+
         return ResponseEntity.ok()
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageService.downloadImage(request));

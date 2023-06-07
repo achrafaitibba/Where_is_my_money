@@ -13,6 +13,6 @@ import java.util.UUID;
 @Builder
 @Data
 public class profileImageDownloadRequest {
-    private Long accountId;
+    private String accountId;
     private UUID imageId;
 }

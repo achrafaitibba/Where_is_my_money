@@ -42,7 +42,7 @@ public class imageService {
     }
 
     public byte[] downloadImage(profileImageDownloadRequest request) {
-        Optional<profileImage> image = imageRepository.findByImageIdAndAccountId(request.getImageId(), request.getAccountId());
+        Optional<profileImage> image = imageRepository.findByImageIdAndAccountId(request.getImageId(), Long.valueOf(request.getAccountId()));
         return imageUtils.decompressImage(image.get().getImage());
 
     }
