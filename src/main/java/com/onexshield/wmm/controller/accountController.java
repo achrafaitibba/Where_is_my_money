@@ -153,10 +153,10 @@ public class accountController {
                     )
             }
     )
-    @PutMapping("/password-reset/{id}/{oldPassword}/{newPassword}")
+    @PutMapping("/password-reset/{id}")
     public ResponseEntity<Integer> updatePassword(@PathVariable Long id,
-                                                  @PathVariable String oldPassword,
-                                                  @PathVariable String newPassword){
+                                                  @RequestParam(name = "oldPassword") String oldPassword,
+                                                  @RequestParam(name = "newPassword") String newPassword){
         return ResponseEntity.ok(accountService.updatePassword(id, oldPassword, newPassword));
     }
 
