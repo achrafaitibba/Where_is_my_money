@@ -18,6 +18,8 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+
+        <!-- Starters - - - - - - - - - - - - - - - - - - - -->
         <!-- Tomcat Starter to deploy project on external server,
          requires apache tomcat 10 compatible with spring 6 and spring-boot 3
          -->
@@ -26,12 +28,30 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Spring data JPA Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- Spring Security Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- Spring Test Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- Swagger documentation, openAPi dependency -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <!-- END of Starters - - - - - - - - - - - - - - - - - - - -->
+
         <!-- For JDBC Template -->
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -54,11 +74,6 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
         </dependency>
-        <!-- Spring data JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
         <!-- MySQL connector -->
         <dependency>
             <groupId>com.mysql</groupId>
@@ -71,17 +86,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Spring Security Starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- Spring Test Starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!-- Validator eg(@Size, @NotBlank...) -->
         <dependency>
         <groupId>org.hibernate.validator</groupId>
@@ -90,8 +94,7 @@
         </dependency>
 
 
-
-<!--        <dependency>-->
+        <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-web</artifactId>-->
 <!--        </dependency>-->

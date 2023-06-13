@@ -16,7 +16,4 @@ public class WhereIsMyMoneyApplication extends SpringBootServletInitializer {
 		return application.sources(WhereIsMyMoneyApplication.class);
 	}
 
-	//todo create some objects to avoid creating objects everytime i try to test
-	//todo /testing and mocking
-	//todo /delete operation by Id, check its return, do what if Id doesn't exist
 }
