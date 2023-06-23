@@ -140,7 +140,7 @@ public class operationController {
                     )
             }
     )
-    @GetMapping("/all/stats/{id}")
+    @PutMapping("/all/stats/{id}")
     public ResponseEntity<List<operationStatsResponse>> getStats(@RequestBody operationStatsRequest request,
                                           @PathVariable Long id) throws Exception{
         return ResponseEntity.ok(operationService.getStats(id, request));
