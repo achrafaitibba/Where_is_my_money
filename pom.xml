@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Where Is My Money</name>
     <description>where_is_my_money</description>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <properties>
         <java.version>17</java.version>
     </properties>
