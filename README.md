@@ -60,8 +60,9 @@ or
 
 ## Railway
 
-Bring your code, we'll handle the rest. Made for any language, for projects big and small. [Railway](https://railway.app/)
-is the cloud that takes the complexity out of shipping software.
+"Bring your code, RAILWAY will handle the rest. Made for any language, for projects big and small. [Railway](https://railway.app/)
+is the cloud that takes the complexity out of shipping software."
+I'm not promoting/affiliate but I like to use it
 
 If you want to deploy your code for free, instead of using aws, google engines or azure you 
 can use Railway, 500H for free.
