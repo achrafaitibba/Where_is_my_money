@@ -84,7 +84,7 @@ and a new build and deploy will be triggered. If you want to disable this functi
 on Railway. 
 
 ## Front-End repository
-Not available for now hh
+[Client side](https://github.com/felmouatabar/WhereIsMyMoney-ClientSide)
 
 ## Documentation path
 ``` markdown
