@@ -88,7 +88,7 @@ on Railway.
 
 ## Documentation path
 ``` markdown
-https://{HOSTING:PORT}/swagger-ui/index.html
+https://{HOST:PORT}/swagger-ui/index.html
 ```
 
 ## Links
